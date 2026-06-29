@@ -663,6 +663,67 @@
         display: inline-block;
       }
     </style>
+    <style>
+      /* --- 12-month cost annotations in prose / badges --- */
+      .inline12 {
+        color: #047857;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      .tp12 {
+        color: #0f766e;
+        font-weight: 700;
+        font-size: 0.92em;
+      }
+      td.provider a {
+        color: #111827;
+        text-decoration: none;
+        border-bottom: 1px dotted #9ca3af;
+      }
+      td.provider a:hover {
+        color: #4f46e5;
+        border-bottom-color: #4f46e5;
+      }
+      /* --- floating back-to-top button --- */
+      .to-top {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        z-index: 50;
+        width: 48px;
+        height: 48px;
+        padding: 0;
+        border-radius: 50%;
+        border: 1px solid #d9d6ff;
+        background: linear-gradient(135deg, #6d5dfc, #8b5cf6);
+        color: #fff;
+        font-size: 1.4rem;
+        line-height: 1;
+        font-weight: 800;
+        cursor: pointer;
+        box-shadow: 0 10px 26px rgba(109, 93, 252, 0.45);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+        transition:
+          opacity 0.2s,
+          transform 0.2s,
+          visibility 0.2s;
+      }
+      .to-top.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+      .to-top:hover {
+        background: linear-gradient(135deg, #5b4bf0, #7c3aed);
+      }
+      @media print {
+        .to-top {
+          display: none !important;
+        }
+      }
+    </style>
   </head>
   <body>
     <div class="wrap">
@@ -702,14 +763,14 @@
             </p>
           </article>
           <article class="card pick">
-            <b>Neptune / Swoop Business / Aussie Pro</b>
+            <b>Neptune Internet / Swoop Business / Aussie Broadband Pro</b>
             <p>
               Best if you need static IP, business support, or eSLA-style restoration. More business-like, less
               promo-churny.
             </p>
             <p class="subtle">
-              <strong>Speeds &amp; prices:</strong> Neptune 500/200 $130, 1000/400 $150; Swoop Business 1000/400 $129 x
-              6 mths, then $144; Aussie Pro 500/200 ~$130, 1000/400 ~$150.
+              <strong>Speeds &amp; prices:</strong> Neptune Internet 500/200 $130, 1000/400 $150; Swoop Business
+              1000/400 $129 x 6 mths, then $144; Aussie Broadband Pro 500/200 ~$130, 1000/400 ~$150.
             </p>
           </article>
           <article class="card pick">
@@ -929,13 +990,40 @@
             <option value="100">≤ 100 up</option>
             <option value="200">≤ 200 up</option>
             <option value="400">≤ 400 up</option></select
+          ><select id="promoPriceFilter">
+            <option value="">Any promo $/mo</option>
+            <option value="60">Promo ≤ $60/mo</option>
+            <option value="70">Promo ≤ $70/mo</option>
+            <option value="80">Promo ≤ $80/mo</option>
+            <option value="90">Promo ≤ $90/mo</option>
+            <option value="100">Promo ≤ $100/mo</option>
+            <option value="120">Promo ≤ $120/mo</option>
+            <option value="150">Promo ≤ $150/mo</option></select
+          ><select id="ongoingPriceFilter">
+            <option value="">Any ongoing $/mo</option>
+            <option value="60">Ongoing ≤ $60/mo</option>
+            <option value="70">Ongoing ≤ $70/mo</option>
+            <option value="80">Ongoing ≤ $80/mo</option>
+            <option value="90">Ongoing ≤ $90/mo</option>
+            <option value="100">Ongoing ≤ $100/mo</option>
+            <option value="120">Ongoing ≤ $120/mo</option>
+            <option value="150">Ongoing ≤ $150/mo</option></select
+          ><select id="avgPriceFilter">
+            <option value="">Any avg $/mo</option>
+            <option value="60">Avg ≤ $60/mo</option>
+            <option value="70">Avg ≤ $70/mo</option>
+            <option value="80">Avg ≤ $80/mo</option>
+            <option value="90">Avg ≤ $90/mo</option>
+            <option value="100">Avg ≤ $100/mo</option>
+            <option value="120">Avg ≤ $120/mo</option>
+            <option value="150">Avg ≤ $150/mo</option></select
           ><select id="annualFilter">
-            <option value="">Any 1st-year cost</option>
-            <option value="800">Under $800 / yr</option>
-            <option value="1000">Under $1,000 / yr</option>
-            <option value="1200">Under $1,200 / yr</option>
-            <option value="1500">Under $1,500 / yr</option>
-            <option value="2000">Under $2,000 / yr</option></select
+            <option value="">Any 12-mo cost</option>
+            <option value="800">Under $800 / 12 mo</option>
+            <option value="1000">Under $1,000 / 12 mo</option>
+            <option value="1200">Under $1,200 / 12 mo</option>
+            <option value="1500">Under $1,500 / 12 mo</option>
+            <option value="2000">Under $2,000 / 12 mo</option></select
           ><select id="contractFilter">
             <option value="">Any contract length</option>
             <option value="0">No lock-in only</option>
@@ -975,10 +1063,15 @@
             <option value="zipfibre">ZipFibre</option></select
           ><select id="sortBy">
             <option value="">Sort: best match</option>
-            <option value="price-asc">Price: low to high</option>
-            <option value="price-desc">Price: high to low</option>
-            <option value="annual-asc">1st-yr cost: low to high</option>
-            <option value="annual-desc">1st-yr cost: high to low</option>
+            <option value="promo-asc">Monthly promo: low to high</option>
+            <option value="promo-desc">Monthly promo: high to low</option>
+            <option value="ongoing-asc">Monthly ongoing: low to high</option>
+            <option value="ongoing-desc">Monthly ongoing: high to low</option>
+            <option value="avg-asc">Monthly avg (12mo): low to high</option>
+            <option value="avg-desc">Monthly avg (12mo): high to low</option>
+            <option value="annual-asc">12-month cost: low to high</option>
+            <option value="annual-desc">12-month cost: high to low</option>
+            <option value="savings-desc">Biggest savings first</option>
             <option value="speed-asc">Speed: low to high</option>
             <option value="speed-desc">Speed: high to low</option>
             <option value="users-asc">Users: 1 → 5+</option>
@@ -5359,6 +5452,25 @@
               </tr>
               <tr
                 data-down="250"
+                data-search="nbn 250/25 250 home superfast download-led light upload genuine nbn wholesale tier but rarely sold standalone; most retailers jump 100 to 250/100 or 500. check telstra/optus/aussie broadband. you want more upload; 250/100 or 500/200 better. niche; usually skip for 100 or 500."
+                data-speed="250/25"
+                data-up="25"
+                data-upload="everyday upload"
+              >
+                <td class="">
+                  <strong>NBN 250 / 250/25</strong><br /><span class="subtle"
+                    >Download-led, light upload (Home Superfast)</span
+                  >
+                </td>
+                <td class="">
+                  A genuine NBN wholesale tier but rarely sold standalone; most retailers jump from 100 to 250/100 or
+                  500. Check Telstra/Optus/Aussie Broadband if you specifically want 250/25.
+                </td>
+                <td class="">You want more upload — 250/100 or 500/200 are better value.</td>
+                <td class="">Niche; usually skip in favour of 100 or 500.</td>
+              </tr>
+              <tr
+                data-down="250"
                 data-search="nbn 250/100 serious wfh, frequent uploads, multiple users leaptel around $85 x 12 then $105; superloop around $85 x 6 then $99; neptune around $110–$115; aussie/superloop business variants. the household only streams/downloads; 500/50 can be cheaper. underrated sweet spot for upload-heavy users."
                 data-speed="250/100"
                 data-up="100"
@@ -5370,8 +5482,8 @@
                   >
                 </td>
                 <td class="">
-                  Leaptel around $85 x 12 then $105; Superloop around $85 x 6 then $99; Neptune around $110–$115;
-                  Aussie/Superloop business variants.
+                  Leaptel around $85 x 12 then $105; Superloop around $85 x 6 then $99; Neptune Internet around
+                  $110–$115; Aussie Broadband/Superloop business variants.
                 </td>
                 <td class="">The household only streams/downloads; 500/50 can be cheaper.</td>
                 <td class="">Underrated sweet spot for upload-heavy users.</td>
@@ -5397,6 +5509,24 @@
               </tr>
               <tr
                 data-down="500"
+                data-search="nbn 500/100 mid-upload wfh calls moderate creator uploads optus 500/100 $69 x 6 mo then $99; sits between 500/50 and 500/200 on upload. you need 200+ upload (500/200) or upload doesn't matter (500/50 cheaper). good middle ground for more than 50 up without business pricing."
+                data-speed="500/100"
+                data-up="100"
+                data-upload="pro-friendly upload"
+              >
+                <td class="">
+                  <strong>NBN 500/100</strong><br /><span class="subtle"
+                    >Mid-upload WFH, calls, moderate creator uploads</span
+                  >
+                </td>
+                <td class="">
+                  Optus 500/100 $69 x 6 mo, then $99; a mid-upload option sitting between 500/50 and 500/200.
+                </td>
+                <td class="">You need 200+ upload (use 500/200) or upload doesn’t matter (500/50 is cheaper).</td>
+                <td class="">Good middle ground for more than 50 up without business pricing.</td>
+              </tr>
+              <tr
+                data-down="500"
                 data-search="nbn 500/200 creator workflows, cloud backup, dev/large assets, high-quality multi-party video, self-hosting-ish use leaptel $105 x 12 then $125; neptune $130; aussie around $130; superloop business around $125; telstra/other business promos exist. no abn or no need for upload; 500/50 is much cheaper. strong fit for upload-heavy households that do not need true symmetric fibre."
                 data-speed="500/200"
                 data-up="200"
@@ -5409,11 +5539,98 @@
                   >
                 </td>
                 <td class="">
-                  Leaptel $105 x 12 then $125; Neptune $130; Aussie around $130; Superloop Business around $125;
-                  Telstra/other business promos exist.
+                  Leaptel $105 x 12 then $125; Neptune Internet $130; Aussie Broadband around $130; Superloop Business
+                  around $125; Telstra/other business promos exist.
                 </td>
                 <td class="">No ABN or no need for upload; 500/50 is much cheaper.</td>
                 <td class="">Strong fit for upload-heavy households that do not need true symmetric fibre.</td>
+              </tr>
+              <tr
+                data-down="750"
+                data-search="nbn 750/50 download-led big household leaptel $79 x 12 then $104; kogan $84.90 x 12 then $94.90; aussie broadband $119; mate/iinet around $104–$121. you're happy with 500; the jump to 750 is modest. a small step up from 500/50 for download-led households."
+                data-speed="750/50"
+                data-up="50"
+                data-upload="standard residential upload"
+              >
+                <td class="">
+                  <strong>NBN 750 / 750/50</strong><br /><span class="subtle">Download-led big households</span>
+                </td>
+                <td class="">
+                  Leaptel $79 x 12 then $104; Kogan $84.90 x 12 then $94.90; Aussie Broadband $119; MATE/iiNet around
+                  $104–$121.
+                </td>
+                <td class="">You’re happy with 500 — the jump to 750 is modest in real-world use.</td>
+                <td class="">A small step up from 500/50 for download-led households.</td>
+              </tr>
+              <tr
+                data-down="1000"
+                data-search="nbn 1000/100 gigabit fast downloads big household gaming leaptel $99 x 12 then $114; spintel $94 x 6 then ~$104.95; superloop ~$85 x 6 then $109–$114; aussie broadband $129. your devices/wi-fi can't use ~900 mbps; 500 is plenty and cheaper. best gigabit value tier; pair with gigabit/wi-fi 6+ gear."
+                data-speed="1000/100"
+                data-up="100"
+                data-upload="standard residential upload"
+              >
+                <td class="">
+                  <strong>NBN 1000 / 1000/100</strong><br /><span class="subtle"
+                    >Gigabit downloads, big household, gaming</span
+                  >
+                </td>
+                <td class="">
+                  Leaptel $99 x 12 then $114; SpinTel $94 x 6 then ~$104.95; Superloop ~$85 x 6 then $109–$114; Aussie
+                  Broadband $129.
+                </td>
+                <td class="">Your devices/Wi‑Fi can’t use ~900 Mbps; 500 is plenty and cheaper.</td>
+                <td class="">Best gigabit value tier; pair with Gigabit/Wi‑Fi 6+ gear.</td>
+              </tr>
+              <tr
+                data-down="1000"
+                data-search="nbn 1000/400 high-upload pro creators wfh self-hosting leaptel $125 x 12 then $145; swoop business $129 x 6 then $144; neptune internet $150; aussie broadband pro ~$150; superloop business $130 x 6 then $145. you don't upload heavily; 1000/100 is much cheaper. top public high-upload tier for creators/wfh on fttp."
+                data-speed="1000/400"
+                data-up="400"
+                data-upload="high-upload / asymmetric"
+              >
+                <td class="">
+                  <strong>NBN 1000/400</strong><br /><span class="subtle"
+                    >High-upload pro: creators, WFH, self-hosting</span
+                  >
+                </td>
+                <td class="">
+                  Leaptel $125 x 12 then $145; Swoop Business $129 x 6 then $144; Neptune Internet $150; Aussie
+                  Broadband Pro ~$150; Superloop Business $130 x 6 then $145.
+                </td>
+                <td class="">You don’t upload heavily; 1000/100 is much cheaper.</td>
+                <td class="">Top public high-upload tier for creators/WFH on FTTP.</td>
+              </tr>
+              <tr
+                data-down="2000"
+                data-search="nbn 2000/200 ultra-fast future-proofing mate 2000/200 $141 x 6 then $166; limited availability; needs multi-gig hardware. your hardware is 1gbe; you'll never see 2 gbps. future-proofing or very large households with multi-gig gear."
+                data-speed="2000/200"
+                data-up="200"
+                data-upload="standard residential upload"
+              >
+                <td class="">
+                  <strong>NBN 2000 / 2000/200</strong><br /><span class="subtle"
+                    >Ultra-fast downloads, future-proofing</span
+                  >
+                </td>
+                <td class="">MATE 2000/200 $141 x 6 then $166; limited availability and needs multi‑gig hardware.</td>
+                <td class="">Your hardware is 1GbE; you’ll never see 2 Gbps.</td>
+                <td class="">Future-proofing / very large households with multi‑gig gear.</td>
+              </tr>
+              <tr
+                data-down="2000"
+                data-search="nbn 2000/500 top tier extreme speed and upload leaptel $205 x 12 then $225; neptune internet $235; aussie broadband $200 x 6 then $220. you don't need extreme speed/upload; far cheaper tiers suffice. highest public fttp tier; needs 2.5gbe+ and is premium-priced."
+                data-speed="2000/500"
+                data-up="500"
+                data-upload="high-upload / asymmetric"
+              >
+                <td class="">
+                  <strong>NBN 2000/500</strong><br /><span class="subtle">Top tier: extreme speed and upload</span>
+                </td>
+                <td class="">
+                  Leaptel $205 x 12 then $225; Neptune Internet $235; Aussie Broadband $200 x 6 then $220.
+                </td>
+                <td class="">You don’t need extreme speed/upload; far cheaper tiers suffice.</td>
+                <td class="">Highest public FTTP tier; needs 2.5GbE+ and is premium-priced.</td>
               </tr>
             </tbody>
           </table>
@@ -6050,8 +6267,8 @@
             <b>For upload-heavy households</b>
             <p>
               Start with Leaptel 500/200 ($105 x 12 mths, then $125). If more is required, test 1000/400 via Leaptel
-              ($125 x 12 mths, then $145), Neptune ($150 ongoing), Swoop Business ($129 x 6 mths, then $144), Aussie Pro
-              (around $150 ongoing), Superloop Business or Launtel (about $165/mo).
+              ($125 x 12 mths, then $145), Neptune Internet ($150 ongoing), Swoop Business ($129 x 6 mths, then $144),
+              Aussie Broadband Pro (around $150 ongoing), Superloop Business or Launtel (about $165/mo).
             </p>
           </article>
           <article class="card">
@@ -6327,6 +6544,9 @@
         const maxDownFilter = $("maxDownFilter");
         const upFilter = $("upFilter");
         const maxUpFilter = $("maxUpFilter");
+        const promoPriceFilter = $("promoPriceFilter");
+        const ongoingPriceFilter = $("ongoingPriceFilter");
+        const avgPriceFilter = $("avgPriceFilter");
         const annualFilter = $("annualFilter");
         const contractFilter = $("contractFilter");
         const providerFilter = $("providerFilter");
@@ -6347,7 +6567,7 @@
         const sourceItems = sourcesList ? Array.prototype.slice.call(sourcesList.querySelectorAll("li")) : [];
 
         const STEP = 10;
-        const state = { plans: STEP, providers: STEP, sources: STEP, maxPrice: 0 };
+        const state = { plans: STEP, providers: STEP, sources: STEP };
         const originalOrder = rows.slice();
 
         /* ---------- parsing helpers ---------- */
@@ -6361,13 +6581,6 @@
           if (d || u) return [d, u];
           return parseSpeed(row.dataset.speed || row.textContent);
         }
-        function rowPrice(row) {
-          const cell = row.children[2];
-          const t = cell ? cell.textContent : "";
-          let m = t.match(/\$\s*([\d.,]+)\s*\/?\s*mo\b/i) || t.match(/[≈~]\s*\$\s*([\d.,]+)/);
-          if (!m) m = t.match(/\$\s*([\d.,]+)/);
-          return m ? parseFloat(m[1].replace(/,/g, "")) : Infinity;
-        }
         function rowUsers(row) {
           const cell = row.querySelector(".best-fit") || row.children[5];
           const t = (cell ? cell.textContent : "").toLowerCase();
@@ -6378,49 +6591,51 @@
           return n ? Number(n[1]) : 99;
         }
 
-        /* ---------- estimated first-year cost ----------
-       Parses the price-snapshot text into a 12-month total and the saving
-       versus paying the ongoing rate for the whole year. Best-effort. */
+        /* ---------- cost parsing (monthly promo/ongoing/avg + 12-mo total) ----------
+       Snapshots are free text, so treat figures as best-effort estimates. */
         function moneyFmt(n) {
           return "$" + Math.round(n).toLocaleString("en-AU");
         }
-        function parseCost(row) {
-          const cell = row.children[2];
-          let t = (cell ? cell.textContent : "").replace(/,/g, "").toLowerCase();
-          if (t.indexOf("$") === -1) return { cost: null, disc: 0 };
-          const promo = t.match(/\$\s*([\d.]+)\s*x\s*(\d+)\s*(?:mth|mo|month)/);
+        function costFromText(raw) {
+          let t = String(raw || "")
+            .replace(/,/g, "")
+            .toLowerCase();
+          if (t.indexOf("$") === -1) return null;
+          const promoM = t.match(/\$\s*([\d.]+)\s*x\s*(\d+)\s*(?:mth|mo|month)/);
           const thenM = t.match(/then[^$]*\$?\s*~?\s*([\d.]+)/);
           const ongM = t.match(/\$\s*([\d.]+)\s*ongoing/);
           const moM = t.match(/\$\s*([\d.]+)\s*\/\s*mo/) || t.match(/[≈~]\s*\$\s*([\d.]+)/);
-          let cost, ongoing;
-          if (promo) {
-            const intro = parseFloat(promo[1]);
-            const n = Math.min(parseInt(promo[2], 10), 12);
-            ongoing = thenM ? parseFloat(thenM[1]) : intro;
-            cost = intro * n + ongoing * (12 - n);
+          let cost, ongoing, promo;
+          if (promoM) {
+            promo = parseFloat(promoM[1]);
+            const n = Math.min(parseInt(promoM[2], 10), 12);
+            ongoing = thenM ? parseFloat(thenM[1]) : promo;
+            cost = promo * n + ongoing * (12 - n);
           } else if (ongM) {
-            ongoing = parseFloat(ongM[1]);
+            ongoing = promo = parseFloat(ongM[1]);
             cost = ongoing * 12;
           } else if (moM) {
-            ongoing = parseFloat(moM[1]);
+            ongoing = promo = parseFloat(moM[1]);
             cost = ongoing * 12;
           } else {
             const any = t.match(/\$\s*([\d.]+)/);
-            if (!any) return { cost: null, disc: 0 };
-            ongoing = parseFloat(any[1]);
+            if (!any) return null;
+            ongoing = promo = parseFloat(any[1]);
             cost = ongoing * 12;
           }
-          if (!isFinite(cost) || cost <= 0) return { cost: null, disc: 0 };
-          return { cost: cost, disc: Math.max(0, ongoing * 12 - cost) };
+          if (!isFinite(cost) || cost <= 0) return null;
+          return { cost: cost, ongoing: ongoing, promo: promo, avg: cost / 12, disc: Math.max(0, ongoing * 12 - cost) };
         }
-        function rowAnnual(row) {
-          const v = row.dataset.annual;
-          return v ? Number(v) : Infinity;
+        function dataNum(row, k) {
+          const v = Number(row.dataset[k]);
+          return v && isFinite(v) && v > 0 ? v : Infinity;
+        }
+        function dataNumDesc(row, k) {
+          const v = Number(row.dataset[k]);
+          return v && isFinite(v) && v > 0 ? v : -1;
         }
 
-        /* ---------- minimum contract length ----------
-       Most BYO/no-lock-in plans are month-to-month (0). Included-modem
-       offers create an effective 18/24-month hardware commitment. */
+        /* ---------- minimum contract length ---------- */
         function parseContract(row) {
           const t = (row.children[5] ? row.children[5].textContent : "").toLowerCase();
           const m = t.match(/(\d{2})\s*[- ]?\s*(?:month|mth)/);
@@ -6486,11 +6701,11 @@
           return k;
         }
 
-        /* ---------- inject "Est. 1st-year cost" + "Min. contract" columns ---------- */
+        /* ---------- init pass: derive values, link providers, inject columns ---------- */
         if (headRow && !headRow.querySelector(".annual-th")) {
           const th1 = document.createElement("th");
           th1.className = "annual-th";
-          th1.textContent = "Est. 1st-year cost";
+          th1.textContent = "Est. 12-month cost";
           headRow.insertBefore(th1, headRow.children[3] || null);
           const th2 = document.createElement("th");
           th2.className = "contract-th";
@@ -6499,24 +6714,44 @@
         }
         rows.forEach(function (row) {
           /* compute from ORIGINAL cell positions before inserting any cells */
-          const c = parseCost(row);
+          const c = costFromText(row.children[2] ? row.children[2].textContent : "");
           const contract = parseContract(row);
           row.dataset.router = providerRouterKeys(row.dataset.provider || "").join(" ");
           row.dataset.contract = String(contract);
 
+          /* make the provider name a link to its site (reuse the source link) */
+          const srcA = row.children[row.children.length - 1].querySelector("a");
+          const pc = row.children[0];
+          if (srcA && pc && !pc.querySelector("a")) {
+            pc.innerHTML =
+              '<a href="' +
+              srcA.getAttribute("href") +
+              '" target="_blank" rel="noopener">' +
+              pc.textContent.trim() +
+              "</a>";
+          }
+
           const annualTd = document.createElement("td");
           annualTd.className = "annual-cell";
-          if (c.cost == null) {
+          if (!c) {
             annualTd.innerHTML = '<span class="subtle">By quote</span>';
             row.dataset.annual = "";
             row.dataset.disc = "0";
+            row.dataset.promo = "";
+            row.dataset.ongoing = "";
+            row.dataset.avg = "";
           } else {
             row.dataset.annual = String(Math.round(c.cost));
             row.dataset.disc = String(Math.round(c.disc));
+            row.dataset.promo = String(c.promo);
+            row.dataset.ongoing = String(c.ongoing);
+            row.dataset.avg = String(c.avg);
             annualTd.innerHTML =
               "<strong>" +
               moneyFmt(c.cost) +
-              '</strong><br><span class="subtle">est. over 12 mths</span>' +
+              '</strong><br><span class="subtle">12-mo total · ≈ ' +
+              moneyFmt(c.avg) +
+              "/mo avg</span>" +
               (c.disc >= 1 ? '<br><span class="disc">' + moneyFmt(c.disc) + " off vs ongoing</span>" : "");
           }
 
@@ -6530,6 +6765,55 @@
           row.insertBefore(annualTd, row.children[3] || null);
           row.insertBefore(contractTd, row.children[4] || null);
         });
+
+        /* augment provider-card price badges with a 12-month estimate */
+        Array.prototype.slice.call(document.querySelectorAll(".provider-card .tier-price")).forEach(function (tp) {
+          const span = tp.querySelector("span");
+          if (!span) return;
+          const c = costFromText(span.textContent);
+          if (c) {
+            const e = document.createElement("span");
+            e.className = "tp12";
+            e.textContent = " ≈ " + moneyFmt(c.cost) + "/yr";
+            tp.appendChild(e);
+          }
+        });
+
+        /* annotate "$A x N mths, then $B" promos in prose with the 12-month total */
+        function annotatePromo(root) {
+          if (!root) return;
+          const re = /\$(\d+(?:\.\d+)?)\s*x\s*(\d+)\s*(?:mths?|mo|months?)\s*,?\s*then\s*\$(\d+(?:\.\d+)?)/gi;
+          const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+          const targets = [];
+          let node;
+          while ((node = walker.nextNode())) {
+            re.lastIndex = 0;
+            if (re.test(node.nodeValue)) targets.push(node);
+          }
+          targets.forEach(function (n) {
+            const s = n.nodeValue;
+            const frag = document.createDocumentFragment();
+            let last = 0,
+              m;
+            re.lastIndex = 0;
+            while ((m = re.exec(s))) {
+              const promo = parseFloat(m[1]),
+                num = Math.min(parseInt(m[2], 10), 12),
+                then = parseFloat(m[3]);
+              const total = Math.round(promo * num + then * (12 - num));
+              frag.appendChild(document.createTextNode(s.slice(last, m.index + m[0].length)));
+              const sp = document.createElement("span");
+              sp.className = "inline12";
+              sp.textContent = " (≈ " + moneyFmt(total) + " over 12 mths)";
+              frag.appendChild(sp);
+              last = m.index + m[0].length;
+            }
+            frag.appendChild(document.createTextNode(s.slice(last)));
+            n.parentNode.replaceChild(frag, n);
+          });
+        }
+        annotatePromo($("verdict"));
+        annotatePromo($("decision"));
 
         /* ---------- matching ---------- */
         function matchesProfile(down, up, household, use, text) {
@@ -6556,7 +6840,7 @@
           return true;
         }
 
-        /* ---------- pagination (top 10 + peek + show more) ---------- */
+        /* ---------- pagination ---------- */
         function paginate(items, key, btn) {
           let visible = 0;
           items.forEach(function (el) {
@@ -6569,7 +6853,7 @@
             el.classList.remove("peek", "hide-page");
             if (el.classList.contains("hide")) return;
             if (el._idx < limit) {
-              /* fully shown */
+              /* shown */
             } else if (el._idx === limit) {
               el.classList.add("peek");
             } else {
@@ -6588,12 +6872,7 @@
           return visible;
         }
 
-        /* ---------- sorting (plans table only) ---------- */
-        function annForSort(row, desc) {
-          const v = rowAnnual(row);
-          if (isFinite(v)) return v;
-          return desc ? -1 : Infinity;
-        }
+        /* ---------- sorting ---------- */
         function sortPlans() {
           if (!tbody) return;
           const v = sortBy ? sortBy.value : "";
@@ -6604,10 +6883,15 @@
             arr = rows.slice().sort(function (a, b) {
               const sa = rowSpeed(a),
                 sb = rowSpeed(b);
-              if (v === "price-asc") return rowPrice(a) - rowPrice(b);
-              if (v === "price-desc") return rowPrice(b) - rowPrice(a);
-              if (v === "annual-asc") return annForSort(a, false) - annForSort(b, false);
-              if (v === "annual-desc") return annForSort(b, true) - annForSort(a, true);
+              if (v === "promo-asc") return dataNum(a, "promo") - dataNum(b, "promo");
+              if (v === "promo-desc") return dataNumDesc(b, "promo") - dataNumDesc(a, "promo");
+              if (v === "ongoing-asc") return dataNum(a, "ongoing") - dataNum(b, "ongoing");
+              if (v === "ongoing-desc") return dataNumDesc(b, "ongoing") - dataNumDesc(a, "ongoing");
+              if (v === "avg-asc") return dataNum(a, "avg") - dataNum(b, "avg");
+              if (v === "avg-desc") return dataNumDesc(b, "avg") - dataNumDesc(a, "avg");
+              if (v === "annual-asc") return dataNum(a, "annual") - dataNum(b, "annual");
+              if (v === "annual-desc") return dataNumDesc(b, "annual") - dataNumDesc(a, "annual");
+              if (v === "savings-desc") return Number(b.dataset.disc || 0) - Number(a.dataset.disc || 0);
               if (v === "speed-asc") return sa[0] - sb[0] || sa[1] - sb[1];
               if (v === "speed-desc") return sb[0] - sa[0] || sb[1] - sa[1];
               if (v === "users-asc") return rowUsers(a) - rowUsers(b);
@@ -6635,6 +6919,9 @@
           const maxDown = maxDownFilter ? Number(maxDownFilter.value || 0) : 0;
           const minUp = upFilter ? Number(upFilter.value || 0) : 0;
           const maxUp = maxUpFilter ? Number(maxUpFilter.value || 0) : 0;
+          const maxPromo = promoPriceFilter ? Number(promoPriceFilter.value || 0) : 0;
+          const maxOngoing = ongoingPriceFilter ? Number(ongoingPriceFilter.value || 0) : 0;
+          const maxAvg = avgPriceFilter ? Number(avgPriceFilter.value || 0) : 0;
           const maxAnnual = annualFilter ? Number(annualFilter.value || 0) : 0;
           const cf = contractFilter ? contractFilter.value : "";
           const pf = ((providerFilter && providerFilter.value) || "").toLowerCase();
@@ -6654,6 +6941,10 @@
             const s = rowSpeed(row),
               down = s[0],
               up = s[1];
+            const promo = Number(row.dataset.promo || 0),
+              ongoing = Number(row.dataset.ongoing || 0),
+              avg = Number(row.dataset.avg || 0),
+              annual = Number(row.dataset.annual || 0);
             let ok = true;
             if (q && text.indexOf(q) === -1) ok = false;
             if (pf && provider.indexOf(pf) === -1) ok = false;
@@ -6663,7 +6954,10 @@
             if (maxDown && down > maxDown) ok = false;
             if (minUp && up < minUp) ok = false;
             if (maxUp && up > maxUp) ok = false;
-            if (maxAnnual && !(isFinite(rowAnnual(row)) && rowAnnual(row) <= maxAnnual)) ok = false;
+            if (maxPromo && !(promo > 0 && promo <= maxPromo)) ok = false;
+            if (maxOngoing && !(ongoing > 0 && ongoing <= maxOngoing)) ok = false;
+            if (maxAvg && !(avg > 0 && avg <= maxAvg)) ok = false;
+            if (maxAnnual && !(annual > 0 && annual <= maxAnnual)) ok = false;
             if (cf === "0" && rowContract(row) !== 0) ok = false;
             else if (cf && cf !== "0" && rowContract(row) > Number(cf)) ok = false;
             if (routerSel.length) {
@@ -6676,7 +6970,6 @@
                 ok = false;
             }
             if (!matchesProfile(down, up, hf, use, text)) ok = false;
-            if (state.maxPrice && rowPrice(row) > state.maxPrice) ok = false;
             row.classList.toggle("hide", !ok);
             if (ok) matched++;
           });
@@ -6770,7 +7063,6 @@
           apply();
         });
 
-        /* clicking the faded peek item expands too */
         document.addEventListener("click", function (e) {
           if (e.target.closest("a") || e.target.closest(".show-more-btn")) return;
           const pk = e.target.closest(".peek");
@@ -6815,15 +7107,32 @@
             });
         }
 
+        /* ---------- back-to-top button ---------- */
+        const toTop = document.createElement("button");
+        toTop.type = "button";
+        toTop.id = "toTop";
+        toTop.className = "to-top no-print";
+        toTop.setAttribute("aria-label", "Back to top / search");
+        toTop.innerHTML = "↑";
+        toTop.addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+        document.body.appendChild(toTop);
+        function onScroll() {
+          toTop.classList.toggle("show", window.pageYOffset > 500);
+        }
+        window.addEventListener("scroll", onScroll);
+        onScroll();
+
         /* ---------- presets ---------- */
         const PRESETS = {
-          solo: { household: "1-2", sort: "annual-asc" },
-          streaming: { use: "streaming", speed: "100/20", sort: "annual-asc" },
-          budget80: { maxPrice: 80, sort: "annual-asc" },
-          wfh: { use: "pro", upload: "high-upload", sort: "annual-asc" },
+          solo: { household: "1-2", sort: "avg-asc" },
+          streaming: { use: "streaming", speed: "100/20", sort: "avg-asc" },
+          budget80: { avgMax: "80", sort: "avg-asc" },
+          wfh: { use: "pro", upload: "high-upload", sort: "avg-asc" },
           family: { household: "5plus", speed: "500/50", sort: "speed-desc" },
           gigabit: { speed: "1000/100", sort: "speed-desc" },
-          value: { sort: "annual-asc" },
+          value: { sort: "avg-asc" },
         };
         let activePreset = null;
         function clearActivePreset() {
@@ -6844,6 +7153,9 @@
             maxDownFilter,
             upFilter,
             maxUpFilter,
+            promoPriceFilter,
+            ongoingPriceFilter,
+            avgPriceFilter,
             annualFilter,
             contractFilter,
             providerFilter,
@@ -6851,7 +7163,6 @@
           ].forEach(function (el) {
             if (el) el.value = "";
           });
-          state.maxPrice = 0;
           clearRouter();
         }
         function applyPreset(name, btn) {
@@ -6869,8 +7180,8 @@
             if (p.use && useFilter) useFilter.value = p.use;
             if (p.upload && uploadFilter) uploadFilter.value = p.upload;
             if (p.speed && speedFilter) speedFilter.value = p.speed;
+            if (p.avgMax && avgPriceFilter) avgPriceFilter.value = p.avgMax;
             if (p.sort && sortBy) sortBy.value = p.sort;
-            if (p.maxPrice) state.maxPrice = p.maxPrice;
             activePreset = name;
             if (btn) btn.classList.add("active");
           }
@@ -6894,6 +7205,9 @@
           maxDownFilter,
           upFilter,
           maxUpFilter,
+          promoPriceFilter,
+          ongoingPriceFilter,
+          avgPriceFilter,
           annualFilter,
           contractFilter,
           providerFilter,
