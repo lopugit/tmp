@@ -4,7 +4,7 @@ Verbatim log of each request made in the chat that produced this project, in ord
 
 Files are named `NN-<brief-summary>-<DATE>.md`. The leading two-digit `NN` keeps them
 in chronological order with a normal sort; the date on the end is the timestamp.
-New requests are logged here automatically (see ../CLAUDE.md).
+New requests are logged here automatically (see ../AI.md).
 
 | # | Request |
 |---|---|
@@ -27,3 +27,4 @@ New requests are logged here automatically (see ../CLAUDE.md).
 | 17 | rescrape must be claude live recompile not py corrections and push |
 | 18 | broken scrape detection ai led not script log requests in claude md |
 | 19 | re run the analysis live rescrape |
+| 20 | multi ai entry point claude agents point to ai md always push |
