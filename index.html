@@ -542,6 +542,76 @@
         }
       }
     </style>
+    <style>
+      /* --- make the plan finder the first subsection (after the hero) --- */
+      .wrap {
+        display: flex;
+        flex-direction: column;
+      }
+      .wrap > * {
+        order: 2;
+      }
+      .wrap > header.hero {
+        order: 0;
+      }
+      .wrap > #plans {
+        order: 1;
+      }
+
+      /* --- nav "Find my plan" flare --- */
+      .toc-flare {
+        background: linear-gradient(135deg, #6d5dfc, #8b5cf6) !important;
+        color: #fff !important;
+        border-color: #6d5dfc !important;
+        box-shadow: 0 6px 18px rgba(109, 93, 252, 0.45);
+        font-weight: 800;
+        animation: flarePulse 2.2s ease-in-out infinite;
+      }
+      .toc-flare:hover {
+        text-decoration: none;
+        transform: translateY(-1px);
+        background: linear-gradient(135deg, #5b4bf0, #7c3aed) !important;
+      }
+      @keyframes flarePulse {
+        0%,
+        100% {
+          box-shadow: 0 6px 18px rgba(109, 93, 252, 0.4);
+        }
+        50% {
+          box-shadow: 0 8px 26px rgba(109, 93, 252, 0.7);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .toc-flare {
+          animation: none;
+        }
+      }
+
+      /* --- estimated 1st-year cost column --- */
+      .annual-cell {
+        white-space: nowrap;
+      }
+      .annual-cell strong {
+        font-size: 1.02rem;
+      }
+      .disc {
+        display: inline-block;
+        margin-top: 4px;
+        padding: 1px 7px;
+        white-space: nowrap;
+        color: #047857;
+        font-weight: 800;
+        font-size: 0.82em;
+        background: #ecfdf5;
+        border: 1px solid #a7f3d0;
+        border-radius: 7px;
+      }
+      @media print {
+        .wrap {
+          display: block;
+        }
+      }
+    </style>
   </head>
   <body>
     <div class="wrap">
@@ -560,9 +630,10 @@
           ><span class="pill muted">Print-friendly portrait layout</span>
         </div>
         <div class="toc no-print">
-          <a href="#verdict">Verdict</a><a href="#speed-reality">Speed reality</a><a href="#plans">All-speed selector</a
-          ><a href="#cheap">Speed tier guide</a><a href="#providers">Provider map</a><a href="#routers">Routers</a
-          ><a href="#sources">Sources</a> <button onclick="window.print()">Print / save as PDF</button>
+          <a href="#plans" class="toc-flare">🔍 Find my plan</a><a href="#verdict">Verdict</a
+          ><a href="#speed-reality">Speed reality</a><a href="#cheap">Speed tier guide</a
+          ><a href="#providers">Provider map</a><a href="#routers">Routers</a><a href="#sources">Sources</a>
+          <button onclick="window.print()">Print / save as PDF</button>
         </div>
       </header>
       <section id="verdict">
@@ -751,18 +822,49 @@
             <option value="standard">Standard/everyday upload only</option>
             <option value="symmetric">Symmetric / enterprise only</option></select
           ><select id="speedFilter">
-            <option value="">All speeds</option>
-            <option value="12/1">12 Mbps+</option>
+            <option value="">All speed tiers</option>
+            <option value="12/1">12/1+</option>
             <option value="25/10">25/10+</option>
             <option value="50/20">50/20+</option>
-            <option value="100/20">100 Mbps+</option>
+            <option value="100/20">100/20+</option>
             <option value="100/40">100/40+ upload</option>
             <option value="250/100">250/100+</option>
-            <option value="500/50">500 Mbps+</option>
+            <option value="500/50">500/50+</option>
             <option value="500/200">500/200+</option>
-            <option value="1000/100">1000 Mbps+</option>
+            <option value="750/50">750/50+</option>
+            <option value="1000/100">1000/100+</option>
             <option value="1000/400">1000/400+</option>
-            <option value="2000/500">2000/500</option></select
+            <option value="2000/200">2000/200+</option>
+            <option value="2000/500">2000/500+</option></select
+          ><select id="downFilter">
+            <option value="">Any download</option>
+            <option value="12">≥ 12 down</option>
+            <option value="25">≥ 25 down</option>
+            <option value="50">≥ 50 down</option>
+            <option value="100">≥ 100 down</option>
+            <option value="250">≥ 250 down</option>
+            <option value="500">≥ 500 down</option>
+            <option value="750">≥ 750 down</option>
+            <option value="1000">≥ 1000 down</option>
+            <option value="2000">≥ 2000 down</option></select
+          ><select id="upFilter">
+            <option value="">Any upload</option>
+            <option value="1">≥ 1 up</option>
+            <option value="10">≥ 10 up</option>
+            <option value="20">≥ 20 up</option>
+            <option value="40">≥ 40 up</option>
+            <option value="50">≥ 50 up</option>
+            <option value="100">≥ 100 up</option>
+            <option value="200">≥ 200 up</option>
+            <option value="400">≥ 400 up</option>
+            <option value="500">≥ 500 up</option></select
+          ><select id="annualFilter">
+            <option value="">Any 1st-year cost</option>
+            <option value="800">Under $800 / yr</option>
+            <option value="1000">Under $1,000 / yr</option>
+            <option value="1200">Under $1,200 / yr</option>
+            <option value="1500">Under $1,500 / yr</option>
+            <option value="2000">Under $2,000 / yr</option></select
           ><select id="providerFilter">
             <option value="">All providers</option>
             <option value="aussie broadband">Aussie Broadband</option>
@@ -799,6 +901,8 @@
             <option value="">Sort: best match</option>
             <option value="price-asc">Price: low to high</option>
             <option value="price-desc">Price: high to low</option>
+            <option value="annual-asc">1st-yr cost: low to high</option>
+            <option value="annual-desc">1st-yr cost: high to low</option>
             <option value="speed-asc">Speed: low to high</option>
             <option value="speed-desc">Speed: high to low</option>
             <option value="users-asc">Users: 1 → 5+</option>
@@ -6138,6 +6242,9 @@
         const useFilter = $("useFilter");
         const uploadFilter = $("uploadFilter");
         const speedFilter = $("speedFilter");
+        const downFilter = $("downFilter");
+        const upFilter = $("upFilter");
+        const annualFilter = $("annualFilter");
         const providerFilter = $("providerFilter");
         const sortBy = $("sortBy");
         const clearFilters = $("clearFilters");
@@ -6146,6 +6253,7 @@
 
         const plansTable = $("plansTable");
         const tbody = plansTable ? plansTable.querySelector("tbody") : null;
+        const headRow = plansTable ? plansTable.querySelector("thead tr") : null;
         const rows = tbody ? Array.prototype.slice.call(tbody.querySelectorAll("tr")) : [];
         const guideRows = Array.prototype.slice.call(document.querySelectorAll("#tierGuide tbody tr"));
         const providerGrid = document.querySelector(".provider-grid");
@@ -6176,7 +6284,7 @@
           return m ? parseFloat(m[1].replace(/,/g, "")) : Infinity;
         }
         function rowUsers(row) {
-          const cell = row.querySelector(".resident-fit") || row.children[3];
+          const cell = row.querySelector(".best-fit") || row.children[4];
           const t = (cell ? cell.textContent : "").toLowerCase();
           if (/single|1\s*person/.test(t)) return 1;
           const m = t.match(/(\d+)\s*(?:[–-]\s*\d+)?\s*\+?\s*people/);
@@ -6184,6 +6292,74 @@
           const n = t.match(/(\d+)/);
           return n ? Number(n[1]) : 99;
         }
+
+        /* ---------- estimated first-year cost ----------
+     Parses the price-snapshot text into a 12-month total and the saving
+     versus paying the ongoing rate for the whole year. Best-effort: the
+     snapshots are free text, so treat the figure as an estimate. */
+        function moneyFmt(n) {
+          return "$" + Math.round(n).toLocaleString("en-AU");
+        }
+        function parseCost(row) {
+          const cell = row.children[2];
+          let t = (cell ? cell.textContent : "").replace(/,/g, "").toLowerCase();
+          if (t.indexOf("$") === -1) return { cost: null, disc: 0 };
+          const promo = t.match(/\$\s*([\d.]+)\s*x\s*(\d+)\s*(?:mth|mo|month)/);
+          const thenM = t.match(/then[^$]*\$?\s*~?\s*([\d.]+)/);
+          const ongM = t.match(/\$\s*([\d.]+)\s*ongoing/);
+          const moM = t.match(/\$\s*([\d.]+)\s*\/\s*mo/) || t.match(/[≈~]\s*\$\s*([\d.]+)/);
+          let cost, ongoing;
+          if (promo) {
+            const intro = parseFloat(promo[1]);
+            const n = Math.min(parseInt(promo[2], 10), 12);
+            ongoing = thenM ? parseFloat(thenM[1]) : intro;
+            cost = intro * n + ongoing * (12 - n);
+          } else if (ongM) {
+            ongoing = parseFloat(ongM[1]);
+            cost = ongoing * 12;
+          } else if (moM) {
+            ongoing = parseFloat(moM[1]);
+            cost = ongoing * 12;
+          } else {
+            const any = t.match(/\$\s*([\d.]+)/);
+            if (!any) return { cost: null, disc: 0 };
+            ongoing = parseFloat(any[1]);
+            cost = ongoing * 12;
+          }
+          if (!isFinite(cost) || cost <= 0) return { cost: null, disc: 0 };
+          return { cost: cost, disc: Math.max(0, ongoing * 12 - cost) };
+        }
+        function rowAnnual(row) {
+          const v = row.dataset.annual;
+          return v ? Number(v) : Infinity;
+        }
+
+        /* inject the "Est. 1st-year cost" column (header + one cell per row) */
+        if (headRow && !headRow.querySelector(".annual-th")) {
+          const th = document.createElement("th");
+          th.className = "annual-th";
+          th.textContent = "Est. 1st-year cost";
+          headRow.insertBefore(th, headRow.children[3] || null);
+        }
+        rows.forEach(function (row) {
+          const c = parseCost(row);
+          const td = document.createElement("td");
+          td.className = "annual-cell";
+          if (c.cost == null) {
+            td.innerHTML = '<span class="subtle">By quote</span>';
+            row.dataset.annual = "";
+            row.dataset.disc = "0";
+          } else {
+            row.dataset.annual = String(Math.round(c.cost));
+            row.dataset.disc = String(Math.round(c.disc));
+            td.innerHTML =
+              "<strong>" +
+              moneyFmt(c.cost) +
+              '</strong><br><span class="subtle">est. over 12 mths</span>' +
+              (c.disc >= 1 ? '<br><span class="disc">' + moneyFmt(c.disc) + " off vs ongoing</span>" : "");
+          }
+          row.insertBefore(td, row.children[3] || null);
+        });
 
         /* ---------- matching ---------- */
         function matchesProfile(down, up, household, use, text) {
@@ -6242,9 +6418,12 @@
           return visible;
         }
 
-        /* ---------- sorting (plans table only) ----------
-     Reorders the live DOM AND keeps the `rows` array in the same order,
-     so pagination (which indexes by `rows` order) matches what is shown. */
+        /* ---------- sorting (plans table only) ---------- */
+        function annForSort(row, desc) {
+          const v = rowAnnual(row);
+          if (isFinite(v)) return v;
+          return desc ? -1 : Infinity;
+        }
         function sortPlans() {
           if (!tbody) return;
           const v = sortBy ? sortBy.value : "";
@@ -6257,6 +6436,8 @@
                 sb = rowSpeed(b);
               if (v === "price-asc") return rowPrice(a) - rowPrice(b);
               if (v === "price-desc") return rowPrice(b) - rowPrice(a);
+              if (v === "annual-asc") return annForSort(a, false) - annForSort(b, false);
+              if (v === "annual-desc") return annForSort(b, true) - annForSort(a, true);
               if (v === "speed-asc") return sa[0] - sb[0] || sa[1] - sb[1];
               if (v === "speed-desc") return sb[0] - sa[0] || sb[1] - sa[1];
               if (v === "users-asc") return rowUsers(a) - rowUsers(b);
@@ -6278,6 +6459,9 @@
           const use = useFilter ? useFilter.value : "";
           const uf = uploadFilter ? uploadFilter.value : "";
           const sf = speedFilter ? speedFilter.value : "";
+          const minDown = downFilter ? Number(downFilter.value || 0) : 0;
+          const minUp = upFilter ? Number(upFilter.value || 0) : 0;
+          const maxAnnual = annualFilter ? Number(annualFilter.value || 0) : 0;
           const pf = ((providerFilter && providerFilter.value) || "").toLowerCase();
           const sp = parseSpeed(sf || "0/0");
           const sfDown = sp[0],
@@ -6297,6 +6481,9 @@
             if (pf && provider.indexOf(pf) === -1) ok = false;
             if (!uploadOk(row, uf, down, up, text)) ok = false;
             if (sf && !(down >= sfDown && up >= sfUp)) ok = false;
+            if (minDown && down < minDown) ok = false;
+            if (minUp && up < minUp) ok = false;
+            if (maxAnnual && !(isFinite(rowAnnual(row)) && rowAnnual(row) <= maxAnnual)) ok = false;
             if (!matchesProfile(down, up, hf, use, text)) ok = false;
             if (state.maxPrice && rowPrice(row) > state.maxPrice) ok = false;
             row.classList.toggle("hide", !ok);
@@ -6313,6 +6500,8 @@
             if (q && text.indexOf(q) === -1) ok = false;
             if (!uploadOk(row, uf, down, up, text)) ok = false;
             if (sf && !(down >= sfDown && up >= sfUp)) ok = false;
+            if (minDown && down < minDown) ok = false;
+            if (minUp && up < minUp) ok = false;
             if (!matchesProfile(down, up, hf, use, text)) ok = false;
             row.classList.toggle("hide", !ok);
           });
@@ -6407,13 +6596,13 @@
 
         /* ---------- presets ---------- */
         const PRESETS = {
-          solo: { household: "1-2", sort: "price-asc" },
-          streaming: { use: "streaming", speed: "100/20", sort: "price-asc" },
-          budget80: { maxPrice: 80, sort: "price-asc" },
-          wfh: { use: "pro", upload: "high-upload", sort: "price-asc" },
+          solo: { household: "1-2", sort: "annual-asc" },
+          streaming: { use: "streaming", speed: "100/20", sort: "annual-asc" },
+          budget80: { maxPrice: 80, sort: "annual-asc" },
+          wfh: { use: "pro", upload: "high-upload", sort: "annual-asc" },
           family: { household: "5plus", speed: "500/50", sort: "speed-desc" },
           gigabit: { speed: "1000/100", sort: "speed-desc" },
-          value: { sort: "price-asc" },
+          value: { sort: "annual-asc" },
         };
         let activePreset = null;
         function clearActivePreset() {
@@ -6424,11 +6613,20 @@
             });
         }
         function resetControls() {
-          [search, householdFilter, useFilter, uploadFilter, speedFilter, providerFilter, sortBy].forEach(
-            function (el) {
-              if (el) el.value = "";
-            },
-          );
+          [
+            search,
+            householdFilter,
+            useFilter,
+            uploadFilter,
+            speedFilter,
+            downFilter,
+            upFilter,
+            annualFilter,
+            providerFilter,
+            sortBy,
+          ].forEach(function (el) {
+            if (el) el.value = "";
+          });
           state.maxPrice = 0;
         }
         function applyPreset(name, btn) {
@@ -6461,7 +6659,18 @@
           });
 
         /* ---------- wiring (bind input AND change so iOS select filters work) ---------- */
-        [search, householdFilter, useFilter, uploadFilter, speedFilter, providerFilter, sortBy].forEach(function (el) {
+        [
+          search,
+          householdFilter,
+          useFilter,
+          uploadFilter,
+          speedFilter,
+          downFilter,
+          upFilter,
+          annualFilter,
+          providerFilter,
+          sortBy,
+        ].forEach(function (el) {
           if (!el) return;
           const handler = function () {
             resetPaging();
