@@ -28,3 +28,4 @@ New requests are logged here automatically (see ../AI.md).
 | 18 | broken scrape detection ai led not script log requests in claude md |
 | 19 | re run the analysis live rescrape |
 | 20 | multi ai entry point claude agents point to ai md always push |
+| 21 | live rescrape all isps update data json |
