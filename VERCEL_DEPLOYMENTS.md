@@ -9,11 +9,15 @@ Dashboard: https://vercel.com/lopugits-projects/nbncompare
 ## Production deployment
 
 - Deployment URL: https://nbncompare-iijn2npfm-lopugits-projects.vercel.app
+- Latest Git-triggered deployment URL: https://nbncompare-9xvcovrmz-lopugits-projects.vercel.app
 - Production alias: https://nbncompare.vercel.app
 - Inspector: https://vercel.com/lopugits-projects/nbncompare/56sVZU8MVn6CxwHiNtu3cYn9d55P
+- Latest Git-triggered inspector: https://vercel.com/lopugits-projects/nbncompare/7bZhRxekuuvciXVYwGXQ1ve3AMzK
 - Deployment id: `dpl_56sVZU8MVn6CxwHiNtu3cYn9d55P`
+- Latest Git-triggered deployment id: `dpl_7bZhRxekuuvciXVYwGXQ1ve3AMzK`
 - Source branch used for manual production deploy: `claude/internet-plan-site-updates-90nury`
 - Source commit at deploy time: `bd830a2`
+- Latest Git-triggered deployment commit: `242b66d`
 - Git integration production branch: `claude/internet-plan-site-updates-90nury`
 
 ## Custom domains

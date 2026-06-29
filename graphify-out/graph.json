@@ -467,7 +467,7 @@
       "label": "Custom domains",
       "file_type": "document",
       "source_file": "VERCEL_DEPLOYMENTS.md",
-      "source_location": "L19",
+      "source_location": "L23",
       "_origin": "ast",
       "id": "vercel_deployments_custom_domains",
       "community": 5,
@@ -477,7 +477,7 @@
       "label": "Notes",
       "file_type": "document",
       "source_file": "VERCEL_DEPLOYMENTS.md",
-      "source_location": "L32",
+      "source_location": "L36",
       "_origin": "ast",
       "id": "vercel_deployments_notes",
       "community": 5,
@@ -2191,5 +2191,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "bd830a2ccf7bc0b6f7c8c6cf426fd412518425ba"
+  "built_at_commit": "242b66da2c6e320d8257d52f62795c6bd42dac0d"
 }
