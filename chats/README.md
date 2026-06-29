@@ -29,3 +29,5 @@ New requests are logged here automatically (see ../AI.md).
 | 19 | re run the analysis live rescrape |
 | 20 | multi ai entry point claude agents point to ai md always push |
 | 21 | live rescrape all isps update data json |
+| 22 | deploy to vercel as nbncompare |
+| 23 | connect nbncompare org domain |

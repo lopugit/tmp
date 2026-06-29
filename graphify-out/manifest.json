@@ -1,0 +1,207 @@
+{
+  "data.json": {
+    "mtime": 1782750555.478189,
+    "ast_hash": "33c0b1457e93f2e0128e87009ff58cb1",
+    "semantic_hash": ""
+  },
+  "previous_scrapes/data.2026-06-29.json": {
+    "mtime": 1782749223.577399,
+    "ast_hash": "a9aaf81bf9c32499848af1f8690cf632",
+    "semantic_hash": ""
+  },
+  "previous_scrapes/data.2026-06-30.json": {
+    "mtime": 1782750440.4383063,
+    "ast_hash": "0f999ed6e2b12ab469314218a63f694f",
+    "semantic_hash": ""
+  },
+  "scrape/_extracted.json": {
+    "mtime": 1782749223.5777473,
+    "ast_hash": "fc3f85664b701d4e62b76d831e418e4b",
+    "semantic_hash": ""
+  },
+  "scrape/build_data.py": {
+    "mtime": 1782749223.5778584,
+    "ast_hash": "a927ea7922594aafe1883c6df8eaffea",
+    "semantic_hash": ""
+  },
+  "scrape/extract_from_html.py": {
+    "mtime": 1782749223.5779464,
+    "ast_hash": "49b69afb39446060f274860baafd6039",
+    "semantic_hash": ""
+  },
+  "scrape/validate_data.py": {
+    "mtime": 1782749223.5780542,
+    "ast_hash": "125e757e446a3f7b4bd69cae24ef277d",
+    "semantic_hash": ""
+  },
+  "AGENTS.md": {
+    "mtime": 1782749223.574095,
+    "ast_hash": "4feee405e2ce9b641936820a2ac3a28e",
+    "semantic_hash": ""
+  },
+  "AI.md": {
+    "mtime": 1782749223.5742104,
+    "ast_hash": "903b9118713abf206b0ded3585eaac03",
+    "semantic_hash": ""
+  },
+  "AI_RESCRAPE.md": {
+    "mtime": 1782749223.5743392,
+    "ast_hash": "d1dde1f75311d6b029787c9c5a532789",
+    "semantic_hash": ""
+  },
+  "AI_RESCRAPE.method.md": {
+    "mtime": 1782749223.574473,
+    "ast_hash": "801811bc56ba53e5f079d5324b640668",
+    "semantic_hash": ""
+  },
+  "CLAUDE.md": {
+    "mtime": 1782749223.5745502,
+    "ast_hash": "4feee405e2ce9b641936820a2ac3a28e",
+    "semantic_hash": ""
+  },
+  "VERCEL_DEPLOYMENTS.md": {
+    "mtime": 1782752118.3187647,
+    "ast_hash": "b91c334f3018976cd07e385e692c204b",
+    "semantic_hash": ""
+  },
+  "broken_scrapes/README.md": {
+    "mtime": 1782749223.5746663,
+    "ast_hash": "d56a58e257fcbd7a1924fa734d53ccf7",
+    "semantic_hash": ""
+  },
+  "chats/01-initial-site-overhaul-deresident-sort-pagination-presets-fix-filtering-2026-06-29.md": {
+    "mtime": 1782749223.5747752,
+    "ast_hash": "66ae4e012352ced6eee1be1d9193211f",
+    "semantic_hash": ""
+  },
+  "chats/02-prettify-format-the-file-2026-06-29.md": {
+    "mtime": 1782749223.5748386,
+    "ast_hash": "5691808b5455949a341894cf0f6c7f34",
+    "semantic_hash": ""
+  },
+  "chats/03-share-as-loadable-artifact-link-2026-06-29.md": {
+    "mtime": 1782749223.5749075,
+    "ast_hash": "71de6fd425117584187fa6a9da29f1b5",
+    "semantic_hash": ""
+  },
+  "chats/04-investigation-filters-and-search-still-not-working-2026-06-29.md": {
+    "mtime": 1782749223.5749702,
+    "ast_hash": "38f96f84bdb7a53d06a5162eb4632f27",
+    "semantic_hash": ""
+  },
+  "chats/05-investigation-ten-item-show-more-missing-2026-06-29.md": {
+    "mtime": 1782749223.5750315,
+    "ast_hash": "81ea308ff30c6b201b33f2dc6bf215a2",
+    "semantic_hash": ""
+  },
+  "chats/06-investigation-do-claude-artifacts-have-urls-2026-06-29.md": {
+    "mtime": 1782749223.5750966,
+    "ast_hash": "fdb21dbd24fb75daaeb95e10f932cd09",
+    "semantic_hash": ""
+  },
+  "chats/07-finder-first-section-nav-flare-12mo-cost-column-up-down-filters-2026-06-29.md": {
+    "mtime": 1782749223.5751722,
+    "ast_hash": "3af37b202887295571ae902bb9209199",
+    "semantic_hash": ""
+  },
+  "chats/08-add-minimum-contract-length-column-and-filter-2026-06-29.md": {
+    "mtime": 1782749223.575243,
+    "ast_hash": "75405543f08e9cd90a147276edba6ba5",
+    "semantic_hash": ""
+  },
+  "chats/09-12mo-cost-everywhere-all-tier-combos-aussie-pro-rename-clickable-providers-savings-sort-2026-06-29.md": {
+    "mtime": 1782749223.5753164,
+    "ast_hash": "673e220c113bd8c9a2ff47c21bead418",
+    "semantic_hash": ""
+  },
+  "chats/10-monthly-cost-filter-sort-split-avg-ongoing-promo-2026-06-29.md": {
+    "mtime": 1782749223.5753775,
+    "ast_hash": "77ec84d9380647c86b2c77875b54b1a0",
+    "semantic_hash": ""
+  },
+  "chats/11-floating-back-to-top-button-2026-06-29.md": {
+    "mtime": 1782749223.5754342,
+    "ast_hash": "2150db5a8a58f70e02a4b0b2ccd11229",
+    "semantic_hash": ""
+  },
+  "chats/12-populate-router-cost-column-split-router-filters-into-two-popups-2026-06-29.md": {
+    "mtime": 1782749223.5755007,
+    "ast_hash": "0a8b0f8904fc012b82b3e1558b087920",
+    "semantic_hash": ""
+  },
+  "chats/13-extract-data-to-json-add-rescrape-md-fix-leaptel-savings-2026-06-29.md": {
+    "mtime": 1782749223.575568,
+    "ast_hash": "ff28682829ce7567bd409b4030eec6fd",
+    "semantic_hash": ""
+  },
+  "chats/14-save-scrape-scripts-to-scrape-directory-2026-06-29.md": {
+    "mtime": 1782749223.575627,
+    "ast_hash": "8b18f306a9fc308beeb243a3890c0d26",
+    "semantic_hash": ""
+  },
+  "chats/15-save-all-chat-requests-to-chats-folder-and-push-2026-06-29.md": {
+    "mtime": 1782749223.575698,
+    "ast_hash": "d54d7ee0f9c8a6ebd6f23a02ab0c8ba4",
+    "semantic_hash": ""
+  },
+  "chats/16-confirm-rescrape-method-add-method-md-visual-not-programmatic-2026-06-29.md": {
+    "mtime": 1782749223.5757654,
+    "ast_hash": "01d2e75f6338fecc54c96b310ac4a646",
+    "semantic_hash": ""
+  },
+  "chats/17-rescrape-must-be-claude-live-recompile-not-py-corrections-and-push-2026-06-29.md": {
+    "mtime": 1782749223.5758274,
+    "ast_hash": "82b7ae1676c3d00d3a2d12628a05ad6e",
+    "semantic_hash": ""
+  },
+  "chats/18-broken-scrape-detection-ai-led-not-script-log-requests-in-claude-md-2026-06-29.md": {
+    "mtime": 1782749223.575894,
+    "ast_hash": "67b5e2205e8c33862d50048eaf20de58",
+    "semantic_hash": ""
+  },
+  "chats/19-re-run-the-analysis-live-rescrape-2026-06-29.md": {
+    "mtime": 1782749223.5759556,
+    "ast_hash": "7e48e1cc07a4cc844d6b7c8cc7c2f6f8",
+    "semantic_hash": ""
+  },
+  "chats/20-multi-ai-entry-point-claude-agents-point-to-ai-md-always-push-2026-06-29.md": {
+    "mtime": 1782749223.5760248,
+    "ast_hash": "0f0e25b6afef7e34373818e12dd17c84",
+    "semantic_hash": ""
+  },
+  "chats/21-live-rescrape-all-isps-update-data-json-2026-06-30.md": {
+    "mtime": 1782750618.700029,
+    "ast_hash": "f189b34e8e7254657006e9107c860744",
+    "semantic_hash": ""
+  },
+  "chats/22-deploy-to-vercel-as-nbncompare-2026-06-30.md": {
+    "mtime": 1782751733.9628272,
+    "ast_hash": "559f405247a0f5d4efc7f6049ce83654",
+    "semantic_hash": ""
+  },
+  "chats/23-connect-nbncompare-org-domain-2026-06-30.md": {
+    "mtime": 1782751733.9631946,
+    "ast_hash": "87370385938a495b5f32aa79fa8c0670",
+    "semantic_hash": ""
+  },
+  "chats/README.md": {
+    "mtime": 1782751733.9636393,
+    "ast_hash": "f92b3fec3a1454f2ed9a27d0c568317a",
+    "semantic_hash": ""
+  },
+  "index.html": {
+    "mtime": 1782749223.5770576,
+    "ast_hash": "f1ba98fab5c08dacaae47f389703810c",
+    "semantic_hash": ""
+  },
+  "previous_scrapes/README.md": {
+    "mtime": 1782749223.5771728,
+    "ast_hash": "927ecfb158dbbc1bb1062a6d044adea9",
+    "semantic_hash": ""
+  },
+  "scrape/README.md": {
+    "mtime": 1782749223.5775552,
+    "ast_hash": "723fecaefc00d01b024a597bfd0335cd",
+    "semantic_hash": ""
+  }
+}

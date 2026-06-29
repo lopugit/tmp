@@ -1,0 +1,11 @@
+.vercel/
+
+# graphify local/runtime files
+graphify-out/.graphify_python
+graphify-out/.graphify_root
+graphify-out/.graphify_detect.json
+graphify-out/.graphify_*
+graphify-out/cache/
+.graphify_*
+.vercel
+.env*
