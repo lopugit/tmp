@@ -26,3 +26,4 @@ New requests are logged here automatically (see ../CLAUDE.md).
 | 16 | confirm rescrape method add method md visual not programmatic |
 | 17 | rescrape must be claude live recompile not py corrections and push |
 | 18 | broken scrape detection ai led not script log requests in claude md |
+| 19 | re run the analysis live rescrape |

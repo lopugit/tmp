@@ -77,6 +77,26 @@ do the scrape rather than a script.
 
 ---
 
+## Environment requirements (run it somewhere with real web access)
+
+This method needs **unrestricted outbound web access and a working browser**. It
+will NOT run in a locked-down / proxied sandbox:
+
+- A check on 2026-06-29 from the build sandbox found the **browser fully blocked**
+  (Playwright/Chromium got `ERR_CONNECTION_CLOSED` on every site), ~**13 of 28 ISP
+  sites blocked** (403/redirect — *including Leaptel*), and **`WebSearch` results
+  stale/contradictory** (it reported Leaptel 500/200 at $150/$165 when the real
+  checkout is $115/$125). Only ~15 ISPs were directly readable via `WebFetch`.
+- **Do not** substitute `WebSearch` for visiting the live page — it is too stale to
+  trust and will reintroduce exactly the kind of error this whole method exists to
+  prevent. If you cannot reach an ISP's live page, leave its existing verified data
+  in place and flag it in `meta` — never overwrite good data with a guess.
+
+Run the re-scrape from a normal session/machine that can actually load the ISP
+sites and screenshot them.
+
+---
+
 See **[`AI_RESCRAPE.md`](AI_RESCRAPE.md)** for the full step-by-step workflow
 (backup → fresh visual compile → new-ISP hunt → validate → diff/quarantine →
 update editorial sections → verify → log).
