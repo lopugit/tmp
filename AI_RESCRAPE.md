@@ -8,6 +8,14 @@ which the page fetches and renders at runtime. To update prices/plans you edit
 > (GitHub Pages, or any web server / `python3 -m http.server`). Opening `index.html`
 > as a local `file://` or via the htmlpreview proxy will NOT load the data.
 
+> 🔍 **The data is compiled by Claude browsing the web and reading each ISP's live
+> plan page *visually* — not by a code scraper, and never by patching stale values.**
+> Every re-scrape, Claude opens each provider's real plans page in a browser, reads
+> the rendered price tiles / promos / modem options the way a person would,
+> interprets them, and cross-checks them. The `scrape/` scripts only assemble,
+> validate and diff what Claude compiled. **See [`AI_RESCRAPE.method.md`](AI_RESCRAPE.method.md)
+> for exactly how that visual gathering is done** — read it before starting.
+
 ---
 
 ## 1. Data model (`data.json`)
@@ -104,11 +112,16 @@ Copy the live data to a dated backup **before** changing anything:
 cp data.json "previous_scrapes/data.$(date +%F).json"
 ```
 
-### Step 1 — Pull completely fresh data (don't trust the old values)
-For **every** provider already in `data.json`, re-fetch **current** pricing/plans
-from scratch and rewrite each `price`, speed, terms, and `sourceUrl`. Prefer the
-ISP's own plan page; cross-check against a comparison site and the CIS / nbn Key
-Facts Sheet where available. Apply the §2 accuracy rule to every promo.
+### Step 1 — Re-compile every ISP from the live web, visually (don't trust old values)
+**This is Claude's job, done by browsing — see [`AI_RESCRAPE.method.md`](AI_RESCRAPE.method.md).**
+For **every** provider already in `data.json`, throw away the old numbers and
+rebuild them from scratch: open the ISP's real plans page in a browser, **read the
+rendered price tiles, promo lines and modem options visually** (screenshot them),
+interpret them, and rewrite each `price`, speed, terms, router info and `sourceUrl`.
+Prefer the ISP's own page; cross-check against a comparison site and the CIS / nbn
+Key Facts Sheet where available, and reconcile the recorded numbers against the
+screenshot. Apply the §2 accuracy rule to every promo. Do **not** "update" by
+find/replacing the previous data — re-derive it from the live site.
 
 ### Step 2 — Hunt for NEW providers & offerings missed last time
 Actively look for ISPs and NBN FTTP tiers not already present. Good sources:

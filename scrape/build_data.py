@@ -1,17 +1,25 @@
 #!/usr/bin/env python3
 """
-build_data.py — assemble ../data.json from scrape/_extracted.json.
+build_data.py — ASSEMBLE ../data.json. It does NOT gather data.
+
+>> The ISP offerings themselves are compiled by Claude browsing each provider's
+>> live plan page and reading it visually — see AI_RESCRAPE.method.md. This script
+>> is only the downstream assembler: it stamps META and runs a tiny regression
+>> guard for already-known past errors. It must never be treated as "the way to
+>> update the data" by find/replacing stale values.
 
 Pipeline:
-  1. load scrape/_extracted.json  (plans + providers)
-  2. apply CORRECTIONS            (manual accuracy fixes, e.g. the Leaptel one)
+  1. load scrape/_extracted.json  (plans + providers that Claude compiled/refreshed)
+  2. apply CORRECTIONS            (regression guard ONLY — re-asserts past fixes so a
+                                   future careless re-extract can't silently reintroduce
+                                   a known bug; NOT the mechanism for new data)
   3. attach META                  (scan date + knownInaccuracies log)
   4. write ../data.json
 
 IMPORTANT: derived figures (monthly promo/ongoing/avg, 12-month total, savings)
-are NOT stored here. index.html computes them at runtime from each plan's free-text
-`price` via costFromText(). So a price fix here automatically fixes every figure.
-Run scrape/validate_data.py afterwards to recompute + sanity-check them.
+are NOT stored. index.html computes them at runtime from each plan's free-text
+`price` via costFromText(). Run scrape/validate_data.py afterwards to recompute +
+sanity-check them.
 
 Run from the repo root:  python3 scrape/build_data.py
 """
@@ -21,8 +29,10 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 EXTRACTED = os.path.join(ROOT, 'scrape', '_extracted.json')
 OUT = os.path.join(ROOT, 'data.json')
 
-# --- manual accuracy corrections applied on top of the scraped data ---
-# Each entry rewrites the `price` string for the matching plan/provider tier.
+# --- regression guard: re-assert previously-confirmed fixes ---
+# NOT how new data is entered (Claude re-derives prices from the live site each
+# re-scrape). These entries only stop a known, hand-verified correction from being
+# silently undone if the raw data is ever re-extracted from an old source.
 CORRECTIONS = [
     {'providerKey': 'leaptel', 'speed': '500/200', 'find': '$105', 'replace': '$115',
      'reason': 'Advertised "$115/mo, $10 discount for 12 months, then $125". Earlier scrape '

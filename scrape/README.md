@@ -3,6 +3,11 @@
 Scripts that build and check `../data.json` (the source-of-truth ISP data the
 page renders). Full workflow: **[`../AI_RESCRAPE.md`](../AI_RESCRAPE.md)**.
 
+> These scripts only **assemble / validate / diff**. The ISP offerings are
+> compiled by Claude browsing each provider's live page and reading it *visually* —
+> see **[`../AI_RESCRAPE.method.md`](../AI_RESCRAPE.method.md)**. The scripts are not
+> a data source.
+
 | File | What it does |
 |---|---|
 | `extract_from_html.py` | Reconstruct `_extracted.json` from a known-good `index.html` (repair/bootstrap only — normally unnecessary). |
