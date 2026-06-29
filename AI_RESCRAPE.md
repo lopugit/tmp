@@ -136,26 +136,38 @@ For each price you infer, confirm against **at least two** independent sources a
 note them in `sourceUrl` / the plan's `search` text. If a figure is uncertain,
 prefer the ISP's published number and flag the uncertainty in `meta.knownInaccuracies`.
 
-### Step 4 — Rebuild & recompute
-Run `scrape/build_data.py` (or edit `data.json` directly), then
-`scrape/validate_data.py`. Fix every WARN about promo>ongoing, missing sources,
-or suspiciously large savings. Derived figures (savings, 12-month, avg) are
-recomputed automatically — never edit them by hand.
+### Step 4 — Rebuild & review
+Run `scrape/build_data.py` (or edit `data.json` directly). Then **Claude reviews
+the data by reading it** — spot-check prices against the screenshots from Step 1
+and reason about anything that looks off. `scrape/validate_data.py` is a backstop
+that mechanically flags candidates (promo > ongoing, missing sources, savings
+improbably large) for Claude to look at — clearing a WARN means Claude has read
+that plan and confirmed it, not silenced the script. Derived figures (savings,
+12-month, avg) are recomputed automatically — never edit them by hand.
 
-### Step 5 — Compare against the backup (broken-scrape detection)
+### Step 5 — Compare against the backup (broken-scrape detection — **AI-led**)
+**Claude does this analysis by reading the data, not by trusting a script.** Load
+both the backup and the new `data.json` **into context** and actually read them —
+compare provider-by-provider and plan-by-plan, reason about whether each change is
+a real market move or a scrape artefact (a price that jumped because a promo line
+was misread, a provider that vanished because a page failed to load, speeds that
+flipped, savings that ballooned). The script below is only a **fast pre-pass** that
+points you at candidates to read closely — it is not the decision-maker:
+
 ```bash
+# OPTIONAL aid: surfaces removed providers/plans and >25% price swings to inspect.
 python3 scrape/validate_data.py --diff previous_scrapes/data.<BACKUP>.json data.json
 ```
-Investigate: providers that **vanished**, large counts of removed plans, or many
->25% price swings usually mean the scrape broke (site layout changed, a parser
-matched the wrong number, a page failed to load).
 
-- If the diff looks **broken**, do NOT publish. Move the bad file to
-  `broken_scrapes/<date>/data.json` and write `broken_scrapes/<date>/NOTES.md`
-  describing what changed, which providers/plans, and the likely cause
-  (e.g. "WhistleOut markup changed; promo prices parsed as $0"). Then restore the
-  backup and re-scrape the affected providers carefully.
-- If the diff looks **sane**, continue.
+Then **Claude judges** by reading the actual rows (and, when in doubt, re-opening
+the live ISP page from Step 1 to see which version is right):
+
+- If Claude concludes the scrape **broke**, do NOT publish. Move the bad file to
+  `broken_scrapes/<date>/data.json` and write `broken_scrapes/<date>/NOTES.md` — a
+  Claude-written analysis of what changed, which providers/plans, the likely cause,
+  and how it was confirmed against the live sites. Then restore the backup and
+  re-scrape the affected providers carefully.
+- If Claude concludes the changes are **real**, continue.
 
 ### Step 6 — Update the hand-written editorial bits in `index.html`
 A few summary sections are still authored by hand (they are prose, not data):

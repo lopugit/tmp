@@ -4,8 +4,7 @@ Verbatim log of each request made in the chat that produced this project, in ord
 
 Files are named `NN-<brief-summary>-<DATE>.md`. The leading two-digit `NN` keeps them
 in chronological order with a normal sort; the date on the end is the timestamp.
-(Exact per-message clock times weren't available, so the requests are sequenced by the
-order they were sent on 2026-06-29.)
+New requests are logged here automatically (see ../CLAUDE.md).
 
 | # | Request |
 |---|---|
@@ -24,3 +23,6 @@ order they were sent on 2026-06-29.)
 | 13 | extract data to json add rescrape md fix leaptel savings |
 | 14 | save scrape scripts to scrape directory |
 | 15 | save all chat requests to chats folder and push |
+| 16 | confirm rescrape method add method md visual not programmatic |
+| 17 | rescrape must be claude live recompile not py corrections and push |
+| 18 | broken scrape detection ai led not script log requests in claude md |

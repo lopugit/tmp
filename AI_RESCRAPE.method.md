@@ -51,11 +51,16 @@ ones — see `AI_RESCRAPE.md` §2):
 ## Where the `scrape/` scripts fit (downstream only)
 
 - `validate_data.py` — recomputes savings/12-month/avg with the **same** parser the
-  page uses and flags anything suspicious (e.g. savings > 33% of the ongoing year →
-  "go look at that ISP's page again"). It is a safety net, **not** a data source.
-- `validate_data.py --diff OLD NEW` — compares the fresh compile against the backup
-  so a broken run (providers vanished, prices swung wildly) gets quarantined in
-  `broken_scrapes/` before publishing.
+  page uses and flags candidates (e.g. savings > 33% of the ongoing year →
+  "go read that ISP's page again"). A safety net that points Claude at things to
+  read — **not** a data source and **not** the judge.
+- `validate_data.py --diff OLD NEW` — a fast **pre-pass** only. **The broken-scrape
+  decision is AI-led**, not a script verdict: Claude loads the backup and the new
+  `data.json` into context and *reads* them — comparing rows, reasoning about
+  whether each change is a real market move or a scrape artefact, and re-opening the
+  live ISP page when unsure. The script just surfaces removed providers/plans and
+  big price swings so Claude knows where to look; Claude decides what gets
+  quarantined in `broken_scrapes/` and writes the analysis.
 - `build_data.py` — stamps `meta` and runs a tiny regression guard for already-known
   errors. It assembles; it does not research.
 - `extract_from_html.py` — repair tool only (reconstruct JSON from a good `index.html`).

@@ -1,9 +1,16 @@
 #!/usr/bin/env python3
 """
-validate_data.py — recompute + sanity-check data.json, and diff two scrapes.
+validate_data.py — an AID for Claude's review, not the decision-maker.
+
+>> The real analysis is AI-led: Claude reads data.json (and, for a re-scrape, the
+>> old and new versions) into its context and reasons about it directly — see
+>> AI_RESCRAPE.method.md. This script just mechanically surfaces *candidates* worth
+>> reading (recomputed numbers, anomalies, big diffs). It never decides what is
+>> correct or what to quarantine; Claude does, by reading the data and the live ISP
+>> pages.
 
 It re-implements the SAME cost parser as index.html (costFromText) in Python, so
-you can recompute monthly/12-month/savings off-line and catch the kind of mistake
+you can recompute monthly/12-month/savings off-line and surface the kind of mistake
 that produced the Leaptel bug (savings inflated by a misread "$N off" promo).
 
 Usage (from repo root):
@@ -102,10 +109,12 @@ def diff(old_path, new_path):
         print("  PRICE SHIFT:", b)
     suspicious = bool(op - npv) or len(removed_keys) > max(5, 0.15 * len(oi)) or len(big) > max(5, 0.15 * len(oi))
     if suspicious:
-        print("  >>> LOOKS SUSPICIOUS: many providers/plans vanished or shifted. "
-              "Quarantine the new file in broken_scrapes/<date>/ with a NOTES.md analysis before publishing.")
+        print("  >>> CANDIDATES TO READ: many providers/plans vanished or shifted. "
+              "This is NOT a verdict — Claude should now read these rows (and re-open the "
+              "live ISP pages) and DECIDE whether the scrape broke; if so, quarantine the new "
+              "file in broken_scrapes/<date>/ with a Claude-written NOTES.md analysis.")
     else:
-        print("  changes look within normal bounds.")
+        print("  no obvious anomalies in the pre-pass — Claude should still skim the diff to confirm.")
     return 0
 
 
