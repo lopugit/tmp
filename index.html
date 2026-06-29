@@ -612,6 +612,57 @@
         }
       }
     </style>
+    <style>
+      /* --- router / Wi-Fi multi-select chips --- */
+      .chip-filter {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        margin: 10px 0 2px;
+      }
+      .rchip {
+        border: 1px solid #99f6e4;
+        background: #f0fdfa;
+        color: #0f766e;
+        padding: 7px 12px;
+        border-radius: 999px;
+        font-weight: 700;
+        font-size: 0.82rem;
+        cursor: pointer;
+        line-height: 1;
+      }
+      .rchip:hover {
+        background: #ccfbf1;
+      }
+      .rchip.active {
+        background: #0f766e;
+        color: #fff;
+        border-color: #0f766e;
+      }
+      /* --- minimum contract column --- */
+      .contract-cell {
+        white-space: nowrap;
+      }
+      .contract-free {
+        color: #047857;
+        font-weight: 800;
+        background: #ecfdf5;
+        border: 1px solid #a7f3d0;
+        border-radius: 7px;
+        padding: 1px 7px;
+        display: inline-block;
+      }
+      .contract-locked {
+        color: #92400e;
+        font-weight: 800;
+        background: #fffbeb;
+        border: 1px solid #fde68a;
+        border-radius: 7px;
+        padding: 1px 7px;
+        display: inline-block;
+      }
+    </style>
   </head>
   <body>
     <div class="wrap">
@@ -837,7 +888,7 @@
             <option value="2000/200">2000/200+</option>
             <option value="2000/500">2000/500+</option></select
           ><select id="downFilter">
-            <option value="">Any download</option>
+            <option value="">Any min download</option>
             <option value="12">≥ 12 down</option>
             <option value="25">≥ 25 down</option>
             <option value="50">≥ 50 down</option>
@@ -847,8 +898,18 @@
             <option value="750">≥ 750 down</option>
             <option value="1000">≥ 1000 down</option>
             <option value="2000">≥ 2000 down</option></select
+          ><select id="maxDownFilter">
+            <option value="">Any max download</option>
+            <option value="12">≤ 12 down</option>
+            <option value="25">≤ 25 down</option>
+            <option value="50">≤ 50 down</option>
+            <option value="100">≤ 100 down</option>
+            <option value="250">≤ 250 down</option>
+            <option value="500">≤ 500 down</option>
+            <option value="750">≤ 750 down</option>
+            <option value="1000">≤ 1000 down</option></select
           ><select id="upFilter">
-            <option value="">Any upload</option>
+            <option value="">Any min upload</option>
             <option value="1">≥ 1 up</option>
             <option value="10">≥ 10 up</option>
             <option value="20">≥ 20 up</option>
@@ -858,6 +919,16 @@
             <option value="200">≥ 200 up</option>
             <option value="400">≥ 400 up</option>
             <option value="500">≥ 500 up</option></select
+          ><select id="maxUpFilter">
+            <option value="">Any max upload</option>
+            <option value="1">≤ 1 up</option>
+            <option value="10">≤ 10 up</option>
+            <option value="20">≤ 20 up</option>
+            <option value="40">≤ 40 up</option>
+            <option value="50">≤ 50 up</option>
+            <option value="100">≤ 100 up</option>
+            <option value="200">≤ 200 up</option>
+            <option value="400">≤ 400 up</option></select
           ><select id="annualFilter">
             <option value="">Any 1st-year cost</option>
             <option value="800">Under $800 / yr</option>
@@ -865,6 +936,11 @@
             <option value="1200">Under $1,200 / yr</option>
             <option value="1500">Under $1,500 / yr</option>
             <option value="2000">Under $2,000 / yr</option></select
+          ><select id="contractFilter">
+            <option value="">Any contract length</option>
+            <option value="0">No lock-in only</option>
+            <option value="12">≤ 12 months</option>
+            <option value="24">≤ 24 months</option></select
           ><select id="providerFilter">
             <option value="">All providers</option>
             <option value="aussie broadband">Aussie Broadband</option>
@@ -906,8 +982,13 @@
             <option value="speed-asc">Speed: low to high</option>
             <option value="speed-desc">Speed: high to low</option>
             <option value="users-asc">Users: 1 → 5+</option>
-            <option value="users-desc">Users: 5+ → 1</option></select
+            <option value="users-desc">Users: 5+ → 1</option>
+            <option value="contract-asc">Contract: short to long</option>
+            <option value="contract-desc">Contract: long to short</option></select
           ><button id="clearFilters" type="button">Clear filters</button>
+        </div>
+        <div class="chip-filter no-print" id="routerFilter">
+          <span class="presets-label">Router / Wi‑Fi (pick any):</span>
         </div>
         <div class="profile-hint no-print" id="profileHint">
           Tip: choose a household size and use case first, then tighten by upload or provider. “Pro” favours 100 Mbps+
@@ -6243,13 +6324,17 @@
         const uploadFilter = $("uploadFilter");
         const speedFilter = $("speedFilter");
         const downFilter = $("downFilter");
+        const maxDownFilter = $("maxDownFilter");
         const upFilter = $("upFilter");
+        const maxUpFilter = $("maxUpFilter");
         const annualFilter = $("annualFilter");
+        const contractFilter = $("contractFilter");
         const providerFilter = $("providerFilter");
         const sortBy = $("sortBy");
         const clearFilters = $("clearFilters");
         const resultCount = $("resultCount");
         const presetBar = $("presetBar");
+        const routerFilter = $("routerFilter");
 
         const plansTable = $("plansTable");
         const tbody = plansTable ? plansTable.querySelector("tbody") : null;
@@ -6284,7 +6369,7 @@
           return m ? parseFloat(m[1].replace(/,/g, "")) : Infinity;
         }
         function rowUsers(row) {
-          const cell = row.querySelector(".best-fit") || row.children[4];
+          const cell = row.querySelector(".best-fit") || row.children[5];
           const t = (cell ? cell.textContent : "").toLowerCase();
           if (/single|1\s*person/.test(t)) return 1;
           const m = t.match(/(\d+)\s*(?:[–-]\s*\d+)?\s*\+?\s*people/);
@@ -6294,9 +6379,8 @@
         }
 
         /* ---------- estimated first-year cost ----------
-     Parses the price-snapshot text into a 12-month total and the saving
-     versus paying the ongoing rate for the whole year. Best-effort: the
-     snapshots are free text, so treat the figure as an estimate. */
+       Parses the price-snapshot text into a 12-month total and the saving
+       versus paying the ongoing rate for the whole year. Best-effort. */
         function moneyFmt(n) {
           return "$" + Math.round(n).toLocaleString("en-AU");
         }
@@ -6334,31 +6418,117 @@
           return v ? Number(v) : Infinity;
         }
 
-        /* inject the "Est. 1st-year cost" column (header + one cell per row) */
+        /* ---------- minimum contract length ----------
+       Most BYO/no-lock-in plans are month-to-month (0). Included-modem
+       offers create an effective 18/24-month hardware commitment. */
+        function parseContract(row) {
+          const t = (row.children[5] ? row.children[5].textContent : "").toLowerCase();
+          const m = t.match(/(\d{2})\s*[- ]?\s*(?:month|mth)/);
+          if (m) return Number(m[1]);
+          if (/no lock|no-lock|no contract|month-to-month|month to month/.test(t)) return 0;
+          const p = row.dataset.provider || "";
+          if (["tpg", "iinet", "optus", "vodafone", "telstra"].indexOf(p) !== -1) return 24;
+          if (p === "iprimus") return 18;
+          return 0;
+        }
+        function rowContract(row) {
+          return Number(row.dataset.contract || 0);
+        }
+
+        /* ---------- router / Wi-Fi offerings (multi-select) ---------- */
+        const ROUTER_OFFERINGS = [
+          { key: "eero7", label: "eero Pro 7 · Wi‑Fi 7 · multi‑gig (~$240)", providers: ["aussie broadband"] },
+          { key: "tsm4", label: "Telstra Smart Modem 4 · Wi‑Fi 7 · included", providers: ["telstra"] },
+          { key: "iinet7", label: "iiNet Wi‑Fi 7 modem · included (24mo)", providers: ["iinet"] },
+          { key: "tpg0", label: "TPG $0 modem · included (24mo)", providers: ["tpg"] },
+          { key: "optus6", label: "Optus Ultra WiFi Gen 2 · Wi‑Fi 6 · $0 (24mo)", providers: ["optus"] },
+          { key: "iprimus6", label: "iPrimus Wi‑Fi 6 modem · 18mo term", providers: ["iprimus"] },
+          { key: "vodafone6", label: "Vodafone modem/mesh · Wi‑Fi 6 · 24mo", providers: ["vodafone"] },
+          { key: "tangerine6", label: "Tangerine NetComm/eero · Wi‑Fi 6 · optional", providers: ["tangerine"] },
+          {
+            key: "byo",
+            label: "BYO router (no required hardware)",
+            providers: [
+              "leaptel",
+              "launtel",
+              "exetel",
+              "kogan internet",
+              "superloop",
+              "spintel",
+              "neptune internet",
+              "swoop",
+              "more",
+              "southern phone",
+              "dodo",
+              "flip",
+              "origin internet",
+              "mate",
+              "tangerine",
+              "aussie broadband",
+              "belong",
+            ],
+          },
+          {
+            key: "included",
+            label: "Included / $0 modem deal",
+            providers: ["telstra", "iinet", "tpg", "optus", "iprimus", "vodafone"],
+          },
+          { key: "wifi7", label: "Wi‑Fi 7 capable", providers: ["aussie broadband", "telstra", "iinet"] },
+          { key: "wifi6", label: "Wi‑Fi 6 / 6E capable", providers: ["optus", "iprimus", "vodafone", "tangerine"] },
+          { key: "multigig", label: "Multi‑gig ports (2.5GbE+)", providers: ["aussie broadband"] },
+        ];
+        const routerSelected = {};
+        function providerRouterKeys(p) {
+          const k = [];
+          ROUTER_OFFERINGS.forEach(function (o) {
+            if (o.providers.indexOf(p) !== -1) k.push(o.key);
+          });
+          return k;
+        }
+
+        /* ---------- inject "Est. 1st-year cost" + "Min. contract" columns ---------- */
         if (headRow && !headRow.querySelector(".annual-th")) {
-          const th = document.createElement("th");
-          th.className = "annual-th";
-          th.textContent = "Est. 1st-year cost";
-          headRow.insertBefore(th, headRow.children[3] || null);
+          const th1 = document.createElement("th");
+          th1.className = "annual-th";
+          th1.textContent = "Est. 1st-year cost";
+          headRow.insertBefore(th1, headRow.children[3] || null);
+          const th2 = document.createElement("th");
+          th2.className = "contract-th";
+          th2.textContent = "Min. contract";
+          headRow.insertBefore(th2, headRow.children[4] || null);
         }
         rows.forEach(function (row) {
+          /* compute from ORIGINAL cell positions before inserting any cells */
           const c = parseCost(row);
-          const td = document.createElement("td");
-          td.className = "annual-cell";
+          const contract = parseContract(row);
+          row.dataset.router = providerRouterKeys(row.dataset.provider || "").join(" ");
+          row.dataset.contract = String(contract);
+
+          const annualTd = document.createElement("td");
+          annualTd.className = "annual-cell";
           if (c.cost == null) {
-            td.innerHTML = '<span class="subtle">By quote</span>';
+            annualTd.innerHTML = '<span class="subtle">By quote</span>';
             row.dataset.annual = "";
             row.dataset.disc = "0";
           } else {
             row.dataset.annual = String(Math.round(c.cost));
             row.dataset.disc = String(Math.round(c.disc));
-            td.innerHTML =
+            annualTd.innerHTML =
               "<strong>" +
               moneyFmt(c.cost) +
               '</strong><br><span class="subtle">est. over 12 mths</span>' +
               (c.disc >= 1 ? '<br><span class="disc">' + moneyFmt(c.disc) + " off vs ongoing</span>" : "");
           }
-          row.insertBefore(td, row.children[3] || null);
+
+          const contractTd = document.createElement("td");
+          contractTd.className = "contract-cell";
+          contractTd.innerHTML =
+            contract === 0
+              ? '<span class="contract-free">No lock-in</span>'
+              : '<span class="contract-locked">' + contract + ' mths</span><br><span class="subtle">modem term</span>';
+
+          row.insertBefore(annualTd, row.children[3] || null);
+          row.insertBefore(contractTd, row.children[4] || null);
         });
 
         /* ---------- matching ---------- */
@@ -6442,6 +6612,8 @@
               if (v === "speed-desc") return sb[0] - sa[0] || sb[1] - sa[1];
               if (v === "users-asc") return rowUsers(a) - rowUsers(b);
               if (v === "users-desc") return rowUsers(b) - rowUsers(a);
+              if (v === "contract-asc") return rowContract(a) - rowContract(b);
+              if (v === "contract-desc") return rowContract(b) - rowContract(a);
               return 0;
             });
           }
@@ -6460,9 +6632,15 @@
           const uf = uploadFilter ? uploadFilter.value : "";
           const sf = speedFilter ? speedFilter.value : "";
           const minDown = downFilter ? Number(downFilter.value || 0) : 0;
+          const maxDown = maxDownFilter ? Number(maxDownFilter.value || 0) : 0;
           const minUp = upFilter ? Number(upFilter.value || 0) : 0;
+          const maxUp = maxUpFilter ? Number(maxUpFilter.value || 0) : 0;
           const maxAnnual = annualFilter ? Number(annualFilter.value || 0) : 0;
+          const cf = contractFilter ? contractFilter.value : "";
           const pf = ((providerFilter && providerFilter.value) || "").toLowerCase();
+          const routerSel = Object.keys(routerSelected).filter(function (k) {
+            return routerSelected[k];
+          });
           const sp = parseSpeed(sf || "0/0");
           const sfDown = sp[0],
             sfUp = sp[1];
@@ -6482,8 +6660,21 @@
             if (!uploadOk(row, uf, down, up, text)) ok = false;
             if (sf && !(down >= sfDown && up >= sfUp)) ok = false;
             if (minDown && down < minDown) ok = false;
+            if (maxDown && down > maxDown) ok = false;
             if (minUp && up < minUp) ok = false;
+            if (maxUp && up > maxUp) ok = false;
             if (maxAnnual && !(isFinite(rowAnnual(row)) && rowAnnual(row) <= maxAnnual)) ok = false;
+            if (cf === "0" && rowContract(row) !== 0) ok = false;
+            else if (cf && cf !== "0" && rowContract(row) > Number(cf)) ok = false;
+            if (routerSel.length) {
+              const rk = (row.dataset.router || "").split(" ");
+              if (
+                !routerSel.some(function (k) {
+                  return rk.indexOf(k) !== -1;
+                })
+              )
+                ok = false;
+            }
             if (!matchesProfile(down, up, hf, use, text)) ok = false;
             if (state.maxPrice && rowPrice(row) > state.maxPrice) ok = false;
             row.classList.toggle("hide", !ok);
@@ -6501,7 +6692,9 @@
             if (!uploadOk(row, uf, down, up, text)) ok = false;
             if (sf && !(down >= sfDown && up >= sfUp)) ok = false;
             if (minDown && down < minDown) ok = false;
+            if (maxDown && down > maxDown) ok = false;
             if (minUp && up < minUp) ok = false;
+            if (maxUp && up > maxUp) ok = false;
             if (!matchesProfile(down, up, hf, use, text)) ok = false;
             row.classList.toggle("hide", !ok);
           });
@@ -6594,6 +6787,34 @@
           }
         });
 
+        /* ---------- router multi-select chips ---------- */
+        if (routerFilter) {
+          ROUTER_OFFERINGS.forEach(function (o) {
+            const b = document.createElement("button");
+            b.type = "button";
+            b.className = "rchip";
+            b.textContent = o.label;
+            b.dataset.key = o.key;
+            b.addEventListener("click", function () {
+              routerSelected[o.key] = !routerSelected[o.key];
+              b.classList.toggle("active", !!routerSelected[o.key]);
+              resetPaging();
+              clearActivePreset();
+              apply();
+            });
+            routerFilter.appendChild(b);
+          });
+        }
+        function clearRouter() {
+          Object.keys(routerSelected).forEach(function (k) {
+            delete routerSelected[k];
+          });
+          if (routerFilter)
+            Array.prototype.slice.call(routerFilter.querySelectorAll(".rchip")).forEach(function (b) {
+              b.classList.remove("active");
+            });
+        }
+
         /* ---------- presets ---------- */
         const PRESETS = {
           solo: { household: "1-2", sort: "annual-asc" },
@@ -6620,14 +6841,18 @@
             uploadFilter,
             speedFilter,
             downFilter,
+            maxDownFilter,
             upFilter,
+            maxUpFilter,
             annualFilter,
+            contractFilter,
             providerFilter,
             sortBy,
           ].forEach(function (el) {
             if (el) el.value = "";
           });
           state.maxPrice = 0;
+          clearRouter();
         }
         function applyPreset(name, btn) {
           const wasActive = activePreset === name;
@@ -6666,8 +6891,11 @@
           uploadFilter,
           speedFilter,
           downFilter,
+          maxDownFilter,
           upFilter,
+          maxUpFilter,
           annualFilter,
+          contractFilter,
           providerFilter,
           sortBy,
         ].forEach(function (el) {
