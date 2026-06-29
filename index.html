@@ -724,6 +724,96 @@
         }
       }
     </style>
+    <style>
+      /* --- router filter "filter by" popups --- */
+      .router-filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        margin: 10px 0 2px;
+      }
+      .fpop {
+        position: relative;
+      }
+      .fpop-btn {
+        border: 1px solid #99f6e4;
+        background: #f0fdfa;
+        color: #0f766e;
+        padding: 8px 13px;
+        border-radius: 999px;
+        font-weight: 700;
+        font-size: 0.85rem;
+        cursor: pointer;
+        line-height: 1;
+      }
+      .fpop-btn:hover {
+        background: #ccfbf1;
+      }
+      .fpop-btn.active {
+        background: #0f766e;
+        color: #fff;
+        border-color: #0f766e;
+      }
+      .fpop-panel {
+        display: none;
+        position: absolute;
+        z-index: 40;
+        top: calc(100% + 6px);
+        left: 0;
+        min-width: 210px;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 8px;
+        box-shadow: 0 18px 40px rgba(16, 24, 40, 0.16);
+      }
+      .fpop.open .fpop-panel {
+        display: block;
+      }
+      .fpop-opt {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 8px;
+        border-radius: 9px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--ink);
+        cursor: pointer;
+      }
+      .fpop-opt:hover {
+        background: #f0fdfa;
+      }
+      .fpop-opt input {
+        width: auto;
+        margin: 0;
+      }
+      /* --- router / modem cost badge in the table --- */
+      .rcost {
+        display: inline-block;
+        padding: 1px 7px;
+        border-radius: 7px;
+        font-weight: 800;
+        font-size: 0.82em;
+        white-space: nowrap;
+      }
+      .rcost-free {
+        color: #047857;
+        background: #ecfdf5;
+        border: 1px solid #a7f3d0;
+      }
+      .rcost-byo {
+        color: #4b5563;
+        background: #f3f4f6;
+        border: 1px solid #e5e7eb;
+      }
+      .rcost-buy {
+        color: #92400e;
+        background: #fffbeb;
+        border: 1px solid #fde68a;
+      }
+    </style>
   </head>
   <body>
     <div class="wrap">
@@ -1080,8 +1170,8 @@
             <option value="contract-desc">Contract: long to short</option></select
           ><button id="clearFilters" type="button">Clear filters</button>
         </div>
-        <div class="chip-filter no-print" id="routerFilter">
-          <span class="presets-label">Router / Wi‑Fi (pick any):</span>
+        <div class="router-filters no-print" id="routerFilters">
+          <span class="presets-label">Router / Wi‑Fi:</span>
         </div>
         <div class="profile-hint no-print" id="profileHint">
           Tip: choose a household size and use case first, then tighten by upload or provider. “Pro” favours 100 Mbps+
@@ -6554,7 +6644,7 @@
         const clearFilters = $("clearFilters");
         const resultCount = $("resultCount");
         const presetBar = $("presetBar");
-        const routerFilter = $("routerFilter");
+        const routerFilters = $("routerFilters");
 
         const plansTable = $("plansTable");
         const tbody = plansTable ? plansTable.querySelector("tbody") : null;
@@ -6591,8 +6681,7 @@
           return n ? Number(n[1]) : 99;
         }
 
-        /* ---------- cost parsing (monthly promo/ongoing/avg + 12-mo total) ----------
-       Snapshots are free text, so treat figures as best-effort estimates. */
+        /* ---------- cost parsing ---------- */
         function moneyFmt(n) {
           return "$" + Math.round(n).toLocaleString("en-AU");
         }
@@ -6650,55 +6739,91 @@
           return Number(row.dataset.contract || 0);
         }
 
-        /* ---------- router / Wi-Fi offerings (multi-select) ---------- */
-        const ROUTER_OFFERINGS = [
-          { key: "eero7", label: "eero Pro 7 · Wi‑Fi 7 · multi‑gig (~$240)", providers: ["aussie broadband"] },
-          { key: "tsm4", label: "Telstra Smart Modem 4 · Wi‑Fi 7 · included", providers: ["telstra"] },
-          { key: "iinet7", label: "iiNet Wi‑Fi 7 modem · included (24mo)", providers: ["iinet"] },
-          { key: "tpg0", label: "TPG $0 modem · included (24mo)", providers: ["tpg"] },
-          { key: "optus6", label: "Optus Ultra WiFi Gen 2 · Wi‑Fi 6 · $0 (24mo)", providers: ["optus"] },
-          { key: "iprimus6", label: "iPrimus Wi‑Fi 6 modem · 18mo term", providers: ["iprimus"] },
-          { key: "vodafone6", label: "Vodafone modem/mesh · Wi‑Fi 6 · 24mo", providers: ["vodafone"] },
-          { key: "tangerine6", label: "Tangerine NetComm/eero · Wi‑Fi 6 · optional", providers: ["tangerine"] },
-          {
-            key: "byo",
-            label: "BYO router (no required hardware)",
-            providers: [
-              "leaptel",
-              "launtel",
-              "exetel",
-              "kogan internet",
-              "superloop",
-              "spintel",
-              "neptune internet",
-              "swoop",
-              "more",
-              "southern phone",
-              "dodo",
-              "flip",
-              "origin internet",
-              "mate",
-              "tangerine",
-              "aussie broadband",
-              "belong",
-            ],
+        /* ---------- router / modem hardware per provider ----------
+       tech = Wi-Fi generations the ISP supplies; price = cost category;
+       note = the line shown in the Router / modem notes column. */
+        const DEFAULT_R = {
+          tech: [],
+          price: ["byo"],
+          badge: "BYO",
+          cls: "byo",
+          note: "Bring your own router (no required hardware)",
+        };
+        const ROUTER_DATA = {
+          "aussie broadband": {
+            tech: ["wifi7"],
+            price: ["byo", "buy"],
+            badge: "BYO / ~$240",
+            cls: "buy",
+            note: "Bring your own, or eero Pro 7 ~$240 (Wi‑Fi 7, multi‑gig)",
           },
-          {
-            key: "included",
-            label: "Included / $0 modem deal",
-            providers: ["telstra", "iinet", "tpg", "optus", "iprimus", "vodafone"],
+          telstra: {
+            tech: ["wifi7"],
+            price: ["included"],
+            badge: "Included",
+            cls: "free",
+            note: "Smart Modem 4 included (Wi‑Fi 7); repay if you leave early",
           },
-          { key: "wifi7", label: "Wi‑Fi 7 capable", providers: ["aussie broadband", "telstra", "iinet"] },
-          { key: "wifi6", label: "Wi‑Fi 6 / 6E capable", providers: ["optus", "iprimus", "vodafone", "tangerine"] },
-          { key: "multigig", label: "Multi‑gig ports (2.5GbE+)", providers: ["aussie broadband"] },
-        ];
-        const routerSelected = {};
-        function providerRouterKeys(p) {
-          const k = [];
-          ROUTER_OFFERINGS.forEach(function (o) {
-            if (o.providers.indexOf(p) !== -1) k.push(o.key);
-          });
-          return k;
+          iinet: {
+            tech: ["wifi7"],
+            price: ["included"],
+            badge: "Included",
+            cls: "free",
+            note: "Wi‑Fi 7 modem included over 24 mths; fee if returned early",
+          },
+          tpg: {
+            tech: ["wifi6"],
+            price: ["included"],
+            badge: "Free $0",
+            cls: "free",
+            note: "$0 modem over 24 mths (Wi‑Fi 6); ~$10 delivery",
+          },
+          optus: {
+            tech: ["wifi6"],
+            price: ["included"],
+            badge: "Free $0",
+            cls: "free",
+            note: "Ultra WiFi Gen 2 $0 over 24 mths (Wi‑Fi 6)",
+          },
+          iprimus: {
+            tech: ["wifi6"],
+            price: ["included"],
+            badge: "Included",
+            cls: "free",
+            note: "Wi‑Fi 6 modem included (18-month term)",
+          },
+          vodafone: {
+            tech: ["wifi6"],
+            price: ["included"],
+            badge: "Included",
+            cls: "free",
+            note: "Modem/mesh included over 24 mths (Wi‑Fi 6)",
+          },
+          tangerine: {
+            tech: ["wifi6"],
+            price: ["byo", "buy"],
+            badge: "BYO / optional",
+            cls: "buy",
+            note: "Bring your own, or optional NetComm/eero (Wi‑Fi 6)",
+          },
+          belong: { tech: [], price: ["byo"], badge: "BYO", cls: "byo", note: "Bring your own; modem optional" },
+          mate: {
+            tech: [],
+            price: ["byo"],
+            badge: "BYO",
+            cls: "byo",
+            note: "Bring your own; optional hardware available",
+          },
+          "southern phone": {
+            tech: [],
+            price: ["byo", "buy"],
+            badge: "BYO / optional",
+            cls: "buy",
+            note: "Bring your own, or optional modem add-on",
+          },
+        };
+        function routerInfo(p) {
+          return ROUTER_DATA[p] || DEFAULT_R;
         }
 
         /* ---------- init pass: derive values, link providers, inject columns ---------- */
@@ -6713,13 +6838,27 @@
           headRow.insertBefore(th2, headRow.children[4] || null);
         }
         rows.forEach(function (row) {
-          /* compute from ORIGINAL cell positions before inserting any cells */
           const c = costFromText(row.children[2] ? row.children[2].textContent : "");
           const contract = parseContract(row);
-          row.dataset.router = providerRouterKeys(row.dataset.provider || "").join(" ");
+          const ri = routerInfo(row.dataset.provider || "");
+          row.dataset.rtech = ri.tech.join(" ");
+          row.dataset.rprice = ri.price.join(" ");
           row.dataset.contract = String(contract);
 
-          /* make the provider name a link to its site (reuse the source link) */
+          /* router / modem notes cell (children[6] before columns are injected) */
+          const rcell = row.children[6];
+          if (rcell) {
+            rcell.innerHTML =
+              '<span class="rcost rcost-' +
+              ri.cls +
+              '">' +
+              ri.badge +
+              '</span><br><span class="subtle">' +
+              ri.note +
+              "</span>";
+          }
+
+          /* provider name -> link to its site (reuse the source link) */
           const srcA = row.children[row.children.length - 1].querySelector("a");
           const pc = row.children[0];
           if (srcA && pc && !pc.querySelector("a")) {
@@ -6925,8 +7064,11 @@
           const maxAnnual = annualFilter ? Number(annualFilter.value || 0) : 0;
           const cf = contractFilter ? contractFilter.value : "";
           const pf = ((providerFilter && providerFilter.value) || "").toLowerCase();
-          const routerSel = Object.keys(routerSelected).filter(function (k) {
-            return routerSelected[k];
+          const techSelKeys = Object.keys(techSel).filter(function (k) {
+            return techSel[k];
+          });
+          const priceSelKeys = Object.keys(priceSel).filter(function (k) {
+            return priceSel[k];
           });
           const sp = parseSpeed(sf || "0/0");
           const sfDown = sp[0],
@@ -6960,11 +7102,20 @@
             if (maxAnnual && !(annual > 0 && annual <= maxAnnual)) ok = false;
             if (cf === "0" && rowContract(row) !== 0) ok = false;
             else if (cf && cf !== "0" && rowContract(row) > Number(cf)) ok = false;
-            if (routerSel.length) {
-              const rk = (row.dataset.router || "").split(" ");
+            if (techSelKeys.length) {
+              const rt = (row.dataset.rtech || "").split(" ");
               if (
-                !routerSel.some(function (k) {
-                  return rk.indexOf(k) !== -1;
+                !techSelKeys.some(function (k) {
+                  return rt.indexOf(k) !== -1;
+                })
+              )
+                ok = false;
+            }
+            if (priceSelKeys.length) {
+              const rp = (row.dataset.rprice || "").split(" ");
+              if (
+                !priceSelKeys.some(function (k) {
+                  return rp.indexOf(k) !== -1;
                 })
               )
                 ok = false;
@@ -7063,48 +7214,102 @@
           apply();
         });
 
-        document.addEventListener("click", function (e) {
-          if (e.target.closest("a") || e.target.closest(".show-more-btn")) return;
-          const pk = e.target.closest(".peek");
-          if (!pk) return;
-          if (rows.indexOf(pk) !== -1) {
-            state.plans += STEP;
-            apply();
-          } else if (providerCards.indexOf(pk) !== -1) {
-            state.providers += STEP;
-            apply();
-          } else if (sourceItems.indexOf(pk) !== -1) {
-            state.sources += STEP;
-            apply();
+        /* ---------- router filter popups (multi-select) ---------- */
+        const techSel = {},
+          priceSel = {};
+        const fpops = [];
+        function closeAllPopups() {
+          fpops.forEach(function (w) {
+            w.classList.remove("open");
+          });
+        }
+        function buildPopup(host, label, options, selected) {
+          const wrap = document.createElement("div");
+          wrap.className = "fpop";
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "fpop-btn";
+          const panel = document.createElement("div");
+          panel.className = "fpop-panel";
+          function refresh() {
+            const n = Object.keys(selected).filter(function (k) {
+              return selected[k];
+            }).length;
+            btn.textContent = label + (n ? " (" + n + ")" : "") + " ▾";
+            btn.classList.toggle("active", n > 0);
           }
-        });
-
-        /* ---------- router multi-select chips ---------- */
-        if (routerFilter) {
-          ROUTER_OFFERINGS.forEach(function (o) {
-            const b = document.createElement("button");
-            b.type = "button";
-            b.className = "rchip";
-            b.textContent = o.label;
-            b.dataset.key = o.key;
-            b.addEventListener("click", function () {
-              routerSelected[o.key] = !routerSelected[o.key];
-              b.classList.toggle("active", !!routerSelected[o.key]);
+          options.forEach(function (o) {
+            const lab = document.createElement("label");
+            lab.className = "fpop-opt";
+            const cb = document.createElement("input");
+            cb.type = "checkbox";
+            cb.value = o.key;
+            cb.dataset.opt = o.key;
+            cb.addEventListener("change", function () {
+              selected[o.key] = cb.checked;
+              refresh();
               resetPaging();
               clearActivePreset();
               apply();
             });
-            routerFilter.appendChild(b);
+            lab.appendChild(cb);
+            lab.appendChild(document.createTextNode(" " + o.label));
+            panel.appendChild(lab);
           });
+          btn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            const open = wrap.classList.contains("open");
+            closeAllPopups();
+            if (!open) wrap.classList.add("open");
+          });
+          panel.addEventListener("click", function (e) {
+            e.stopPropagation();
+          });
+          wrap.appendChild(btn);
+          wrap.appendChild(panel);
+          host.appendChild(wrap);
+          wrap._refresh = refresh;
+          refresh();
+          fpops.push(wrap);
+          return wrap;
+        }
+        if (routerFilters) {
+          buildPopup(
+            routerFilters,
+            "Technology",
+            [
+              { key: "wifi6", label: "Wi‑Fi 6" },
+              { key: "wifi6e", label: "Wi‑Fi 6E" },
+              { key: "wifi7", label: "Wi‑Fi 7" },
+            ],
+            techSel,
+          );
+          buildPopup(
+            routerFilters,
+            "Router price",
+            [
+              { key: "included", label: "Included / $0" },
+              { key: "byo", label: "BYO (bring your own)" },
+              { key: "buy", label: "Buy / optional (~$200+)" },
+            ],
+            priceSel,
+          );
         }
         function clearRouter() {
-          Object.keys(routerSelected).forEach(function (k) {
-            delete routerSelected[k];
+          Object.keys(techSel).forEach(function (k) {
+            delete techSel[k];
           });
-          if (routerFilter)
-            Array.prototype.slice.call(routerFilter.querySelectorAll(".rchip")).forEach(function (b) {
-              b.classList.remove("active");
+          Object.keys(priceSel).forEach(function (k) {
+            delete priceSel[k];
+          });
+          if (routerFilters) {
+            Array.prototype.slice.call(routerFilters.querySelectorAll("input[type=checkbox]")).forEach(function (cb) {
+              cb.checked = false;
             });
+            fpops.forEach(function (w) {
+              if (w._refresh) w._refresh();
+            });
+          }
         }
 
         /* ---------- back-to-top button ---------- */
@@ -7123,6 +7328,24 @@
         }
         window.addEventListener("scroll", onScroll);
         onScroll();
+
+        /* clicking outside closes popups; clicking a faded peek expands it */
+        document.addEventListener("click", function (e) {
+          if (!e.target.closest(".fpop")) closeAllPopups();
+          if (e.target.closest("a") || e.target.closest(".show-more-btn")) return;
+          const pk = e.target.closest(".peek");
+          if (!pk) return;
+          if (rows.indexOf(pk) !== -1) {
+            state.plans += STEP;
+            apply();
+          } else if (providerCards.indexOf(pk) !== -1) {
+            state.providers += STEP;
+            apply();
+          } else if (sourceItems.indexOf(pk) !== -1) {
+            state.sources += STEP;
+            apply();
+          }
+        });
 
         /* ---------- presets ---------- */
         const PRESETS = {
