@@ -543,21 +543,6 @@
       }
     </style>
     <style>
-      /* --- make the plan finder the first subsection (after the hero) --- */
-      .wrap {
-        display: flex;
-        flex-direction: column;
-      }
-      .wrap > * {
-        order: 2;
-      }
-      .wrap > header.hero {
-        order: 0;
-      }
-      .wrap > #plans {
-        order: 1;
-      }
-
       /* --- nav "Find my plan" flare --- */
       .toc-flare {
         background: linear-gradient(135deg, #6d5dfc, #8b5cf6) !important;
@@ -605,11 +590,6 @@
         background: #ecfdf5;
         border: 1px solid #a7f3d0;
         border-radius: 7px;
-      }
-      @media print {
-        .wrap {
-          display: block;
-        }
       }
     </style>
     <style>
@@ -838,153 +818,6 @@
           <button onclick="window.print()">Print / save as PDF</button>
         </div>
       </header>
-      <section id="verdict">
-        <h2>Recommended shortlist</h2>
-        <div class="grid cards-4 ranked">
-          <article class="card pick">
-            <b>Leaptel 500/200 ($105 x 12 mths, then $125) or 1000/400 ($125 x 12 mths, then $145)</b>
-            <p>
-              Best match if you need high upload at a sane price. 500/200 is the likely upload sweet spot; 1000/400 is
-              the “make it feel magical” option.
-            </p>
-            <p class="subtle">
-              <strong>Speeds &amp; prices:</strong> 500/200 — $105 x 12 mths, then $125; 1000/400 — $125 x 12 mths, then
-              $145.
-            </p>
-          </article>
-          <article class="card pick">
-            <b>Neptune Internet / Swoop Business / Aussie Broadband Pro</b>
-            <p>
-              Best if you need static IP, business support, or eSLA-style restoration. More business-like, less
-              promo-churny.
-            </p>
-            <p class="subtle">
-              <strong>Speeds &amp; prices:</strong> Neptune Internet 500/200 $130, 1000/400 $150; Swoop Business
-              1000/400 $129 x 6 mths, then $144; Aussie Broadband Pro 500/200 ~$130, 1000/400 ~$150.
-            </p>
-          </article>
-          <article class="card pick">
-            <b>Everyday value: Exetel / Kogan / TPG / SpinTel / Tangerine</b>
-            <p>
-              Best cheap, no-fuss plans. Most households are well covered by 50/20, 100/20 or 500/50 here — fast
-              downloads and a low monthly cost when upload is not the priority.
-            </p>
-            <p class="subtle">
-              <strong>Speeds &amp; prices:</strong> 50/20 from ~$59–65 intro; 100/20 ~$60–75 intro; 500/50 — Exetel $80
-              ongoing, Kogan $69.90 x 12 mths then $85.90, TPG $69.99 x 12 mths then $94.99, SpinTel $79 x 6 mths then
-              $89.95.
-            </p>
-          </article>
-          <article class="card pick">
-            <b>Launtel</b>
-            <p>
-              Best PAYG-like setup. Daily billing and the ability to test/pause/change speeds is uniquely useful while a
-              household is figuring out how much speed it really needs.
-            </p>
-            <p class="subtle">
-              <strong>Speeds &amp; prices:</strong> 100/20 ~$100/mo; 500/50 ~$105/mo; 1000/100 ~$126/mo; 500/200
-              ~$137/mo (daily billing, change anytime).
-            </p>
-          </article>
-        </div>
-        <div class="callout amber">
-          <strong>Important:</strong> 500/500 and 1000/1000 are not standard residential NBN FTTP tiers. For true
-          symmetric service, look at NBN Enterprise Ethernet, private fibre, or business fibre quotes. For public NBN
-          FTTP, the realistic high-upload targets are 500/200, ~1000/400 and 2000/500.
-        </div>
-      </section>
-      <section id="speed-reality">
-        <h2>Speed and upload reality</h2>
-        <div class="grid cards-3">
-          <article class="card">
-            <b>Residential FTTP tiers</b>
-            <p>
-              Many households only need 25/10, 50/20, 100/20 or a 200-class plan — plenty for streaming, video calls and
-              everyday use. The faster 500/50, 750/50, 1000/100 and 2000/200 tiers are great for big households and
-              heavy downloads, but cost more and are still asymmetric.
-            </p>
-          </article>
-          <article class="card">
-            <b>Business / Pro tiers</b>
-            <p>
-              NBN business FTTP includes 500/200, ~1000/400 and 2000/500 wholesale tiers. This is where upload-heavy
-              profiles usually live.
-            </p>
-          </article>
-          <article class="card">
-            <b>Peak speed</b>
-            <p>
-              The ACCC’s June 2026 data found 1000/100 services averaging 864.6 Mbps in busy hours and 89.8 Mbps upload
-              in busy hours, so peak slowdowns are usually modest but not zero.
-            </p>
-          </article>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Issue</th>
-                <th>What it means</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class=""><strong>Whole-market scope</strong></td>
-                <td class="">
-                  WhistleOut says it compares NBN plans from 33 providers; Finder says it compares 300+ plans from 40+
-                  providers. So “all ISP” is not a static finite list—there are national, niche and business-only
-                  retailers. This report prioritises orderable national FTTP/HFC plans plus high-upload specialists.
-                </td>
-              </tr>
-              <tr>
-                <td class=""><strong>Upload reality</strong></td>
-                <td class="">
-                  Residential NBN FTTP public fast-tier options are 500/50, 750/50, 1000/100 and 2000/200; 500/200 and
-                  ~1000/400 sit in business/Pro-style products. True 500/500 or 1000/1000 is generally not an NBN
-                  residential plan; it is an Enterprise Ethernet/private-fibre quote.
-                </td>
-              </tr>
-              <tr>
-                <td class=""><strong>Peak speed slowdown</strong></td>
-                <td class="">
-                  The ACCC’s June 2026 1000/100 sample averaged 869.5 Mbps all-hours and 864.6 Mbps busy-hours on
-                  1000/100 services, with upload around 90 Mbps. In plain English: peak slowdowns on fixed-line FTTP/HFC
-                  are now usually modest, but 1Gb plans rarely test at a full 1000 Mbps end-to-end.
-                </td>
-              </tr>
-              <tr>
-                <td class=""><strong>Reliability/outages</strong></td>
-                <td class="">
-                  ACCC final reporting showed low outage frequency for monitored fixed-line services; FTTP has fewer
-                  physical bottlenecks than older FTTN/FTTC and is generally the best NBN access technology.
-                </td>
-              </tr>
-              <tr>
-                <td class=""><strong>Support ratings</strong></td>
-                <td class="">
-                  Canstar’s latest provider satisfaction placed Southern Phone first and Aussie Broadband second, with
-                  Aussie the only brand scoring five stars for customer service. CHOICE’s 2025 NBN brand score named
-                  Aussie Broadband best brand, with Dodo/iPrimus second.
-                </td>
-              </tr>
-              <tr>
-                <td class=""><strong>Terms</strong></td>
-                <td class="">
-                  Most BYO-router NBN plans are month-to-month/no lock-in. The catch is “free modem” offers: they often
-                  create an 18/24/36-month hardware repayment or return obligation.
-                </td>
-              </tr>
-              <tr>
-                <td class=""><strong>New development fee</strong></td>
-                <td class="">
-                  For a newly connected apartment/building, ask the first ISP whether the NBN new-connection/end-user
-                  contribution applies. NBN says it can be up to $300 inc. GST and providers may pass it on.
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
       <section id="plans">
         <h2>All checked plan offers: speed, price and best fit</h2>
         <p class="note">
@@ -5422,6 +5255,153 @@
                   <a href="https://www.zipfibre.com.au/" rel="noopener" target="_blank"
                     >Whirlpool supplemental May 2026</a
                   >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <section id="verdict">
+        <h2>Recommended shortlist</h2>
+        <div class="grid cards-4 ranked">
+          <article class="card pick">
+            <b>Leaptel 500/200 ($105 x 12 mths, then $125) or 1000/400 ($125 x 12 mths, then $145)</b>
+            <p>
+              Best match if you need high upload at a sane price. 500/200 is the likely upload sweet spot; 1000/400 is
+              the “make it feel magical” option.
+            </p>
+            <p class="subtle">
+              <strong>Speeds &amp; prices:</strong> 500/200 — $105 x 12 mths, then $125; 1000/400 — $125 x 12 mths, then
+              $145.
+            </p>
+          </article>
+          <article class="card pick">
+            <b>Neptune Internet / Swoop Business / Aussie Broadband Pro</b>
+            <p>
+              Best if you need static IP, business support, or eSLA-style restoration. More business-like, less
+              promo-churny.
+            </p>
+            <p class="subtle">
+              <strong>Speeds &amp; prices:</strong> Neptune Internet 500/200 $130, 1000/400 $150; Swoop Business
+              1000/400 $129 x 6 mths, then $144; Aussie Broadband Pro 500/200 ~$130, 1000/400 ~$150.
+            </p>
+          </article>
+          <article class="card pick">
+            <b>Everyday value: Exetel / Kogan / TPG / SpinTel / Tangerine</b>
+            <p>
+              Best cheap, no-fuss plans. Most households are well covered by 50/20, 100/20 or 500/50 here — fast
+              downloads and a low monthly cost when upload is not the priority.
+            </p>
+            <p class="subtle">
+              <strong>Speeds &amp; prices:</strong> 50/20 from ~$59–65 intro; 100/20 ~$60–75 intro; 500/50 — Exetel $80
+              ongoing, Kogan $69.90 x 12 mths then $85.90, TPG $69.99 x 12 mths then $94.99, SpinTel $79 x 6 mths then
+              $89.95.
+            </p>
+          </article>
+          <article class="card pick">
+            <b>Launtel</b>
+            <p>
+              Best PAYG-like setup. Daily billing and the ability to test/pause/change speeds is uniquely useful while a
+              household is figuring out how much speed it really needs.
+            </p>
+            <p class="subtle">
+              <strong>Speeds &amp; prices:</strong> 100/20 ~$100/mo; 500/50 ~$105/mo; 1000/100 ~$126/mo; 500/200
+              ~$137/mo (daily billing, change anytime).
+            </p>
+          </article>
+        </div>
+        <div class="callout amber">
+          <strong>Important:</strong> 500/500 and 1000/1000 are not standard residential NBN FTTP tiers. For true
+          symmetric service, look at NBN Enterprise Ethernet, private fibre, or business fibre quotes. For public NBN
+          FTTP, the realistic high-upload targets are 500/200, ~1000/400 and 2000/500.
+        </div>
+      </section>
+      <section id="speed-reality">
+        <h2>Speed and upload reality</h2>
+        <div class="grid cards-3">
+          <article class="card">
+            <b>Residential FTTP tiers</b>
+            <p>
+              Many households only need 25/10, 50/20, 100/20 or a 200-class plan — plenty for streaming, video calls and
+              everyday use. The faster 500/50, 750/50, 1000/100 and 2000/200 tiers are great for big households and
+              heavy downloads, but cost more and are still asymmetric.
+            </p>
+          </article>
+          <article class="card">
+            <b>Business / Pro tiers</b>
+            <p>
+              NBN business FTTP includes 500/200, ~1000/400 and 2000/500 wholesale tiers. This is where upload-heavy
+              profiles usually live.
+            </p>
+          </article>
+          <article class="card">
+            <b>Peak speed</b>
+            <p>
+              The ACCC’s June 2026 data found 1000/100 services averaging 864.6 Mbps in busy hours and 89.8 Mbps upload
+              in busy hours, so peak slowdowns are usually modest but not zero.
+            </p>
+          </article>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Issue</th>
+                <th>What it means</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class=""><strong>Whole-market scope</strong></td>
+                <td class="">
+                  WhistleOut says it compares NBN plans from 33 providers; Finder says it compares 300+ plans from 40+
+                  providers. So “all ISP” is not a static finite list—there are national, niche and business-only
+                  retailers. This report prioritises orderable national FTTP/HFC plans plus high-upload specialists.
+                </td>
+              </tr>
+              <tr>
+                <td class=""><strong>Upload reality</strong></td>
+                <td class="">
+                  Residential NBN FTTP public fast-tier options are 500/50, 750/50, 1000/100 and 2000/200; 500/200 and
+                  ~1000/400 sit in business/Pro-style products. True 500/500 or 1000/1000 is generally not an NBN
+                  residential plan; it is an Enterprise Ethernet/private-fibre quote.
+                </td>
+              </tr>
+              <tr>
+                <td class=""><strong>Peak speed slowdown</strong></td>
+                <td class="">
+                  The ACCC’s June 2026 1000/100 sample averaged 869.5 Mbps all-hours and 864.6 Mbps busy-hours on
+                  1000/100 services, with upload around 90 Mbps. In plain English: peak slowdowns on fixed-line FTTP/HFC
+                  are now usually modest, but 1Gb plans rarely test at a full 1000 Mbps end-to-end.
+                </td>
+              </tr>
+              <tr>
+                <td class=""><strong>Reliability/outages</strong></td>
+                <td class="">
+                  ACCC final reporting showed low outage frequency for monitored fixed-line services; FTTP has fewer
+                  physical bottlenecks than older FTTN/FTTC and is generally the best NBN access technology.
+                </td>
+              </tr>
+              <tr>
+                <td class=""><strong>Support ratings</strong></td>
+                <td class="">
+                  Canstar’s latest provider satisfaction placed Southern Phone first and Aussie Broadband second, with
+                  Aussie the only brand scoring five stars for customer service. CHOICE’s 2025 NBN brand score named
+                  Aussie Broadband best brand, with Dodo/iPrimus second.
+                </td>
+              </tr>
+              <tr>
+                <td class=""><strong>Terms</strong></td>
+                <td class="">
+                  Most BYO-router NBN plans are month-to-month/no lock-in. The catch is “free modem” offers: they often
+                  create an 18/24/36-month hardware repayment or return obligation.
+                </td>
+              </tr>
+              <tr>
+                <td class=""><strong>New development fee</strong></td>
+                <td class="">
+                  For a newly connected apartment/building, ask the first ISP whether the NBN new-connection/end-user
+                  contribution applies. NBN says it can be up to $300 inc. GST and providers may pass it on.
                 </td>
               </tr>
             </tbody>
