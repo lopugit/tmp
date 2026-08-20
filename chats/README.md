@@ -31,3 +31,4 @@ New requests are logged here automatically (see ../AI.md).
 | 21 | live rescrape all isps update data json |
 | 22 | deploy to vercel as nbncompare |
 | 23 | connect nbncompare org domain |
+| 24 | cache timestamp data complete market rescrape push main |

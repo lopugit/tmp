@@ -1,7 +1,7 @@
 {
   "data.json": {
-    "mtime": 1782750555.478189,
-    "ast_hash": "33c0b1457e93f2e0128e87009ff58cb1",
+    "mtime": 1787200642.8669386,
+    "ast_hash": "290a71b6f57cdc9ef0ed0667cbaea9a9",
     "semantic_hash": ""
   },
   "previous_scrapes/data.2026-06-29.json": {
@@ -185,13 +185,13 @@
     "semantic_hash": ""
   },
   "chats/README.md": {
-    "mtime": 1782751733.9636393,
-    "ast_hash": "f92b3fec3a1454f2ed9a27d0c568317a",
+    "mtime": 1787197319.8511038,
+    "ast_hash": "6f20dcf5d041a582a40c8a2671b7e09f",
     "semantic_hash": ""
   },
   "index.html": {
-    "mtime": 1782749223.5770576,
-    "ast_hash": "f1ba98fab5c08dacaae47f389703810c",
+    "mtime": 1787200857.5189075,
+    "ast_hash": "b6651b9937c57d32482c48d60e96f730",
     "semantic_hash": ""
   },
   "previous_scrapes/README.md": {
@@ -202,6 +202,16 @@
   "scrape/README.md": {
     "mtime": 1782749223.5775552,
     "ast_hash": "723fecaefc00d01b024a597bfd0335cd",
+    "semantic_hash": ""
+  },
+  "previous_scrapes/data.2026-08-20.json": {
+    "mtime": 1782750555.478189,
+    "ast_hash": "33c0b1457e93f2e0128e87009ff58cb1",
+    "semantic_hash": ""
+  },
+  "chats/24-cache-timestamp-rescrape-market-push-main-2026-08-20.md": {
+    "mtime": 1787198516.6309452,
+    "ast_hash": "121edd340559e642f8723162f3ebe3c0",
     "semantic_hash": ""
   }
 }

@@ -110,7 +110,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "agents",
-      "community": 33,
+      "community": 2,
       "norm_label": "agents.md"
     },
     {
@@ -190,7 +190,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "ai_rescrape",
-      "community": 1,
+      "community": 4,
       "norm_label": "ai_rescrape.md"
     },
     {
@@ -430,7 +430,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "claude",
-      "community": 35,
+      "community": 2,
       "norm_label": "claude.md"
     },
     {
@@ -1204,6 +1204,46 @@
       "norm_label": "23. connect nbncompare.org domain"
     },
     {
+      "label": "24-cache-timestamp-rescrape-market-push-main-2026-08-20.md",
+      "file_type": "document",
+      "source_file": "chats/24-cache-timestamp-rescrape-market-push-main-2026-08-20.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "chats_24_cache_timestamp_rescrape_market_push_main_2026_08_20",
+      "community": 32,
+      "norm_label": "24-cache-timestamp-rescrape-market-push-main-2026-08-20.md"
+    },
+    {
+      "label": "Request 24 \u2014 Cache + timestamp current data, complete market re-analysis, push to main",
+      "file_type": "document",
+      "source_file": "chats/24-cache-timestamp-rescrape-market-push-main-2026-08-20.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "chats_24_cache_timestamp_rescrape_market_push_main_2026_08_20_request_24_cache_timestamp_current_data_complete_market_re_analysis_push_to_main",
+      "community": 32,
+      "norm_label": "request 24 \u2014 cache + timestamp current data, complete market re-analysis, push to main"
+    },
+    {
+      "label": "Verbatim request",
+      "file_type": "document",
+      "source_file": "chats/24-cache-timestamp-rescrape-market-push-main-2026-08-20.md",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "chats_24_cache_timestamp_rescrape_market_push_main_2026_08_20_verbatim_request",
+      "community": 32,
+      "norm_label": "verbatim request"
+    },
+    {
+      "label": "Mid-task correction (verbatim)",
+      "file_type": "document",
+      "source_file": "chats/24-cache-timestamp-rescrape-market-push-main-2026-08-20.md",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "chats_24_cache_timestamp_rescrape_market_push_main_2026_08_20_mid_task_correction_verbatim",
+      "community": 32,
+      "norm_label": "mid-task correction (verbatim)"
+    },
+    {
       "label": "README.md",
       "file_type": "document",
       "source_file": "chats/README.md",
@@ -1240,7 +1280,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scrape_readme",
-      "community": 32,
+      "community": 4,
       "norm_label": "readme.md"
     },
     {
@@ -1250,7 +1290,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scrape_readme_scrape",
-      "community": 32,
+      "community": 4,
       "norm_label": "scrape/"
     }
   ],
@@ -1261,9 +1301,9 @@
       "source_file": "scrape/build_data.py",
       "source_location": "L69",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scrape_build_data",
-      "target": "scrape_build_data_apply_corrections"
+      "target": "scrape_build_data_apply_corrections",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1271,9 +1311,9 @@
       "source_file": "scrape/extract_from_html.py",
       "source_location": "L28",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scrape_extract_from_html",
-      "target": "scrape_extract_from_html_attr"
+      "target": "scrape_extract_from_html_attr",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1281,9 +1321,9 @@
       "source_file": "scrape/extract_from_html.py",
       "source_location": "L33",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scrape_extract_from_html",
-      "target": "scrape_extract_from_html_extract"
+      "target": "scrape_extract_from_html_extract",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1291,9 +1331,9 @@
       "source_file": "scrape/extract_from_html.py",
       "source_location": "L22",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scrape_extract_from_html",
-      "target": "scrape_extract_from_html_strip_tags"
+      "target": "scrape_extract_from_html_strip_tags",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -1302,9 +1342,9 @@
       "source_file": "scrape/extract_from_html.py",
       "source_location": "L47",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scrape_extract_from_html_extract",
-      "target": "scrape_extract_from_html_strip_tags"
+      "target": "scrape_extract_from_html_strip_tags",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -1313,9 +1353,9 @@
       "source_file": "scrape/extract_from_html.py",
       "source_location": "L47",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scrape_extract_from_html_extract",
-      "target": "scrape_extract_from_html_attr"
+      "target": "scrape_extract_from_html_attr",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1323,9 +1363,9 @@
       "source_file": "scrape/validate_data.py",
       "source_location": "L28",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scrape_validate_data",
-      "target": "scrape_validate_data_cost_from_text"
+      "target": "scrape_validate_data_cost_from_text",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1333,9 +1373,9 @@
       "source_file": "scrape/validate_data.py",
       "source_location": "L88",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scrape_validate_data",
-      "target": "scrape_validate_data_diff"
+      "target": "scrape_validate_data_diff",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1343,9 +1383,9 @@
       "source_file": "scrape/validate_data.py",
       "source_location": "L55",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scrape_validate_data",
-      "target": "scrape_validate_data_validate"
+      "target": "scrape_validate_data_validate",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -1354,9 +1394,9 @@
       "source_file": "scrape/validate_data.py",
       "source_location": "L99",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scrape_validate_data_diff",
-      "target": "scrape_validate_data_cost_from_text"
+      "target": "scrape_validate_data_cost_from_text",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -1365,9 +1405,19 @@
       "source_file": "scrape/validate_data.py",
       "source_location": "L69",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scrape_validate_data_validate",
-      "target": "scrape_validate_data_cost_from_text"
+      "target": "scrape_validate_data_cost_from_text",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "agents",
+      "target": "ai",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1375,9 +1425,19 @@
       "source_file": "AI.md",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "ai",
-      "target": "ai_ai_md_shared_working_agreement_for_this_repo"
+      "target": "ai_ai_md_shared_working_agreement_for_this_repo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "CLAUDE.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "claude",
+      "target": "ai",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1385,9 +1445,9 @@
       "source_file": "AI.md",
       "source_location": "L45",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "ai_ai_md_shared_working_agreement_for_this_repo",
-      "target": "ai_quick_orientation"
+      "target": "ai_quick_orientation",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1395,9 +1455,9 @@
       "source_file": "AI.md",
       "source_location": "L13",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "ai_ai_md_shared_working_agreement_for_this_repo",
-      "target": "ai_standing_conventions_do_these_automatically_don_t_wait_to_be_asked"
+      "target": "ai_standing_conventions_do_these_automatically_don_t_wait_to_be_asked",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1405,9 +1465,9 @@
       "source_file": "AI.md",
       "source_location": "L15",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "ai_standing_conventions_do_these_automatically_don_t_wait_to_be_asked",
-      "target": "ai_1_log_every_user_request_into_chats"
+      "target": "ai_1_log_every_user_request_into_chats",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1415,9 +1475,9 @@
       "source_file": "AI.md",
       "source_location": "L29",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "ai_standing_conventions_do_these_automatically_don_t_wait_to_be_asked",
-      "target": "ai_2_always_commit_and_push_finished_changes_don_t_ask"
+      "target": "ai_2_always_commit_and_push_finished_changes_don_t_ask",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1425,9 +1485,9 @@
       "source_file": "AI.md",
       "source_location": "L36",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "ai_standing_conventions_do_these_automatically_don_t_wait_to_be_asked",
-      "target": "ai_3_ai_led_analysis_over_scripts"
+      "target": "ai_3_ai_led_analysis_over_scripts",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1435,9 +1495,29 @@
       "source_file": "AI_RESCRAPE.md",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "ai_rescrape",
-      "target": "ai_rescrape_ai_rescrape_md_how_to_re_scrape_update_the_nbn_fttp_plan_data"
+      "target": "ai_rescrape_ai_rescrape_md_how_to_re_scrape_update_the_nbn_fttp_plan_data",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "AI_RESCRAPE.md",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "ai_rescrape",
+      "target": "ai_rescrape_method",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "scrape/README.md",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "scrape_readme",
+      "target": "ai_rescrape",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1445,9 +1525,9 @@
       "source_file": "AI_RESCRAPE.md",
       "source_location": "L21",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "ai_rescrape_ai_rescrape_md_how_to_re_scrape_update_the_nbn_fttp_plan_data",
-      "target": "ai_rescrape_1_data_model_data_json"
+      "target": "ai_rescrape_1_data_model_data_json",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1455,9 +1535,9 @@
       "source_file": "AI_RESCRAPE.md",
       "source_location": "L62",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "ai_rescrape_ai_rescrape_md_how_to_re_scrape_update_the_nbn_fttp_plan_data",
-      "target": "ai_rescrape_2_price_text_format_must_stay_parseable"
+      "target": "ai_rescrape_2_price_text_format_must_stay_parseable",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1465,9 +1545,9 @@
       "source_file": "AI_RESCRAPE.md",
       "source_location": "L91",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "ai_rescrape_ai_rescrape_md_how_to_re_scrape_update_the_nbn_fttp_plan_data",
-      "target": "ai_rescrape_3_scripts_scrape"
+      "target": "ai_rescrape_3_scripts_scrape",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1475,9 +1555,9 @@
       "source_file": "AI_RESCRAPE.md",
       "source_location": "L107",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "ai_rescrape_ai_rescrape_md_how_to_re_scrape_update_the_nbn_fttp_plan_data",
-      "target": "ai_rescrape_4_re_scrape_procedure"
+      "target": "ai_rescrape_4_re_scrape_procedure",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1485,9 +1565,9 @@
       "source_file": "AI_RESCRAPE.md",
       "source_location": "L192",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "ai_rescrape_ai_rescrape_md_how_to_re_scrape_update_the_nbn_fttp_plan_data",
-      "target": "ai_rescrape_5_directory_map"
+      "target": "ai_rescrape_5_directory_map",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1495,9 +1575,9 @@
       "source_file": "AI_RESCRAPE.md",
       "source_location": "L51",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "ai_rescrape_1_data_model_data_json",
-      "target": "ai_rescrape_derived_fields_are_not_stored_they_are_computed_in_the_browser"
+      "target": "ai_rescrape_derived_fields_are_not_stored_they_are_computed_in_the_browser",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1505,9 +1585,9 @@
       "source_file": "AI_RESCRAPE.md",
       "source_location": "L76",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "ai_rescrape_2_price_text_format_must_stay_parseable",
-      "target": "ai_rescrape_the_accuracy_rule_that_caused_the_leaptel_bug_read_this"
+      "target": "ai_rescrape_the_accuracy_rule_that_caused_the_leaptel_bug_read_this",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1515,9 +1595,9 @@
       "source_file": "AI_RESCRAPE.md",
       "source_location": "L109",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "ai_rescrape_4_re_scrape_procedure",
-      "target": "ai_rescrape_step_0_back_up"
+      "target": "ai_rescrape_step_0_back_up",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1525,9 +1605,9 @@
       "source_file": "AI_RESCRAPE.md",
       "source_location": "L115",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "ai_rescrape_4_re_scrape_procedure",
-      "target": "ai_rescrape_step_1_re_compile_every_isp_from_the_live_web_visually_don_t_trust_old_values"
+      "target": "ai_rescrape_step_1_re_compile_every_isp_from_the_live_web_visually_don_t_trust_old_values",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1535,9 +1615,9 @@
       "source_file": "AI_RESCRAPE.md",
       "source_location": "L126",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "ai_rescrape_4_re_scrape_procedure",
-      "target": "ai_rescrape_step_2_hunt_for_new_providers_offerings_missed_last_time"
+      "target": "ai_rescrape_step_2_hunt_for_new_providers_offerings_missed_last_time",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1545,9 +1625,9 @@
       "source_file": "AI_RESCRAPE.md",
       "source_location": "L134",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "ai_rescrape_4_re_scrape_procedure",
-      "target": "ai_rescrape_step_3_triple_check_inferred_values"
+      "target": "ai_rescrape_step_3_triple_check_inferred_values",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1555,9 +1635,9 @@
       "source_file": "AI_RESCRAPE.md",
       "source_location": "L139",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "ai_rescrape_4_re_scrape_procedure",
-      "target": "ai_rescrape_step_4_rebuild_review"
+      "target": "ai_rescrape_step_4_rebuild_review",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1565,9 +1645,9 @@
       "source_file": "AI_RESCRAPE.md",
       "source_location": "L148",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "ai_rescrape_4_re_scrape_procedure",
-      "target": "ai_rescrape_step_5_compare_against_the_backup_broken_scrape_detection_ai_led"
+      "target": "ai_rescrape_step_5_compare_against_the_backup_broken_scrape_detection_ai_led",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1575,9 +1655,9 @@
       "source_file": "AI_RESCRAPE.md",
       "source_location": "L172",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "ai_rescrape_4_re_scrape_procedure",
-      "target": "ai_rescrape_step_6_update_the_hand_written_editorial_bits_in_index_html"
+      "target": "ai_rescrape_step_6_update_the_hand_written_editorial_bits_in_index_html",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1585,9 +1665,9 @@
       "source_file": "AI_RESCRAPE.md",
       "source_location": "L179",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "ai_rescrape_4_re_scrape_procedure",
-      "target": "ai_rescrape_step_7_verify_in_a_browser"
+      "target": "ai_rescrape_step_7_verify_in_a_browser",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1595,9 +1675,9 @@
       "source_file": "AI_RESCRAPE.md",
       "source_location": "L186",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "ai_rescrape_4_re_scrape_procedure",
-      "target": "ai_rescrape_step_8_record_the_change"
+      "target": "ai_rescrape_step_8_record_the_change",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1605,9 +1685,19 @@
       "source_file": "AI_RESCRAPE.method.md",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "ai_rescrape_method",
-      "target": "ai_rescrape_method_ai_rescrape_method_md_how_claude_actually_gathers_the_data"
+      "target": "ai_rescrape_method_ai_rescrape_method_md_how_claude_actually_gathers_the_data",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "scrape/README.md",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "scrape_readme",
+      "target": "ai_rescrape_method",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1615,9 +1705,9 @@
       "source_file": "AI_RESCRAPE.method.md",
       "source_location": "L80",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "ai_rescrape_method_ai_rescrape_method_md_how_claude_actually_gathers_the_data",
-      "target": "ai_rescrape_method_environment_requirements_run_it_somewhere_with_real_web_access"
+      "target": "ai_rescrape_method_environment_requirements_run_it_somewhere_with_real_web_access",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1625,9 +1715,9 @@
       "source_file": "AI_RESCRAPE.method.md",
       "source_location": "L20",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "ai_rescrape_method_ai_rescrape_method_md_how_claude_actually_gathers_the_data",
-      "target": "ai_rescrape_method_the_method_per_isp"
+      "target": "ai_rescrape_method_the_method_per_isp",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1635,9 +1725,9 @@
       "source_file": "AI_RESCRAPE.method.md",
       "source_location": "L51",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "ai_rescrape_method_ai_rescrape_method_md_how_claude_actually_gathers_the_data",
-      "target": "ai_rescrape_method_where_the_scrape_scripts_fit_downstream_only"
+      "target": "ai_rescrape_method_where_the_scrape_scripts_fit_downstream_only",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1645,9 +1735,9 @@
       "source_file": "AI_RESCRAPE.method.md",
       "source_location": "L68",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "ai_rescrape_method_ai_rescrape_method_md_how_claude_actually_gathers_the_data",
-      "target": "ai_rescrape_method_why_visual_oversight_is_required_the_leaptel_example"
+      "target": "ai_rescrape_method_why_visual_oversight_is_required_the_leaptel_example",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1655,29 +1745,29 @@
       "source_file": "VERCEL_DEPLOYMENTS.md",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "vercel_deployments",
-      "target": "vercel_deployments_vercel_deployments"
+      "target": "vercel_deployments_vercel_deployments",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "VERCEL_DEPLOYMENTS.md",
-      "source_location": "L18",
+      "source_location": "L23",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "vercel_deployments_vercel_deployments",
-      "target": "vercel_deployments_custom_domains"
+      "target": "vercel_deployments_custom_domains",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "VERCEL_DEPLOYMENTS.md",
-      "source_location": "L31",
+      "source_location": "L36",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "vercel_deployments_vercel_deployments",
-      "target": "vercel_deployments_notes"
+      "target": "vercel_deployments_notes",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1685,9 +1775,9 @@
       "source_file": "VERCEL_DEPLOYMENTS.md",
       "source_location": "L9",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "vercel_deployments_vercel_deployments",
-      "target": "vercel_deployments_production_deployment"
+      "target": "vercel_deployments_production_deployment",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1695,9 +1785,9 @@
       "source_file": "chats/01-initial-site-overhaul-deresident-sort-pagination-presets-fix-filtering-2026-06-29.md",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_01_initial_site_overhaul_deresident_sort_pagination_presets_fix_filtering_2026_06_29",
-      "target": "chats_01_initial_site_overhaul_deresident_sort_pagination_presets_fix_filtering_2026_06_29_request_01_initial_site_overhaul_deresident_sort_pagination_presets_fix_filtering"
+      "target": "chats_01_initial_site_overhaul_deresident_sort_pagination_presets_fix_filtering_2026_06_29_request_01_initial_site_overhaul_deresident_sort_pagination_presets_fix_filtering",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1705,9 +1795,9 @@
       "source_file": "chats/01-initial-site-overhaul-deresident-sort-pagination-presets-fix-filtering-2026-06-29.md",
       "source_location": "L6",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_01_initial_site_overhaul_deresident_sort_pagination_presets_fix_filtering_2026_06_29_request_01_initial_site_overhaul_deresident_sort_pagination_presets_fix_filtering",
-      "target": "chats_01_initial_site_overhaul_deresident_sort_pagination_presets_fix_filtering_2026_06_29_verbatim_request"
+      "target": "chats_01_initial_site_overhaul_deresident_sort_pagination_presets_fix_filtering_2026_06_29_verbatim_request",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1715,9 +1805,9 @@
       "source_file": "chats/02-prettify-format-the-file-2026-06-29.md",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_02_prettify_format_the_file_2026_06_29",
-      "target": "chats_02_prettify_format_the_file_2026_06_29_request_02_prettify_format_the_file"
+      "target": "chats_02_prettify_format_the_file_2026_06_29_request_02_prettify_format_the_file",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1725,9 +1815,9 @@
       "source_file": "chats/02-prettify-format-the-file-2026-06-29.md",
       "source_location": "L6",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_02_prettify_format_the_file_2026_06_29_request_02_prettify_format_the_file",
-      "target": "chats_02_prettify_format_the_file_2026_06_29_verbatim_request"
+      "target": "chats_02_prettify_format_the_file_2026_06_29_verbatim_request",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1735,9 +1825,9 @@
       "source_file": "chats/03-share-as-loadable-artifact-link-2026-06-29.md",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_03_share_as_loadable_artifact_link_2026_06_29",
-      "target": "chats_03_share_as_loadable_artifact_link_2026_06_29_request_03_share_as_loadable_artifact_link"
+      "target": "chats_03_share_as_loadable_artifact_link_2026_06_29_request_03_share_as_loadable_artifact_link",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1745,9 +1835,9 @@
       "source_file": "chats/03-share-as-loadable-artifact-link-2026-06-29.md",
       "source_location": "L6",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_03_share_as_loadable_artifact_link_2026_06_29_request_03_share_as_loadable_artifact_link",
-      "target": "chats_03_share_as_loadable_artifact_link_2026_06_29_verbatim_request"
+      "target": "chats_03_share_as_loadable_artifact_link_2026_06_29_verbatim_request",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1755,9 +1845,9 @@
       "source_file": "chats/04-investigation-filters-and-search-still-not-working-2026-06-29.md",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_04_investigation_filters_and_search_still_not_working_2026_06_29",
-      "target": "chats_04_investigation_filters_and_search_still_not_working_2026_06_29_request_04_investigation_filters_and_search_still_not_working"
+      "target": "chats_04_investigation_filters_and_search_still_not_working_2026_06_29_request_04_investigation_filters_and_search_still_not_working",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1765,9 +1855,9 @@
       "source_file": "chats/04-investigation-filters-and-search-still-not-working-2026-06-29.md",
       "source_location": "L6",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_04_investigation_filters_and_search_still_not_working_2026_06_29_request_04_investigation_filters_and_search_still_not_working",
-      "target": "chats_04_investigation_filters_and_search_still_not_working_2026_06_29_verbatim_request"
+      "target": "chats_04_investigation_filters_and_search_still_not_working_2026_06_29_verbatim_request",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1775,9 +1865,9 @@
       "source_file": "chats/05-investigation-ten-item-show-more-missing-2026-06-29.md",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_05_investigation_ten_item_show_more_missing_2026_06_29",
-      "target": "chats_05_investigation_ten_item_show_more_missing_2026_06_29_request_05_investigation_ten_item_show_more_missing"
+      "target": "chats_05_investigation_ten_item_show_more_missing_2026_06_29_request_05_investigation_ten_item_show_more_missing",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1785,9 +1875,9 @@
       "source_file": "chats/05-investigation-ten-item-show-more-missing-2026-06-29.md",
       "source_location": "L6",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_05_investigation_ten_item_show_more_missing_2026_06_29_request_05_investigation_ten_item_show_more_missing",
-      "target": "chats_05_investigation_ten_item_show_more_missing_2026_06_29_verbatim_request"
+      "target": "chats_05_investigation_ten_item_show_more_missing_2026_06_29_verbatim_request",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1795,9 +1885,9 @@
       "source_file": "chats/06-investigation-do-claude-artifacts-have-urls-2026-06-29.md",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_06_investigation_do_claude_artifacts_have_urls_2026_06_29",
-      "target": "chats_06_investigation_do_claude_artifacts_have_urls_2026_06_29_request_06_investigation_do_claude_artifacts_have_urls"
+      "target": "chats_06_investigation_do_claude_artifacts_have_urls_2026_06_29_request_06_investigation_do_claude_artifacts_have_urls",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1805,9 +1895,9 @@
       "source_file": "chats/06-investigation-do-claude-artifacts-have-urls-2026-06-29.md",
       "source_location": "L6",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_06_investigation_do_claude_artifacts_have_urls_2026_06_29_request_06_investigation_do_claude_artifacts_have_urls",
-      "target": "chats_06_investigation_do_claude_artifacts_have_urls_2026_06_29_verbatim_request"
+      "target": "chats_06_investigation_do_claude_artifacts_have_urls_2026_06_29_verbatim_request",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1815,9 +1905,9 @@
       "source_file": "chats/07-finder-first-section-nav-flare-12mo-cost-column-up-down-filters-2026-06-29.md",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_07_finder_first_section_nav_flare_12mo_cost_column_up_down_filters_2026_06_29",
-      "target": "chats_07_finder_first_section_nav_flare_12mo_cost_column_up_down_filters_2026_06_29_request_07_finder_first_section_nav_flare_12mo_cost_column_up_down_filters"
+      "target": "chats_07_finder_first_section_nav_flare_12mo_cost_column_up_down_filters_2026_06_29_request_07_finder_first_section_nav_flare_12mo_cost_column_up_down_filters",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1825,9 +1915,9 @@
       "source_file": "chats/07-finder-first-section-nav-flare-12mo-cost-column-up-down-filters-2026-06-29.md",
       "source_location": "L6",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_07_finder_first_section_nav_flare_12mo_cost_column_up_down_filters_2026_06_29_request_07_finder_first_section_nav_flare_12mo_cost_column_up_down_filters",
-      "target": "chats_07_finder_first_section_nav_flare_12mo_cost_column_up_down_filters_2026_06_29_verbatim_request"
+      "target": "chats_07_finder_first_section_nav_flare_12mo_cost_column_up_down_filters_2026_06_29_verbatim_request",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1835,9 +1925,9 @@
       "source_file": "chats/08-add-minimum-contract-length-column-and-filter-2026-06-29.md",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_08_add_minimum_contract_length_column_and_filter_2026_06_29",
-      "target": "chats_08_add_minimum_contract_length_column_and_filter_2026_06_29_request_08_add_minimum_contract_length_column_and_filter"
+      "target": "chats_08_add_minimum_contract_length_column_and_filter_2026_06_29_request_08_add_minimum_contract_length_column_and_filter",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1845,9 +1935,9 @@
       "source_file": "chats/08-add-minimum-contract-length-column-and-filter-2026-06-29.md",
       "source_location": "L6",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_08_add_minimum_contract_length_column_and_filter_2026_06_29_request_08_add_minimum_contract_length_column_and_filter",
-      "target": "chats_08_add_minimum_contract_length_column_and_filter_2026_06_29_verbatim_request"
+      "target": "chats_08_add_minimum_contract_length_column_and_filter_2026_06_29_verbatim_request",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1855,9 +1945,9 @@
       "source_file": "chats/09-12mo-cost-everywhere-all-tier-combos-aussie-pro-rename-clickable-providers-savings-sort-2026-06-29.md",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_09_12mo_cost_everywhere_all_tier_combos_aussie_pro_rename_clickable_providers_savings_sort_2026_06_29",
-      "target": "chats_09_12mo_cost_everywhere_all_tier_combos_aussie_pro_rename_clickable_providers_savings_sort_2026_06_29_request_09_12mo_cost_everywhere_all_tier_combos_aussie_pro_rename_clickable_providers_savings_sort"
+      "target": "chats_09_12mo_cost_everywhere_all_tier_combos_aussie_pro_rename_clickable_providers_savings_sort_2026_06_29_request_09_12mo_cost_everywhere_all_tier_combos_aussie_pro_rename_clickable_providers_savings_sort",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1865,9 +1955,9 @@
       "source_file": "chats/09-12mo-cost-everywhere-all-tier-combos-aussie-pro-rename-clickable-providers-savings-sort-2026-06-29.md",
       "source_location": "L6",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_09_12mo_cost_everywhere_all_tier_combos_aussie_pro_rename_clickable_providers_savings_sort_2026_06_29_request_09_12mo_cost_everywhere_all_tier_combos_aussie_pro_rename_clickable_providers_savings_sort",
-      "target": "chats_09_12mo_cost_everywhere_all_tier_combos_aussie_pro_rename_clickable_providers_savings_sort_2026_06_29_verbatim_request"
+      "target": "chats_09_12mo_cost_everywhere_all_tier_combos_aussie_pro_rename_clickable_providers_savings_sort_2026_06_29_verbatim_request",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1875,9 +1965,9 @@
       "source_file": "chats/10-monthly-cost-filter-sort-split-avg-ongoing-promo-2026-06-29.md",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_10_monthly_cost_filter_sort_split_avg_ongoing_promo_2026_06_29",
-      "target": "chats_10_monthly_cost_filter_sort_split_avg_ongoing_promo_2026_06_29_request_10_monthly_cost_filter_sort_split_avg_ongoing_promo"
+      "target": "chats_10_monthly_cost_filter_sort_split_avg_ongoing_promo_2026_06_29_request_10_monthly_cost_filter_sort_split_avg_ongoing_promo",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1885,9 +1975,9 @@
       "source_file": "chats/10-monthly-cost-filter-sort-split-avg-ongoing-promo-2026-06-29.md",
       "source_location": "L6",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_10_monthly_cost_filter_sort_split_avg_ongoing_promo_2026_06_29_request_10_monthly_cost_filter_sort_split_avg_ongoing_promo",
-      "target": "chats_10_monthly_cost_filter_sort_split_avg_ongoing_promo_2026_06_29_verbatim_request"
+      "target": "chats_10_monthly_cost_filter_sort_split_avg_ongoing_promo_2026_06_29_verbatim_request",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1895,9 +1985,9 @@
       "source_file": "chats/11-floating-back-to-top-button-2026-06-29.md",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_11_floating_back_to_top_button_2026_06_29",
-      "target": "chats_11_floating_back_to_top_button_2026_06_29_request_11_floating_back_to_top_button"
+      "target": "chats_11_floating_back_to_top_button_2026_06_29_request_11_floating_back_to_top_button",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1905,9 +1995,9 @@
       "source_file": "chats/11-floating-back-to-top-button-2026-06-29.md",
       "source_location": "L6",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_11_floating_back_to_top_button_2026_06_29_request_11_floating_back_to_top_button",
-      "target": "chats_11_floating_back_to_top_button_2026_06_29_verbatim_request"
+      "target": "chats_11_floating_back_to_top_button_2026_06_29_verbatim_request",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1915,9 +2005,9 @@
       "source_file": "chats/12-populate-router-cost-column-split-router-filters-into-two-popups-2026-06-29.md",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_12_populate_router_cost_column_split_router_filters_into_two_popups_2026_06_29",
-      "target": "chats_12_populate_router_cost_column_split_router_filters_into_two_popups_2026_06_29_request_12_populate_router_cost_column_split_router_filters_into_two_popups"
+      "target": "chats_12_populate_router_cost_column_split_router_filters_into_two_popups_2026_06_29_request_12_populate_router_cost_column_split_router_filters_into_two_popups",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1925,9 +2015,9 @@
       "source_file": "chats/12-populate-router-cost-column-split-router-filters-into-two-popups-2026-06-29.md",
       "source_location": "L6",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_12_populate_router_cost_column_split_router_filters_into_two_popups_2026_06_29_request_12_populate_router_cost_column_split_router_filters_into_two_popups",
-      "target": "chats_12_populate_router_cost_column_split_router_filters_into_two_popups_2026_06_29_verbatim_request"
+      "target": "chats_12_populate_router_cost_column_split_router_filters_into_two_popups_2026_06_29_verbatim_request",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1935,9 +2025,9 @@
       "source_file": "chats/13-extract-data-to-json-add-rescrape-md-fix-leaptel-savings-2026-06-29.md",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_13_extract_data_to_json_add_rescrape_md_fix_leaptel_savings_2026_06_29",
-      "target": "chats_13_extract_data_to_json_add_rescrape_md_fix_leaptel_savings_2026_06_29_request_13_extract_data_to_json_add_rescrape_md_fix_leaptel_savings"
+      "target": "chats_13_extract_data_to_json_add_rescrape_md_fix_leaptel_savings_2026_06_29_request_13_extract_data_to_json_add_rescrape_md_fix_leaptel_savings",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1945,9 +2035,9 @@
       "source_file": "chats/13-extract-data-to-json-add-rescrape-md-fix-leaptel-savings-2026-06-29.md",
       "source_location": "L6",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_13_extract_data_to_json_add_rescrape_md_fix_leaptel_savings_2026_06_29_request_13_extract_data_to_json_add_rescrape_md_fix_leaptel_savings",
-      "target": "chats_13_extract_data_to_json_add_rescrape_md_fix_leaptel_savings_2026_06_29_verbatim_request"
+      "target": "chats_13_extract_data_to_json_add_rescrape_md_fix_leaptel_savings_2026_06_29_verbatim_request",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1955,9 +2045,9 @@
       "source_file": "chats/14-save-scrape-scripts-to-scrape-directory-2026-06-29.md",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_14_save_scrape_scripts_to_scrape_directory_2026_06_29",
-      "target": "chats_14_save_scrape_scripts_to_scrape_directory_2026_06_29_request_14_save_scrape_scripts_to_scrape_directory"
+      "target": "chats_14_save_scrape_scripts_to_scrape_directory_2026_06_29_request_14_save_scrape_scripts_to_scrape_directory",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1965,9 +2055,9 @@
       "source_file": "chats/14-save-scrape-scripts-to-scrape-directory-2026-06-29.md",
       "source_location": "L6",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_14_save_scrape_scripts_to_scrape_directory_2026_06_29_request_14_save_scrape_scripts_to_scrape_directory",
-      "target": "chats_14_save_scrape_scripts_to_scrape_directory_2026_06_29_verbatim_request"
+      "target": "chats_14_save_scrape_scripts_to_scrape_directory_2026_06_29_verbatim_request",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1975,9 +2065,9 @@
       "source_file": "chats/15-save-all-chat-requests-to-chats-folder-and-push-2026-06-29.md",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_15_save_all_chat_requests_to_chats_folder_and_push_2026_06_29",
-      "target": "chats_15_save_all_chat_requests_to_chats_folder_and_push_2026_06_29_request_15_save_all_chat_requests_to_chats_folder_and_push"
+      "target": "chats_15_save_all_chat_requests_to_chats_folder_and_push_2026_06_29_request_15_save_all_chat_requests_to_chats_folder_and_push",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1985,9 +2075,9 @@
       "source_file": "chats/15-save-all-chat-requests-to-chats-folder-and-push-2026-06-29.md",
       "source_location": "L6",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_15_save_all_chat_requests_to_chats_folder_and_push_2026_06_29_request_15_save_all_chat_requests_to_chats_folder_and_push",
-      "target": "chats_15_save_all_chat_requests_to_chats_folder_and_push_2026_06_29_verbatim_request"
+      "target": "chats_15_save_all_chat_requests_to_chats_folder_and_push_2026_06_29_verbatim_request",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1995,9 +2085,9 @@
       "source_file": "chats/16-confirm-rescrape-method-add-method-md-visual-not-programmatic-2026-06-29.md",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_16_confirm_rescrape_method_add_method_md_visual_not_programmatic_2026_06_29",
-      "target": "chats_16_confirm_rescrape_method_add_method_md_visual_not_programmatic_2026_06_29_request_16_confirm_rescrape_method_add_method_md_visual_not_programmatic"
+      "target": "chats_16_confirm_rescrape_method_add_method_md_visual_not_programmatic_2026_06_29_request_16_confirm_rescrape_method_add_method_md_visual_not_programmatic",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -2005,9 +2095,9 @@
       "source_file": "chats/16-confirm-rescrape-method-add-method-md-visual-not-programmatic-2026-06-29.md",
       "source_location": "L6",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_16_confirm_rescrape_method_add_method_md_visual_not_programmatic_2026_06_29_request_16_confirm_rescrape_method_add_method_md_visual_not_programmatic",
-      "target": "chats_16_confirm_rescrape_method_add_method_md_visual_not_programmatic_2026_06_29_verbatim_request"
+      "target": "chats_16_confirm_rescrape_method_add_method_md_visual_not_programmatic_2026_06_29_verbatim_request",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -2015,9 +2105,9 @@
       "source_file": "chats/17-rescrape-must-be-claude-live-recompile-not-py-corrections-and-push-2026-06-29.md",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_17_rescrape_must_be_claude_live_recompile_not_py_corrections_and_push_2026_06_29",
-      "target": "chats_17_rescrape_must_be_claude_live_recompile_not_py_corrections_and_push_2026_06_29_request_17_rescrape_must_be_claude_live_recompile_not_py_corrections_and_push"
+      "target": "chats_17_rescrape_must_be_claude_live_recompile_not_py_corrections_and_push_2026_06_29_request_17_rescrape_must_be_claude_live_recompile_not_py_corrections_and_push",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -2025,9 +2115,9 @@
       "source_file": "chats/17-rescrape-must-be-claude-live-recompile-not-py-corrections-and-push-2026-06-29.md",
       "source_location": "L6",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_17_rescrape_must_be_claude_live_recompile_not_py_corrections_and_push_2026_06_29_request_17_rescrape_must_be_claude_live_recompile_not_py_corrections_and_push",
-      "target": "chats_17_rescrape_must_be_claude_live_recompile_not_py_corrections_and_push_2026_06_29_verbatim_request"
+      "target": "chats_17_rescrape_must_be_claude_live_recompile_not_py_corrections_and_push_2026_06_29_verbatim_request",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -2035,9 +2125,9 @@
       "source_file": "chats/18-broken-scrape-detection-ai-led-not-script-log-requests-in-claude-md-2026-06-29.md",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_18_broken_scrape_detection_ai_led_not_script_log_requests_in_claude_md_2026_06_29",
-      "target": "chats_18_broken_scrape_detection_ai_led_not_script_log_requests_in_claude_md_2026_06_29_request_18_broken_scrape_detection_ai_led_not_script_log_requests_in_claude_md"
+      "target": "chats_18_broken_scrape_detection_ai_led_not_script_log_requests_in_claude_md_2026_06_29_request_18_broken_scrape_detection_ai_led_not_script_log_requests_in_claude_md",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -2045,9 +2135,9 @@
       "source_file": "chats/18-broken-scrape-detection-ai-led-not-script-log-requests-in-claude-md-2026-06-29.md",
       "source_location": "L6",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_18_broken_scrape_detection_ai_led_not_script_log_requests_in_claude_md_2026_06_29_request_18_broken_scrape_detection_ai_led_not_script_log_requests_in_claude_md",
-      "target": "chats_18_broken_scrape_detection_ai_led_not_script_log_requests_in_claude_md_2026_06_29_verbatim_request"
+      "target": "chats_18_broken_scrape_detection_ai_led_not_script_log_requests_in_claude_md_2026_06_29_verbatim_request",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -2055,9 +2145,9 @@
       "source_file": "chats/19-re-run-the-analysis-live-rescrape-2026-06-29.md",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_19_re_run_the_analysis_live_rescrape_2026_06_29",
-      "target": "chats_19_re_run_the_analysis_live_rescrape_2026_06_29_request_19_re_run_the_analysis_live_rescrape"
+      "target": "chats_19_re_run_the_analysis_live_rescrape_2026_06_29_request_19_re_run_the_analysis_live_rescrape",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -2065,9 +2155,9 @@
       "source_file": "chats/19-re-run-the-analysis-live-rescrape-2026-06-29.md",
       "source_location": "L6",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_19_re_run_the_analysis_live_rescrape_2026_06_29_request_19_re_run_the_analysis_live_rescrape",
-      "target": "chats_19_re_run_the_analysis_live_rescrape_2026_06_29_verbatim_request"
+      "target": "chats_19_re_run_the_analysis_live_rescrape_2026_06_29_verbatim_request",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -2075,9 +2165,9 @@
       "source_file": "chats/20-multi-ai-entry-point-claude-agents-point-to-ai-md-always-push-2026-06-29.md",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_20_multi_ai_entry_point_claude_agents_point_to_ai_md_always_push_2026_06_29",
-      "target": "chats_20_multi_ai_entry_point_claude_agents_point_to_ai_md_always_push_2026_06_29_request_20_multi_ai_entry_point_claude_agents_point_to_ai_md_always_push"
+      "target": "chats_20_multi_ai_entry_point_claude_agents_point_to_ai_md_always_push_2026_06_29_request_20_multi_ai_entry_point_claude_agents_point_to_ai_md_always_push",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -2085,9 +2175,9 @@
       "source_file": "chats/20-multi-ai-entry-point-claude-agents-point-to-ai-md-always-push-2026-06-29.md",
       "source_location": "L6",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_20_multi_ai_entry_point_claude_agents_point_to_ai_md_always_push_2026_06_29_request_20_multi_ai_entry_point_claude_agents_point_to_ai_md_always_push",
-      "target": "chats_20_multi_ai_entry_point_claude_agents_point_to_ai_md_always_push_2026_06_29_verbatim_request"
+      "target": "chats_20_multi_ai_entry_point_claude_agents_point_to_ai_md_always_push_2026_06_29_verbatim_request",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -2095,9 +2185,9 @@
       "source_file": "chats/21-live-rescrape-all-isps-update-data-json-2026-06-30.md",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_21_live_rescrape_all_isps_update_data_json_2026_06_30",
-      "target": "chats_21_live_rescrape_all_isps_update_data_json_2026_06_30_request_21_live_re_scrape_all_isps_update_data_json"
+      "target": "chats_21_live_rescrape_all_isps_update_data_json_2026_06_30_request_21_live_re_scrape_all_isps_update_data_json",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -2105,9 +2195,9 @@
       "source_file": "chats/21-live-rescrape-all-isps-update-data-json-2026-06-30.md",
       "source_location": "L10",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_21_live_rescrape_all_isps_update_data_json_2026_06_30_request_21_live_re_scrape_all_isps_update_data_json",
-      "target": "chats_21_live_rescrape_all_isps_update_data_json_2026_06_30_outcome"
+      "target": "chats_21_live_rescrape_all_isps_update_data_json_2026_06_30_outcome",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -2115,9 +2205,9 @@
       "source_file": "chats/21-live-rescrape-all-isps-update-data-json-2026-06-30.md",
       "source_location": "L6",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_21_live_rescrape_all_isps_update_data_json_2026_06_30_request_21_live_re_scrape_all_isps_update_data_json",
-      "target": "chats_21_live_rescrape_all_isps_update_data_json_2026_06_30_verbatim_request"
+      "target": "chats_21_live_rescrape_all_isps_update_data_json_2026_06_30_verbatim_request",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -2125,9 +2215,9 @@
       "source_file": "chats/21-live-rescrape-all-isps-update-data-json-2026-06-30.md",
       "source_location": "L14",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_21_live_rescrape_all_isps_update_data_json_2026_06_30_outcome",
-      "target": "chats_21_live_rescrape_all_isps_update_data_json_2026_06_30_confirmed_live_and_updated_in_data_json"
+      "target": "chats_21_live_rescrape_all_isps_update_data_json_2026_06_30_confirmed_live_and_updated_in_data_json",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -2135,9 +2225,9 @@
       "source_file": "chats/21-live-rescrape-all-isps-update-data-json-2026-06-30.md",
       "source_location": "L32",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_21_live_rescrape_all_isps_update_data_json_2026_06_30_outcome",
-      "target": "chats_21_live_rescrape_all_isps_update_data_json_2026_06_30_context_notes"
+      "target": "chats_21_live_rescrape_all_isps_update_data_json_2026_06_30_context_notes",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -2145,9 +2235,9 @@
       "source_file": "chats/21-live-rescrape-all-isps-update-data-json-2026-06-30.md",
       "source_location": "L29",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_21_live_rescrape_all_isps_update_data_json_2026_06_30_outcome",
-      "target": "chats_21_live_rescrape_all_isps_update_data_json_2026_06_30_inaccessible_data_left_unchanged"
+      "target": "chats_21_live_rescrape_all_isps_update_data_json_2026_06_30_inaccessible_data_left_unchanged",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -2155,9 +2245,9 @@
       "source_file": "chats/22-deploy-to-vercel-as-nbncompare-2026-06-30.md",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_22_deploy_to_vercel_as_nbncompare_2026_06_30",
-      "target": "chats_22_deploy_to_vercel_as_nbncompare_2026_06_30_22_deploy_to_vercel_as_nbncompare"
+      "target": "chats_22_deploy_to_vercel_as_nbncompare_2026_06_30_22_deploy_to_vercel_as_nbncompare",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -2165,9 +2255,39 @@
       "source_file": "chats/23-connect-nbncompare-org-domain-2026-06-30.md",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_23_connect_nbncompare_org_domain_2026_06_30",
-      "target": "chats_23_connect_nbncompare_org_domain_2026_06_30_23_connect_nbncompare_org_domain"
+      "target": "chats_23_connect_nbncompare_org_domain_2026_06_30_23_connect_nbncompare_org_domain",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chats/24-cache-timestamp-rescrape-market-push-main-2026-08-20.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "chats_24_cache_timestamp_rescrape_market_push_main_2026_08_20",
+      "target": "chats_24_cache_timestamp_rescrape_market_push_main_2026_08_20_request_24_cache_timestamp_current_data_complete_market_re_analysis_push_to_main",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chats/24-cache-timestamp-rescrape-market-push-main-2026-08-20.md",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "chats_24_cache_timestamp_rescrape_market_push_main_2026_08_20_request_24_cache_timestamp_current_data_complete_market_re_analysis_push_to_main",
+      "target": "chats_24_cache_timestamp_rescrape_market_push_main_2026_08_20_mid_task_correction_verbatim",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "chats/24-cache-timestamp-rescrape-market-push-main-2026-08-20.md",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "chats_24_cache_timestamp_rescrape_market_push_main_2026_08_20_request_24_cache_timestamp_current_data_complete_market_re_analysis_push_to_main",
+      "target": "chats_24_cache_timestamp_rescrape_market_push_main_2026_08_20_verbatim_request",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -2175,9 +2295,9 @@
       "source_file": "chats/README.md",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "chats_readme",
-      "target": "chats_readme_chats"
+      "target": "chats_readme_chats",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -2185,11 +2305,11 @@
       "source_file": "scrape/README.md",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scrape_readme",
-      "target": "scrape_readme_scrape"
+      "target": "scrape_readme_scrape",
+      "confidence_score": 1.0
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "242b66da2c6e320d8257d52f62795c6bd42dac0d"
+  "built_at_commit": "2edff73ce5eb043556611c41a698aed1ce32412f"
 }
