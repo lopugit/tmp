@@ -1,0 +1,2845 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>NBN FTTP ISP Market Scan — All Speeds — August 2026</title>
+    <style>
+      :root {
+        --ink: #1f2937;
+        --muted: #667085;
+        --line: #e5e7eb;
+        --bg: #fbfbfd;
+        --card: #ffffff;
+        --accent: #6d5dfc;
+        --accent2: #0f766e;
+        --amber: #92400e;
+        --rose: #be123c;
+        --green: #047857;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Arial,
+          sans-serif;
+        color: var(--ink);
+        background: linear-gradient(180deg, #f8f7ff 0, #fbfbfd 24rem);
+        line-height: 1.5;
+      }
+      a {
+        color: #4f46e5;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .wrap {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 28px 20px 56px;
+      }
+      header.hero {
+        background: rgba(255, 255, 255, 0.86);
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        padding: 32px;
+        box-shadow: 0 18px 45px rgba(53, 45, 130, 0.09);
+        position: relative;
+        overflow: hidden;
+      }
+      header.hero:after {
+        content: "";
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        background: rgba(109, 93, 252, 0.12);
+        right: -120px;
+        top: -90px;
+      }
+      h1 {
+        font-size: clamp(2rem, 4vw, 4.5rem);
+        line-height: 0.98;
+        margin: 0 0 16px;
+        letter-spacing: -0.06em;
+        max-width: 850px;
+      }
+      h2 {
+        font-size: clamp(1.45rem, 2.4vw, 2.25rem);
+        margin: 36px 0 14px;
+        letter-spacing: -0.03em;
+      }
+      h3 {
+        margin: 0 0 6px;
+        font-size: 1.05rem;
+      }
+      p {
+        margin: 0 0 12px;
+      }
+      .lede {
+        font-size: 1.15rem;
+        color: #374151;
+        max-width: 850px;
+      }
+      .meta {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 18px;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border-radius: 999px;
+        padding: 4px 10px;
+        font-size: 0.82rem;
+        font-weight: 700;
+        background: #eef2ff;
+        color: #3730a3;
+        border: 1px solid #c7d2fe;
+      }
+      .pill.good {
+        background: #ecfdf5;
+        color: #047857;
+        border-color: #a7f3d0;
+      }
+      .pill.warn {
+        background: #fffbeb;
+        color: #92400e;
+        border-color: #fde68a;
+      }
+      .pill.bad {
+        background: #fff1f2;
+        color: #be123c;
+        border-color: #fecdd3;
+      }
+      .pill.muted {
+        background: #f3f4f6;
+        color: #4b5563;
+        border-color: #e5e7eb;
+      }
+      .grid {
+        display: grid;
+        gap: 14px;
+      }
+      .cards-4 {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+      .cards-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .card,
+      .provider-card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        padding: 18px;
+        box-shadow: 0 10px 24px rgba(16, 24, 40, 0.04);
+      }
+      .card b {
+        display: block;
+        font-size: 1.3rem;
+        margin-bottom: 4px;
+      }
+      .mini-title {
+        font-weight: 800;
+        color: #4f46e5;
+        font-size: 0.92rem;
+        margin-bottom: 8px;
+      }
+      .subtle,
+      .note {
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+      .callout {
+        border-left: 5px solid var(--accent);
+        background: #fff;
+        border-radius: 18px;
+        padding: 18px 20px;
+        box-shadow: 0 10px 24px rgba(16, 24, 40, 0.04);
+        margin: 18px 0;
+      }
+      .callout.green {
+        border-left-color: var(--green);
+      }
+      .callout.amber {
+        border-left-color: #d97706;
+      }
+      .toc {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 18px 0 0;
+      }
+      .toc a,
+      button {
+        border: 1px solid #d9d6ff;
+        background: #fff;
+        color: #4f46e5;
+        padding: 9px 12px;
+        border-radius: 999px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      button:hover,
+      .toc a:hover {
+        background: #f4f3ff;
+        text-decoration: none;
+      }
+      .controls {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        background: rgba(251, 251, 253, 0.94);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 12px;
+        display: grid;
+        grid-template-columns: 1.3fr repeat(3, minmax(140px, 0.6fr));
+        gap: 10px;
+        margin: 18px 0;
+      }
+      input,
+      select {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 13px;
+        padding: 11px 12px;
+        font: inherit;
+        background: #fff;
+        color: var(--ink);
+      }
+      table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        overflow: hidden;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        box-shadow: 0 10px 26px rgba(16, 24, 40, 0.04);
+      }
+      th,
+      td {
+        text-align: left;
+        vertical-align: top;
+        padding: 12px 12px;
+        border-bottom: 1px solid var(--line);
+        font-size: 0.92rem;
+      }
+      th {
+        background: #f9fafb;
+        font-size: 0.78rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: #475467;
+        position: sticky;
+        top: 75px;
+        z-index: 1;
+      }
+      tr:last-child td {
+        border-bottom: 0;
+      }
+      .provider {
+        font-weight: 800;
+        color: #111827;
+      }
+      .table-wrap {
+        overflow: auto;
+        border-radius: 18px;
+      }
+      .provider-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .ranked {
+        counter-reset: pick;
+      }
+      .pick {
+        position: relative;
+        padding-left: 56px;
+      }
+      .pick:before {
+        counter-increment: pick;
+        content: counter(pick);
+        position: absolute;
+        left: 18px;
+        top: 18px;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: #eef2ff;
+        color: #3730a3;
+        display: grid;
+        place-items: center;
+        font-weight: 900;
+      }
+      .foot {
+        font-size: 0.85rem;
+        color: var(--muted);
+        border-top: 1px solid var(--line);
+        margin-top: 36px;
+        padding-top: 18px;
+      }
+      .sources {
+        columns: 2;
+        column-gap: 36px;
+      }
+      .sources li {
+        break-inside: avoid;
+        margin: 0 0 8px;
+      }
+      .hide {
+        display: none !important;
+      }
+      @media (max-width: 900px) {
+        .cards-4,
+        .cards-3,
+        .provider-grid {
+          grid-template-columns: 1fr;
+        }
+        .controls {
+          grid-template-columns: 1fr;
+          position: static;
+        }
+        th {
+          position: static;
+        }
+        header.hero {
+          padding: 24px;
+        }
+        .sources {
+          columns: 1;
+        }
+      }
+      @media print {
+        @page {
+          size: A4 portrait;
+          margin: 12mm;
+        }
+        body {
+          background: #fff;
+        }
+        .wrap {
+          max-width: none;
+          padding: 0;
+        }
+        .no-print,
+        .controls,
+        .toc {
+          display: none !important;
+        }
+        header.hero,
+        .card,
+        .provider-card,
+        .callout,
+        table {
+          box-shadow: none;
+          break-inside: avoid;
+        }
+        a {
+          color: #000;
+          text-decoration: none;
+        }
+        h2 {
+          break-after: avoid;
+        }
+        table {
+          font-size: 8.5pt;
+        }
+        th,
+        td {
+          padding: 6px;
+        }
+      }
+
+      .controls {
+        grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+        align-items: end;
+      }
+      .controls .wide {
+        grid-column: span 2;
+      }
+      .profile-hint,
+      .result-count {
+        color: var(--muted);
+        font-size: 0.9rem;
+        margin: 8px 4px 0;
+      }
+      .result-count {
+        font-weight: 800;
+        color: #4f46e5;
+      }
+      .best-fit {
+        min-width: 190px;
+      }
+      .tier-price {
+        display: inline-flex;
+        gap: 4px;
+        align-items: baseline;
+        background: #f9fafb;
+        border: 1px solid #e5e7eb;
+        border-radius: 999px;
+        padding: 2px 7px;
+        margin: 2px 2px 2px 0;
+        white-space: nowrap;
+      }
+      .tier-price span {
+        color: #4b5563;
+        font-size: 0.86em;
+      }
+      #clearFilters {
+        border-color: #e5e7eb;
+        color: #374151;
+      }
+      @media (max-width: 900px) {
+        .controls .wide {
+          grid-column: span 1;
+        }
+        .best-fit {
+          min-width: 150px;
+        }
+        .tier-price {
+          white-space: normal;
+        }
+      }
+
+      /* --- pagination (show more) --- */
+      .hide-page {
+        display: none !important;
+      }
+      #plansTable tbody tr.peek > td,
+      .provider-card.peek,
+      ol.sources li.peek {
+        -webkit-mask-image: linear-gradient(to bottom, #000 0, #000 12%, rgba(0, 0, 0, 0.12) 92%, transparent 100%);
+        mask-image: linear-gradient(to bottom, #000 0, #000 12%, rgba(0, 0, 0, 0.12) 92%, transparent 100%);
+        opacity: 0.9;
+        cursor: pointer;
+      }
+      .provider-card.peek,
+      ol.sources li.peek {
+        position: relative;
+      }
+      .show-more-btn {
+        display: block;
+        width: 100%;
+        margin: -10px 0 22px;
+        padding: 14px 12px 16px;
+        border: 1px solid var(--line);
+        border-top: 0;
+        border-radius: 0 0 18px 18px;
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0, #ffffff 55%);
+        color: #4f46e5;
+        font-weight: 800;
+        cursor: pointer;
+        text-align: center;
+        box-shadow: 0 10px 26px rgba(16, 24, 40, 0.04);
+      }
+      .show-more-btn:hover {
+        background: linear-gradient(to bottom, rgba(244, 243, 255, 0) 0, #f4f3ff 55%);
+      }
+
+      /* --- quick-filter preset badges --- */
+      .presets {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        margin: 16px 0 4px;
+      }
+      .presets-label {
+        font-weight: 800;
+        color: var(--muted);
+        font-size: 0.85rem;
+        margin-right: 4px;
+      }
+      .preset {
+        border: 1px solid #c7d2fe;
+        background: #eef2ff;
+        color: #3730a3;
+        padding: 7px 13px;
+        border-radius: 999px;
+        font-weight: 700;
+        font-size: 0.85rem;
+        cursor: pointer;
+        line-height: 1;
+      }
+      .preset:hover {
+        filter: brightness(0.97);
+      }
+      .preset[data-preset="streaming"] {
+        background: #fffbeb;
+        color: #92400e;
+        border-color: #fde68a;
+      }
+      .preset[data-preset="budget80"] {
+        background: #ecfdf5;
+        color: #047857;
+        border-color: #a7f3d0;
+      }
+      .preset[data-preset="wfh"] {
+        background: #f5f3ff;
+        color: #5b21b6;
+        border-color: #ddd6fe;
+      }
+      .preset[data-preset="family"] {
+        background: #fff1f2;
+        color: #be123c;
+        border-color: #fecdd3;
+      }
+      .preset[data-preset="gigabit"] {
+        background: #ecfeff;
+        color: #0e7490;
+        border-color: #a5f3fc;
+      }
+      .preset[data-preset="value"] {
+        background: #f3f4f6;
+        color: #374151;
+        border-color: #e5e7eb;
+      }
+      .preset.active {
+        background: #4f46e5 !important;
+        color: #fff !important;
+        border-color: #4f46e5 !important;
+      }
+
+      @media print {
+        .presets,
+        .show-more-btn {
+          display: none !important;
+        }
+        #plansTable tbody tr.hide-page {
+          display: table-row !important;
+        }
+        .provider-card.hide-page {
+          display: block !important;
+        }
+        ol.sources li.hide-page {
+          display: list-item !important;
+        }
+        .peek > td,
+        .provider-card.peek,
+        ol.sources li.peek {
+          -webkit-mask-image: none !important;
+          mask-image: none !important;
+          opacity: 1 !important;
+        }
+      }
+    </style>
+    <style>
+      /* --- nav "Find my plan" flare --- */
+      .toc-flare {
+        background: linear-gradient(135deg, #6d5dfc, #8b5cf6) !important;
+        color: #fff !important;
+        border-color: #6d5dfc !important;
+        box-shadow: 0 6px 18px rgba(109, 93, 252, 0.45);
+        font-weight: 800;
+        animation: flarePulse 2.2s ease-in-out infinite;
+      }
+      .toc-flare:hover {
+        text-decoration: none;
+        transform: translateY(-1px);
+        background: linear-gradient(135deg, #5b4bf0, #7c3aed) !important;
+      }
+      @keyframes flarePulse {
+        0%,
+        100% {
+          box-shadow: 0 6px 18px rgba(109, 93, 252, 0.4);
+        }
+        50% {
+          box-shadow: 0 8px 26px rgba(109, 93, 252, 0.7);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .toc-flare {
+          animation: none;
+        }
+      }
+
+      /* --- estimated 1st-year cost column --- */
+      .annual-cell {
+        white-space: nowrap;
+      }
+      .annual-cell strong {
+        font-size: 1.02rem;
+      }
+      .disc {
+        display: inline-block;
+        margin-top: 4px;
+        padding: 1px 7px;
+        white-space: nowrap;
+        color: #047857;
+        font-weight: 800;
+        font-size: 0.82em;
+        background: #ecfdf5;
+        border: 1px solid #a7f3d0;
+        border-radius: 7px;
+      }
+    </style>
+    <style>
+      /* --- router / Wi-Fi multi-select chips --- */
+      .chip-filter {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        margin: 10px 0 2px;
+      }
+      .rchip {
+        border: 1px solid #99f6e4;
+        background: #f0fdfa;
+        color: #0f766e;
+        padding: 7px 12px;
+        border-radius: 999px;
+        font-weight: 700;
+        font-size: 0.82rem;
+        cursor: pointer;
+        line-height: 1;
+      }
+      .rchip:hover {
+        background: #ccfbf1;
+      }
+      .rchip.active {
+        background: #0f766e;
+        color: #fff;
+        border-color: #0f766e;
+      }
+      /* --- minimum contract column --- */
+      .contract-cell {
+        white-space: nowrap;
+      }
+      .contract-free {
+        color: #047857;
+        font-weight: 800;
+        background: #ecfdf5;
+        border: 1px solid #a7f3d0;
+        border-radius: 7px;
+        padding: 1px 7px;
+        display: inline-block;
+      }
+      .contract-locked {
+        color: #92400e;
+        font-weight: 800;
+        background: #fffbeb;
+        border: 1px solid #fde68a;
+        border-radius: 7px;
+        padding: 1px 7px;
+        display: inline-block;
+      }
+    </style>
+    <style>
+      /* --- 12-month cost annotations in prose / badges --- */
+      .inline12 {
+        color: #047857;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      .tp12 {
+        color: #0f766e;
+        font-weight: 700;
+        font-size: 0.92em;
+      }
+      td.provider a {
+        color: #111827;
+        text-decoration: none;
+        border-bottom: 1px dotted #9ca3af;
+      }
+      td.provider a:hover {
+        color: #4f46e5;
+        border-bottom-color: #4f46e5;
+      }
+      /* --- floating back-to-top button --- */
+      .to-top {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        z-index: 50;
+        width: 48px;
+        height: 48px;
+        padding: 0;
+        border-radius: 50%;
+        border: 1px solid #d9d6ff;
+        background: linear-gradient(135deg, #6d5dfc, #8b5cf6);
+        color: #fff;
+        font-size: 1.4rem;
+        line-height: 1;
+        font-weight: 800;
+        cursor: pointer;
+        box-shadow: 0 10px 26px rgba(109, 93, 252, 0.45);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+        transition:
+          opacity 0.2s,
+          transform 0.2s,
+          visibility 0.2s;
+      }
+      .to-top.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+      .to-top:hover {
+        background: linear-gradient(135deg, #5b4bf0, #7c3aed);
+      }
+      @media print {
+        .to-top {
+          display: none !important;
+        }
+      }
+    </style>
+    <style>
+      /* --- router filter "filter by" popups --- */
+      .router-filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        margin: 10px 0 2px;
+      }
+      .fpop {
+        position: relative;
+      }
+      .fpop-btn {
+        border: 1px solid #99f6e4;
+        background: #f0fdfa;
+        color: #0f766e;
+        padding: 8px 13px;
+        border-radius: 999px;
+        font-weight: 700;
+        font-size: 0.85rem;
+        cursor: pointer;
+        line-height: 1;
+      }
+      .fpop-btn:hover {
+        background: #ccfbf1;
+      }
+      .fpop-btn.active {
+        background: #0f766e;
+        color: #fff;
+        border-color: #0f766e;
+      }
+      .fpop-panel {
+        display: none;
+        position: absolute;
+        z-index: 40;
+        top: calc(100% + 6px);
+        left: 0;
+        min-width: 210px;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 8px;
+        box-shadow: 0 18px 40px rgba(16, 24, 40, 0.16);
+      }
+      .fpop.open .fpop-panel {
+        display: block;
+      }
+      .fpop-opt {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 8px;
+        border-radius: 9px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--ink);
+        cursor: pointer;
+      }
+      .fpop-opt:hover {
+        background: #f0fdfa;
+      }
+      .fpop-opt input {
+        width: auto;
+        margin: 0;
+      }
+      /* --- router / modem cost badge in the table --- */
+      .rcost {
+        display: inline-block;
+        padding: 1px 7px;
+        border-radius: 7px;
+        font-weight: 800;
+        font-size: 0.82em;
+        white-space: nowrap;
+      }
+      .rcost-free {
+        color: #047857;
+        background: #ecfdf5;
+        border: 1px solid #a7f3d0;
+      }
+      .rcost-byo {
+        color: #4b5563;
+        background: #f3f4f6;
+        border: 1px solid #e5e7eb;
+      }
+      .rcost-buy {
+        color: #92400e;
+        background: #fffbeb;
+        border: 1px solid #fde68a;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="hero">
+        <h1>NBN FTTP ISP Market Scan</h1>
+        <p class="lede">
+          An all-speed market scan of NBN FTTP plans — from cheap everyday tiers through to high-upload and gigabit
+          options. Prices and promos were re-checked live on <strong>20 August 2026</strong>; several majors have offers
+          ending soon (Telstra code PROMO 24 Aug, TPG price-lock 8 Sep, Aussie Broadband LOCKIN codes 18 Sep), so final
+          checkout/CIS documents still matter.
+        </p>
+        <div class="meta">
+          <span class="pill good">FTTP: eligible for 500–2000 Mbps tiers</span
+          ><span class="pill">All-speed plan selector</span
+          ><span class="pill warn">Uploads: standard, pro and symmetric noted</span
+          ><span class="pill muted">Month-to-month / hardware terms checked where visible</span
+          ><span class="pill muted">Print-friendly portrait layout</span>
+        </div>
+        <div class="toc no-print">
+          <a href="#plans" class="toc-flare">🔍 Find my plan</a><a href="#verdict">Verdict</a
+          ><a href="#speed-reality">Speed reality</a><a href="#cheap">Speed tier guide</a
+          ><a href="#providers">Provider map</a><a href="#routers">Routers</a><a href="#sources">Sources</a>
+          <button onclick="window.print()">Print / save as PDF</button>
+        </div>
+      </header>
+      <section id="plans">
+        <h2>All checked plan offers: speed, price and best fit</h2>
+        <p class="note">
+          Use the filters to narrow by household size, usage style, upload profile, speed range or provider. “Price” is
+          a market-scan snapshot, not a guaranteed quote; checkout may change because of address qualification, promo
+          expiry, modem terms, card fees and new-connection charges.
+        </p>
+        <div class="presets no-print" id="presetBar">
+          <span class="presets-label">Quick filters:</span
+          ><button class="preset" data-preset="solo" type="button">1–2 people</button
+          ><button class="preset" data-preset="streaming" type="button">Streaming every night</button
+          ><button class="preset" data-preset="budget80" type="button">Under $80/mo budget</button
+          ><button class="preset" data-preset="wfh" type="button">Work-from-home upload</button
+          ><button class="preset" data-preset="family" type="button">Big household (5+)</button
+          ><button class="preset" data-preset="gigabit" type="button">Gigabit &amp; faster</button
+          ><button class="preset" data-preset="value" type="button">Cheapest first</button>
+        </div>
+        <div class="controls no-print">
+          <input
+            class="wide"
+            id="search"
+            placeholder="Search provider, speed, price, router, business, upload…"
+            type="search"
+          /><select id="householdFilter">
+            <option value="">Any household size</option>
+            <option value="1-2">1–2 people</option>
+            <option value="2-4">2–4 people</option>
+            <option value="5plus">5+ people</option></select
+          ><select id="useFilter">
+            <option value="">Any use case</option>
+            <option value="standard">Standard use</option>
+            <option value="streaming">Streaming / gaming</option>
+            <option value="pro">Pro / heavy upload</option></select
+          ><select id="uploadFilter">
+            <option value="">All upload profiles</option>
+            <option value="high-upload">High-upload / pro only</option>
+            <option value="standard">Standard/everyday upload only</option>
+            <option value="symmetric">Symmetric / enterprise only</option></select
+          ><select id="speedFilter">
+            <option value="">All speed tiers</option>
+            <option value="12/1">12/1+</option>
+            <option value="25/10">25/10+</option>
+            <option value="50/20">50/20+</option>
+            <option value="100/20">100/20+</option>
+            <option value="100/40">100/40+ upload</option>
+            <option value="250/100">250/100+</option>
+            <option value="500/50">500/50+</option>
+            <option value="500/200">500/200+</option>
+            <option value="750/50">750/50+</option>
+            <option value="1000/100">1000/100+</option>
+            <option value="1000/400">1000/400+</option>
+            <option value="2000/200">2000/200+</option>
+            <option value="2000/500">2000/500+</option></select
+          ><select id="downFilter">
+            <option value="">Any min download</option>
+            <option value="12">≥ 12 down</option>
+            <option value="25">≥ 25 down</option>
+            <option value="50">≥ 50 down</option>
+            <option value="100">≥ 100 down</option>
+            <option value="250">≥ 250 down</option>
+            <option value="500">≥ 500 down</option>
+            <option value="750">≥ 750 down</option>
+            <option value="1000">≥ 1000 down</option>
+            <option value="2000">≥ 2000 down</option></select
+          ><select id="maxDownFilter">
+            <option value="">Any max download</option>
+            <option value="12">≤ 12 down</option>
+            <option value="25">≤ 25 down</option>
+            <option value="50">≤ 50 down</option>
+            <option value="100">≤ 100 down</option>
+            <option value="250">≤ 250 down</option>
+            <option value="500">≤ 500 down</option>
+            <option value="750">≤ 750 down</option>
+            <option value="1000">≤ 1000 down</option></select
+          ><select id="upFilter">
+            <option value="">Any min upload</option>
+            <option value="1">≥ 1 up</option>
+            <option value="10">≥ 10 up</option>
+            <option value="20">≥ 20 up</option>
+            <option value="40">≥ 40 up</option>
+            <option value="50">≥ 50 up</option>
+            <option value="100">≥ 100 up</option>
+            <option value="200">≥ 200 up</option>
+            <option value="400">≥ 400 up</option>
+            <option value="500">≥ 500 up</option></select
+          ><select id="maxUpFilter">
+            <option value="">Any max upload</option>
+            <option value="1">≤ 1 up</option>
+            <option value="10">≤ 10 up</option>
+            <option value="20">≤ 20 up</option>
+            <option value="40">≤ 40 up</option>
+            <option value="50">≤ 50 up</option>
+            <option value="100">≤ 100 up</option>
+            <option value="200">≤ 200 up</option>
+            <option value="400">≤ 400 up</option></select
+          ><select id="promoPriceFilter">
+            <option value="">Any promo $/mo</option>
+            <option value="60">Promo ≤ $60/mo</option>
+            <option value="70">Promo ≤ $70/mo</option>
+            <option value="80">Promo ≤ $80/mo</option>
+            <option value="90">Promo ≤ $90/mo</option>
+            <option value="100">Promo ≤ $100/mo</option>
+            <option value="120">Promo ≤ $120/mo</option>
+            <option value="150">Promo ≤ $150/mo</option></select
+          ><select id="ongoingPriceFilter">
+            <option value="">Any ongoing $/mo</option>
+            <option value="60">Ongoing ≤ $60/mo</option>
+            <option value="70">Ongoing ≤ $70/mo</option>
+            <option value="80">Ongoing ≤ $80/mo</option>
+            <option value="90">Ongoing ≤ $90/mo</option>
+            <option value="100">Ongoing ≤ $100/mo</option>
+            <option value="120">Ongoing ≤ $120/mo</option>
+            <option value="150">Ongoing ≤ $150/mo</option></select
+          ><select id="avgPriceFilter">
+            <option value="">Any avg $/mo</option>
+            <option value="60">Avg ≤ $60/mo</option>
+            <option value="70">Avg ≤ $70/mo</option>
+            <option value="80">Avg ≤ $80/mo</option>
+            <option value="90">Avg ≤ $90/mo</option>
+            <option value="100">Avg ≤ $100/mo</option>
+            <option value="120">Avg ≤ $120/mo</option>
+            <option value="150">Avg ≤ $150/mo</option></select
+          ><select id="annualFilter">
+            <option value="">Any 12-mo cost</option>
+            <option value="800">Under $800 / 12 mo</option>
+            <option value="1000">Under $1,000 / 12 mo</option>
+            <option value="1200">Under $1,200 / 12 mo</option>
+            <option value="1500">Under $1,500 / 12 mo</option>
+            <option value="2000">Under $2,000 / 12 mo</option></select
+          ><select id="contractFilter">
+            <option value="">Any contract length</option>
+            <option value="0">No lock-in only</option>
+            <option value="12">≤ 12 months</option>
+            <option value="24">≤ 24 months</option></select
+          ><select id="providerFilter">
+            <option value="">All providers</option>
+            <option value="aussie broadband">Aussie Broadband</option>
+            <option value="belong">Belong</option>
+            <option value="carbon comms">Carbon Comms</option>
+            <option value="dodo">Dodo</option>
+            <option value="exetel">Exetel</option>
+            <option value="flip">Flip</option>
+            <option value="future broadband">Future Broadband</option>
+            <option value="iinet">iiNet</option>
+            <option value="iprimus">iPrimus</option>
+            <option value="it's fubar">IT'S FUBAR</option>
+            <option value="kogan internet">Kogan Internet</option>
+            <option value="launtel">Launtel</option>
+            <option value="leaptel">Leaptel</option>
+            <option value="mate">MATE</option>
+            <option value="moose mobile">Moose Mobile</option>
+            <option value="more">More</option>
+            <option value="neptune internet">Neptune Internet</option>
+            <option value="optus">Optus</option>
+            <option value="origin internet">Origin Internet</option>
+            <option value="skymesh">SkyMesh</option>
+            <option value="southern phone">Southern Phone</option>
+            <option value="spintel">SpinTel</option>
+            <option value="superloop">Superloop</option>
+            <option value="swoop">Swoop</option>
+            <option value="tangerine">Tangerine</option>
+            <option value="telstra">Telstra</option>
+            <option value="tpg">TPG</option>
+            <option value="vocus business">Vocus Business</option>
+            <option value="vodafone">Vodafone</option>
+            <option value="zipfibre">ZipFibre</option></select
+          ><select id="sortBy">
+            <option value="">Sort: best match</option>
+            <option value="promo-asc">Monthly promo: low to high</option>
+            <option value="promo-desc">Monthly promo: high to low</option>
+            <option value="ongoing-asc">Monthly ongoing: low to high</option>
+            <option value="ongoing-desc">Monthly ongoing: high to low</option>
+            <option value="avg-asc">Monthly avg (12mo): low to high</option>
+            <option value="avg-desc">Monthly avg (12mo): high to low</option>
+            <option value="annual-asc">12-month cost: low to high</option>
+            <option value="annual-desc">12-month cost: high to low</option>
+            <option value="savings-desc">Biggest savings first</option>
+            <option value="speed-asc">Speed: low to high</option>
+            <option value="speed-desc">Speed: high to low</option>
+            <option value="users-asc">Users: 1 → 5+</option>
+            <option value="users-desc">Users: 5+ → 1</option>
+            <option value="contract-asc">Contract: short to long</option>
+            <option value="contract-desc">Contract: long to short</option></select
+          ><button id="clearFilters" type="button">Clear filters</button>
+        </div>
+        <div class="router-filters no-print" id="routerFilters">
+          <span class="presets-label">Router / Wi‑Fi:</span>
+        </div>
+        <div class="profile-hint no-print" id="profileHint">
+          Tip: choose a household size and use case first, then tighten by upload or provider. “Pro” favours 100 Mbps+
+          upload; true symmetric rows are enterprise/quote-style.
+        </div>
+        <div class="result-count no-print" id="resultCount">Showing all checked plan rows.</div>
+        <div class="table-wrap">
+          <table id="plansTable">
+            <thead>
+              <tr>
+                <th>Provider</th>
+                <th>Plan speed</th>
+                <th>Price snapshot</th>
+                <th>Best fit</th>
+                <th>Upload fit</th>
+                <th>Terms / fees</th>
+                <th>Router / modem notes</th>
+                <th>Business offer</th>
+                <th>Source</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+      <section id="verdict">
+        <h2>Recommended shortlist</h2>
+        <div class="grid cards-4 ranked">
+          <article class="card pick">
+            <b>Leaptel 500/200 ($115 x 12 mths, then $130) or 1000/400 ($135 x 12 mths, then $150)</b>
+            <p>
+              Best match if you need high upload at a sane price. 500/200 is the likely upload sweet spot; 1000/400 is
+              the “make it feel magical” option.
+            </p>
+            <p class="subtle">
+              <strong>Speeds &amp; prices:</strong> 500/200 — $115 x 12 mths, then $130; 1000/400 — $135 x 12 mths, then
+              $150.
+            </p>
+          </article>
+          <article class="card pick">
+            <b>Neptune Internet / Swoop Business / Occom Business / Aussie Broadband Pro</b>
+            <p>
+              Best if you need static IP, business support, or eSLA-style restoration. More business-like, less
+              promo-churny.
+            </p>
+            <p class="subtle">
+              <strong>Speeds &amp; prices:</strong> Neptune Internet 500/200 $120, 1000/400 $135 (cut in the Jul 2026
+              reprice); Swoop Business 1000/400 $129 x 6 mths, then $144; Occom Business 500/200 $130 x 6 mths then
+              $140, 1000/400 $140 x 6 mths then $160; Aussie Broadband Pro 500/200 $136, 1000/400 $160.
+            </p>
+          </article>
+          <article class="card pick">
+            <b>Everyday value: Exetel / Kogan / TPG / SpinTel / Tangerine</b>
+            <p>
+              Best cheap, no-fuss plans. Most households are well covered by 50/20, 100/20 or 500/50 here — fast
+              downloads and a low monthly cost when upload is not the priority.
+            </p>
+            <p class="subtle">
+              <strong>Speeds &amp; prices:</strong> 50/20 from ~$58–70 intro; 100/20 ~$60–75 intro; 500/50 — Exetel $80
+              ongoing, Kogan $69.90 x 12 mths then $85.90, TPG $69.99 x 12 mths then $94.99, SpinTel $69 x 6 mths then
+              $89.95, Superloop $65 x 6 mths then $95.
+            </p>
+          </article>
+          <article class="card pick">
+            <b>Launtel</b>
+            <p>
+              Best PAYG-like setup. Daily billing and the ability to test/pause/change speeds is uniquely useful while a
+              household is figuring out how much speed it really needs.
+            </p>
+            <p class="subtle">
+              <strong>Speeds &amp; prices:</strong> lineup simplified to 3 tiers in 2026 — 500/50 ≈$110/mo ($87/mo first
+              180 days); 1000/100 ≈$134/mo ($108 intro); 2000/200 ≈$192/mo ($170 intro). Daily billing, change anytime;
+              price varies by address.
+            </p>
+          </article>
+        </div>
+        <div class="callout amber">
+          <strong>Important:</strong> 500/500 and 1000/1000 are not standard residential NBN FTTP tiers. For true
+          symmetric service, look at NBN Enterprise Ethernet, private fibre, or business fibre quotes. For public NBN
+          FTTP, the realistic high-upload targets are 500/200, ~1000/400 and 2000/500.
+        </div>
+      </section>
+      <section id="speed-reality">
+        <h2>Speed and upload reality</h2>
+        <div class="grid cards-3">
+          <article class="card">
+            <b>Residential FTTP tiers</b>
+            <p>
+              Many households only need 25/10, 50/20, 100/20 or a 200-class plan — plenty for streaming, video calls and
+              everyday use. The faster 500/50, 750/50, 1000/100 and 2000/200 tiers are great for big households and
+              heavy downloads, but cost more and are still asymmetric.
+            </p>
+          </article>
+          <article class="card">
+            <b>Business / Pro tiers</b>
+            <p>
+              NBN business FTTP includes 500/200, ~1000/400 and 2000/500 wholesale tiers. This is where upload-heavy
+              profiles usually live.
+            </p>
+          </article>
+          <article class="card">
+            <b>Peak speed</b>
+            <p>
+              The ACCC’s June 2026 data found 1000/100 services averaging 864.6 Mbps in busy hours and 89.8 Mbps upload
+              in busy hours, so peak slowdowns are usually modest but not zero.
+            </p>
+          </article>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Issue</th>
+                <th>What it means</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class=""><strong>Whole-market scope</strong></td>
+                <td class="">
+                  WhistleOut says it compares NBN plans from 33 providers; Finder says it compares 300+ plans from 40+
+                  providers. So “all ISP” is not a static finite list—there are national, niche and business-only
+                  retailers. This report prioritises orderable national FTTP/HFC plans plus high-upload specialists.
+                </td>
+              </tr>
+              <tr>
+                <td class=""><strong>Upload reality</strong></td>
+                <td class="">
+                  Residential NBN FTTP public fast-tier options are 500/50, 750/50, 1000/100 and 2000/200; 500/200 and
+                  ~1000/400 sit in business/Pro-style products. True 500/500 or 1000/1000 is generally not an NBN
+                  residential plan; it is an Enterprise Ethernet/private-fibre quote.
+                </td>
+              </tr>
+              <tr>
+                <td class=""><strong>Peak speed slowdown</strong></td>
+                <td class="">
+                  The ACCC’s June 2026 1000/100 sample averaged 869.5 Mbps all-hours and 864.6 Mbps busy-hours on
+                  1000/100 services, with upload around 90 Mbps. In plain English: peak slowdowns on fixed-line FTTP/HFC
+                  are now usually modest, but 1Gb plans rarely test at a full 1000 Mbps end-to-end.
+                </td>
+              </tr>
+              <tr>
+                <td class=""><strong>Reliability/outages</strong></td>
+                <td class="">
+                  ACCC final reporting showed low outage frequency for monitored fixed-line services; FTTP has fewer
+                  physical bottlenecks than older FTTN/FTTC and is generally the best NBN access technology.
+                </td>
+              </tr>
+              <tr>
+                <td class=""><strong>Support ratings</strong></td>
+                <td class="">
+                  Canstar’s latest provider satisfaction placed Southern Phone first and Aussie Broadband second, with
+                  Aussie the only brand scoring five stars for customer service. CHOICE’s 2025 NBN brand score named
+                  Aussie Broadband best brand, with Dodo/iPrimus second.
+                </td>
+              </tr>
+              <tr>
+                <td class=""><strong>Terms</strong></td>
+                <td class="">
+                  Most BYO-router NBN plans are month-to-month/no lock-in. The catch is “free modem” offers: they often
+                  create an 18/24/36-month hardware repayment or return obligation.
+                </td>
+              </tr>
+              <tr>
+                <td class=""><strong>New development fee</strong></td>
+                <td class="">
+                  For a newly connected apartment/building, ask the first ISP whether the NBN new-connection/end-user
+                  contribution applies. NBN says it can be up to $300 inc. GST and providers may pass it on.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <section id="cheap">
+        <h2>All-speed tier guide: from basic browsing to pro upload</h2>
+        <div class="callout green">
+          <strong>Practical recommendation:</strong> with FTTP available, the best plan is usually chosen by household
+          profile rather than by “low” or “high” labels. 50/20 or 100/20 is comfortable for lighter households, 500/50
+          is the common value jump, and 250/100, 500/200 or 1000/400 is where upload-heavy households should start.
+        </div>
+        <div class="table-wrap">
+          <table id="tierGuide">
+            <thead>
+              <tr>
+                <th>Tier</th>
+                <th>Current good examples</th>
+                <th>Avoid if…</th>
+                <th>Recommendation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                data-down="12"
+                data-search="nbn 12 / 12/1 very basic browsing, email, single-device light use only rare now; many providers have discontinued or price it too close to 25/50. aussie/telstra examples are not cheap. video calls, cloud backup, multiple users, gaming downloads. skip unless budget is absolute and usage tiny."
+                data-speed="12/1"
+                data-up="1"
+                data-upload="basic upload"
+              >
+                <td class="">
+                  <strong>NBN 12 / 12/1</strong><br /><span class="subtle"
+                    >Very basic browsing, email, single-device light use only</span
+                  >
+                </td>
+                <td class="">
+                  Rare now; many providers have discontinued or price it too close to 25/50. Aussie/Telstra examples are
+                  not cheap.
+                </td>
+                <td class="">Video calls, cloud backup, multiple users, gaming downloads.</td>
+                <td class="">Skip unless budget is absolute and usage tiny.</td>
+              </tr>
+              <tr
+                data-down="25"
+                data-search="nbn 25 / 25/10 1–2 people, basic streaming, low cost spintel $44 x 6 mths then $69.95; dodo $43.99 x 6 then $73.99; leaptel $50 x 6 then $75; flip $48 x 6 then $65.90; occom $52 x 6 then $72. the household uploads files, uses cloud backup, or has multiple simultaneous calls/streams. cheapest sensible tier, but fttp deserves better."
+                data-speed="25/10"
+                data-up="10"
+                data-upload="everyday upload"
+              >
+                <td class="">
+                  <strong>NBN 25 / 25/10</strong><br /><span class="subtle">1–2 people, basic streaming, low cost</span>
+                </td>
+                <td class="">
+                  SpinTel $44 x 6 mths then $69.95; Dodo $43.99 x 6 then $73.99; Leaptel $50 x 6 then $75; Flip $48 x 6
+                  then $65.90; Occom $52 x 6 then $72.
+                </td>
+                <td class="">
+                  The household uploads files, uses cloud backup, or has multiple simultaneous calls/streams.
+                </td>
+                <td class="">Cheapest sensible tier, but FTTP deserves better.</td>
+              </tr>
+              <tr
+                data-down="50"
+                data-search="nbn 50 / 50/20 small household, streaming, normal wfh dodo/tpg/kogan/spintel/tangerine/southern phone have low intro or simple 50 plans; telstra is expensive at this tier. large downloads, many devices, heavy uploads. lowest “comfortable” tier, but new 500 pricing often makes 50 poor value."
+                data-speed="50/20"
+                data-up="20"
+                data-upload="everyday upload"
+              >
+                <td class="">
+                  <strong>NBN 50 / 50/20</strong><br /><span class="subtle"
+                    >Small household, streaming, normal WFH</span
+                  >
+                </td>
+                <td class="">
+                  Dodo/TPG/Kogan/SpinTel/Tangerine/Southern Phone have low intro or simple 50 plans; Telstra is
+                  expensive at this tier.
+                </td>
+                <td class="">Large downloads, many devices, heavy uploads.</td>
+                <td class="">Lowest “comfortable” tier, but new 500 pricing often makes 50 poor value.</td>
+              </tr>
+              <tr
+                data-down="100"
+                data-search="nbn 100 / 100/20 comfortable household use and cheap fast downloads dodo, kogan, tpg, superloop, tangerine, spintel promos often sit around $60–$75 intro, $85–$95 ongoing. upload speed is important; choose 100/40 or 250/100 instead. good budget/everyday plan when upload is not important."
+                data-speed="100/20"
+                data-up="20"
+                data-upload="everyday upload"
+              >
+                <td class="">
+                  <strong>NBN 100 / 100/20</strong><br /><span class="subtle"
+                    >Comfortable household use and cheap fast downloads</span
+                  >
+                </td>
+                <td class="">
+                  Dodo, Kogan, TPG, Superloop, Tangerine, SpinTel promos often sit around $60–$75 intro, $85–$95
+                  ongoing.
+                </td>
+                <td class="">Upload speed is important; choose 100/40 or 250/100 instead.</td>
+                <td class="">Good budget/everyday plan when upload is not important.</td>
+              </tr>
+              <tr
+                data-down="100"
+                data-search="nbn 100/40 entry high-upload wfh, cloud docs, calls, small creator uploads superloop power home $82 x 6 then $102; mate 100/40 $85 x 6 then $110; neptune 100/40 $95; business essentials-style tiers. large media upload/backups; jump to 250/100 or 500/200. best “cheap upload” tier."
+                data-speed="100/40"
+                data-up="40"
+                data-upload="standard residential upload"
+              >
+                <td class="">
+                  <strong>NBN 100/40</strong><br /><span class="subtle"
+                    >Entry high-upload WFH, cloud docs, calls, small creator uploads</span
+                  >
+                </td>
+                <td class="">
+                  Superloop Power Home $82 x 6 then $102; MATE 100/40 $85 x 6 then $110; Neptune 100/40 $95; business
+                  Essentials-style tiers. (Tangerine no longer sells 100/40.)
+                </td>
+                <td class="">Large media upload/backups; jump to 250/100 or 500/200.</td>
+                <td class="">Best “cheap upload” tier.</td>
+              </tr>
+              <tr
+                data-down="250"
+                data-search="nbn 250/25 250 home superfast download-led light upload genuine nbn wholesale tier but rarely sold standalone; most retailers jump 100 to 250/100 or 500. check telstra/optus/aussie broadband. you want more upload; 250/100 or 500/200 better. niche; usually skip for 100 or 500."
+                data-speed="250/25"
+                data-up="25"
+                data-upload="everyday upload"
+              >
+                <td class="">
+                  <strong>NBN 250 / 250/25</strong><br /><span class="subtle"
+                    >Download-led, light upload (Home Superfast)</span
+                  >
+                </td>
+                <td class="">
+                  A genuine NBN wholesale tier but rarely sold standalone; most retailers jump from 100 to 250/100 or
+                  500. Check Telstra/Optus/Aussie Broadband if you specifically want 250/25.
+                </td>
+                <td class="">You want more upload — 250/100 or 500/200 are better value.</td>
+                <td class="">Niche; usually skip in favour of 100 or 500.</td>
+              </tr>
+              <tr
+                data-down="250"
+                data-search="nbn 250/100 serious wfh, frequent uploads, multiple users leaptel $95 x 12 then $110; superloop creator $82 x 6 then $102; neptune $105; swoop business $82 x 6 then $104. the household only streams/downloads; 500/50 can be cheaper. underrated sweet spot for upload-heavy users."
+                data-speed="250/100"
+                data-up="100"
+                data-upload="pro-friendly upload"
+              >
+                <td class="">
+                  <strong>NBN 250/100</strong><br /><span class="subtle"
+                    >Serious WFH, frequent uploads, multiple users</span
+                  >
+                </td>
+                <td class="">
+                  Leaptel $95 x 12 then $110; Superloop Creator $82 x 6 then $102 (now residential, no ABN needed);
+                  Neptune Internet $105; Swoop Business $82 x 6 then $104.
+                </td>
+                <td class="">The household only streams/downloads; 500/50 can be cheaper.</td>
+                <td class="">Underrated sweet spot for upload-heavy users.</td>
+              </tr>
+              <tr
+                data-down="500"
+                data-search="nbn 500/50 fast downloads, big household, gaming downloads, streaming, general excitement exetel $80 ongoing; kogan $69.90 x 12 then $85.90; tpg $69.99 x 12 then $94.99; leaptel/superloop/tangerine/spintel/flip all strong. residents need more than ~40–50 mbps upload. best value high-download tier."
+                data-speed="500/50"
+                data-up="50"
+                data-upload="standard residential upload"
+              >
+                <td class="">
+                  <strong>NBN 500/50</strong><br /><span class="subtle"
+                    >Fast downloads, big household, gaming downloads, streaming, general excitement</span
+                  >
+                </td>
+                <td class="">
+                  Exetel $80 ongoing; Kogan $69.90 x 12 then $85.90; TPG $69.99 x 12 then $94.99;
+                  Leaptel/Superloop/Tangerine/SpinTel/Flip all strong.
+                </td>
+                <td class="">You need more than ~40–50 Mbps upload.</td>
+                <td class="">Best value high-download tier.</td>
+              </tr>
+              <tr
+                data-down="500"
+                data-search="nbn 500/100 mid-upload wfh calls moderate creator uploads effectively retired 2026; optus dropped 500/100; use 250/100 or 500/200 on upload. you need 200+ upload (500/200) or upload doesn't matter (500/50 cheaper). good middle ground for more than 50 up without business pricing."
+                data-speed="500/100"
+                data-up="100"
+                data-upload="pro-friendly upload"
+              >
+                <td class="">
+                  <strong>NBN 500/100</strong><br /><span class="subtle"
+                    >Mid-upload WFH, calls, moderate creator uploads</span
+                  >
+                </td>
+                <td class="">
+                  Effectively retired in 2026 — Optus dropped its 500/100 plan (its 500 tier is now 500/50). Jump to
+                  250/100 or 500/200 for mid/high upload instead.
+                </td>
+                <td class="">You need 200+ upload (use 500/200) or upload doesn’t matter (500/50 is cheaper).</td>
+                <td class="">Good middle ground for more than 50 up without business pricing.</td>
+              </tr>
+              <tr
+                data-down="500"
+                data-search="nbn 500/200 creator workflows, cloud backup, dev/large assets, high-quality multi-party video, self-hosting-ish use leaptel $115 x 12 then $130; neptune $120; occom business $130 x 6 then $140; superloop business $103 x 6 then $128; swoop business $109 x 6 then $124; aussie $136. no abn or no need for upload; 500/50 is much cheaper. strong fit for upload-heavy households that do not need true symmetric fibre."
+                data-speed="500/200"
+                data-up="200"
+                data-upload="high-upload / asymmetric"
+              >
+                <td class="">
+                  <strong>NBN 500/200</strong><br /><span class="subtle"
+                    >Creator workflows, cloud backup, dev/large assets, high-quality multi-party video, self-hosting-ish
+                    use</span
+                  >
+                </td>
+                <td class="">
+                  Leaptel $115 x 12 then $130; Neptune Internet $120; Occom Business $130 x 6 then $140; Superloop
+                  Business $103 x 6 then $128; Swoop Business $109 x 6 then $124; Aussie Broadband $136.
+                </td>
+                <td class="">No ABN or no need for upload; 500/50 is much cheaper.</td>
+                <td class="">Strong fit for upload-heavy households that do not need true symmetric fibre.</td>
+              </tr>
+              <tr
+                data-down="750"
+                data-search="nbn 750/50 download-led big household leaptel $89 x 12 then $108; kogan $84.90 x 12 then $94.90; spintel $84 x 6 then $94.95; superloop $74 x 6 then $104; aussie broadband $119. you're happy with 500; the jump to 750 is modest. a small step up from 500/50 for download-led households."
+                data-speed="750/50"
+                data-up="50"
+                data-upload="standard residential upload"
+              >
+                <td class="">
+                  <strong>NBN 750 / 750/50</strong><br /><span class="subtle">Download-led big households</span>
+                </td>
+                <td class="">
+                  Leaptel $89 x 12 then $108 (re-introduced); Kogan $84.90 x 12 then $94.90; SpinTel $84 x 6 then $94.95
+                  (new); Superloop $74 x 6 then $104; Aussie Broadband $119.
+                </td>
+                <td class="">You’re happy with 500 — the jump to 750 is modest in real-world use.</td>
+                <td class="">A small step up from 500/50 for download-led households.</td>
+              </tr>
+              <tr
+                data-down="1000"
+                data-search="nbn 1000/100 gigabit fast downloads big household gaming leaptel $99 x 12 then $119; occom $95 x 6 then $120; spintel $94 x 6 then $104.95; superloop $84 x 6 then $114; aussie broadband $114 x 12 then $129. your devices/wi-fi can't use ~900 mbps; 500 is plenty and cheaper. best gigabit value tier; pair with gigabit/wi-fi 6+ gear."
+                data-speed="1000/100"
+                data-up="100"
+                data-upload="standard residential upload"
+              >
+                <td class="">
+                  <strong>NBN 1000 / 1000/100</strong><br /><span class="subtle"
+                    >Gigabit downloads, big household, gaming</span
+                  >
+                </td>
+                <td class="">
+                  Leaptel $99 x 12 then $119; Occom $95 x 6 then $120; SpinTel $94 x 6 then $104.95; Superloop $84 x 6
+                  then $114; Aussie Broadband $114 x 12 then $129.
+                </td>
+                <td class="">Your devices/Wi‑Fi can’t use ~900 Mbps; 500 is plenty and cheaper.</td>
+                <td class="">Best gigabit value tier; pair with Gigabit/Wi‑Fi 6+ gear.</td>
+              </tr>
+              <tr
+                data-down="1000"
+                data-search="nbn 1000/400 high-upload pro creators wfh self-hosting leaptel $135 x 12 then $150; neptune $135; occom business $140 x 6 then $160; swoop business $129 x 6 then $144; superloop business $123 x 6 then $148; aussie broadband pro $160. you don't upload heavily; 1000/100 is much cheaper. top public high-upload tier for creators/wfh on fttp."
+                data-speed="1000/400"
+                data-up="400"
+                data-upload="high-upload / asymmetric"
+              >
+                <td class="">
+                  <strong>NBN 1000/400</strong><br /><span class="subtle"
+                    >High-upload pro: creators, WFH, self-hosting</span
+                  >
+                </td>
+                <td class="">
+                  Leaptel $135 x 12 then $150; Neptune Internet $135 (price cut); Occom Business $140 x 6 then $160;
+                  Swoop Business $129 x 6 then $144; Superloop Business $123 x 6 then $148; Aussie Broadband Pro $160.
+                </td>
+                <td class="">You don’t upload heavily; 1000/100 is much cheaper.</td>
+                <td class="">Top public high-upload tier for creators/WFH on FTTP.</td>
+              </tr>
+              <tr
+                data-down="2000"
+                data-search="nbn 2000/200 ultra-fast future-proofing carbon comms $153; leaptel $155 x 12 then $170; neptune $165; superloop hyperspeed $168; mate $141 x 6 then $166; aussie broadband $174 x 12 then $189; needs multi-gig hardware. your hardware is 1gbe; you'll never see 2 gbps. future-proofing or very large households with multi-gig gear."
+                data-speed="2000/200"
+                data-up="200"
+                data-upload="standard residential upload"
+              >
+                <td class="">
+                  <strong>NBN 2000 / 2000/200</strong><br /><span class="subtle"
+                    >Ultra-fast downloads, future-proofing</span
+                  >
+                </td>
+                <td class="">
+                  Now a real market: Carbon Comms $153; Leaptel $155 x 12 then $170; Neptune $165; Superloop Hyperspeed
+                  $168; MATE $141 x 6 then $166; Aussie Broadband $174 x 12 then $189. Needs multi‑gig hardware and an
+                  nbn connection-box upgrade.
+                </td>
+                <td class="">Your hardware is 1GbE; you’ll never see 2 Gbps.</td>
+                <td class="">Future-proofing / very large households with multi‑gig gear.</td>
+              </tr>
+              <tr
+                data-down="2000"
+                data-search="nbn 2000/500 top tier extreme speed and upload leaptel $210 x 12 then $220; superloop business $198 x 6 then $223; occom business $200 x 6 then $220; aussie broadband business $220; neptune $225. you don't need extreme speed/upload; far cheaper tiers suffice. highest public fttp tier; needs 2.5gbe+ and is premium-priced."
+                data-speed="2000/500"
+                data-up="500"
+                data-upload="high-upload / asymmetric"
+              >
+                <td class="">
+                  <strong>NBN 2000/500</strong><br /><span class="subtle">Top tier: extreme speed and upload</span>
+                </td>
+                <td class="">
+                  Leaptel $210 x 12 then $220 (price cut); Superloop Business $198 x 6 then $223; Occom Business $200 x
+                  6 then $220; Aussie Broadband Business $220; Neptune Internet $225.
+                </td>
+                <td class="">You don’t need extreme speed/upload; far cheaper tiers suffice.</td>
+                <td class="">Highest public FTTP tier; needs 2.5GbE+ and is premium-priced.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <section id="providers">
+        <h2>Provider-by-provider market map</h2>
+        <p class="note">
+          This includes the major national retailers surfaced by comparison databases plus high-upload/business
+          specialists. Some small regional or quote-only providers may require an address checker or ABN quote and do
+          not publish all FTTP 500+ pricing openly.
+        </p>
+        <div class="provider-grid"></div>
+      </section>
+      <section id="routers">
+        <h2>Router/modem notes for FTTP, Wi‑Fi 6/7 and 2Gb readiness</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Topic</th>
+                <th>Analysis</th>
+                <th>Applies to</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class=""><strong>FTTP setup rule</strong></td>
+                <td class="">
+                  You do not need a DSL “modem” for FTTP. You need a router plugged by Ethernet into the nbn
+                  NTD/connection box. A provider may still call it a modem-router.
+                </td>
+                <td class="">All FTTP providers</td>
+              </tr>
+              <tr>
+                <td class=""><strong>For 500 Mbps</strong></td>
+                <td class="">
+                  A decent Wi‑Fi 6 router is enough for most apartments. Place it centrally and use Ethernet for
+                  desktop/gaming gear.
+                </td>
+                <td class="">BYO / Optus / TPG / Tangerine / iPrimus</td>
+              </tr>
+              <tr>
+                <td class=""><strong>For 1000 Mbps</strong></td>
+                <td class="">
+                  To see ~900 Mbps on one wired device, use Gigabit Ethernet at minimum; Wi‑Fi 6/6E/7 helps but walls
+                  and client devices matter.
+                </td>
+                <td class="">All 1000 plans</td>
+              </tr>
+              <tr>
+                <td class=""><strong>For 2000 Mbps or future-proofing</strong></td>
+                <td class="">
+                  You need multi‑gig WAN/LAN, ideally 2.5GbE or 5GbE. A router can advertise Wi‑Fi 7 and still have 1GbE
+                  ports, so check ports, not just Wi‑Fi generation.
+                </td>
+                <td class="">2Gb/high-upload plans</td>
+              </tr>
+              <tr>
+                <td class=""><strong>Aussie/eero Pro 7</strong></td>
+                <td class="">
+                  eero Pro 7 is Wi‑Fi 7, tri-band, 2 auto-sensing 5GbE ports, 200+ devices, around $240 RRP in Aussie
+                  Broadband’s launch materials.
+                </td>
+                <td class="">Aussie Broadband</td>
+              </tr>
+              <tr>
+                <td class=""><strong>Telstra Smart Modem 4</strong></td>
+                <td class="">
+                  Wi‑Fi 7 and mobile backup ecosystem are attractive, but public reviews note gigabit Ethernet limits;
+                  not the best match for 2Gb ambitions.
+                </td>
+                <td class="">Telstra</td>
+              </tr>
+              <tr>
+                <td class=""><strong>Optus Ultra WiFi Gen 2</strong></td>
+                <td class="">
+                  Wi‑Fi 6, built for fast internet, connects up to 128 devices, $0 when retained for 24 months.
+                </td>
+                <td class="">Optus</td>
+              </tr>
+              <tr>
+                <td class=""><strong>iiNet Wi‑Fi 7 modem</strong></td>
+                <td class="">
+                  iiNet advertises a Wi‑Fi 7 modem valued over $200 included over 24 months on NBN500; min cost applies
+                  if returned.
+                </td>
+                <td class="">iiNet</td>
+              </tr>
+              <tr>
+                <td class=""><strong>TPG included modem</strong></td>
+                <td class="">
+                  TPG’s $0 modem offers can be good value; verify model, Wi‑Fi generation, delivery and return/repayment
+                  terms at checkout.
+                </td>
+                <td class="">TPG</td>
+              </tr>
+              <tr>
+                <td class=""><strong>Tangerine BYO/NetComm/eero</strong></td>
+                <td class="">BYO supported; NetComm CF40 Wi‑Fi 6 and eero options appear in their modem lineup.</td>
+                <td class="">Tangerine</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout">
+          <strong>Apartment-building setup tip:</strong> for many apartments, one good central Wi‑Fi 6/7 router may
+          outperform a cheap mesh system. Use Ethernet for main workstation if the household cares about upload
+          consistency.
+        </div>
+      </section>
+      <section id="decision">
+        <h2>Decision guide</h2>
+        <div class="grid cards-3">
+          <article class="card">
+            <b>For upload-heavy households</b>
+            <p>
+              Start with Leaptel 500/200 ($115 x 12 mths, then $130) or Neptune Internet 500/200 ($120 ongoing, with
+              free static IP). If more is required, test 1000/400 via Neptune ($135 ongoing), Leaptel ($135 x 12 mths,
+              then $150), Swoop Business ($129 x 6 mths, then $144), Superloop Business ($123 x 6 mths, then $148) or
+              Occom Business ($140 x 6 mths, then $160).
+            </p>
+          </article>
+          <article class="card">
+            <b>For budget fast-download households</b>
+            <p>
+              Pick from Superloop 500/50 ($65 x 6 mths, then $95), Belong 500/40 ($69 x 6 mths, then $95), Kogan 500/50
+              ($69.90 x 12 mths, then $85.90), TPG 500/50 ($69.99 x 12 mths, then $94.99, price-locked), Exetel ($80
+              ongoing) or SpinTel/Tangerine/Flip promos. Switch again when the intro period ends.
+            </p>
+          </article>
+          <article class="card">
+            <b>For support-first households</b>
+            <p>
+              Prioritise Aussie Broadband, Leaptel, Launtel or Occom (365-day support) over the absolute cheapest plan.
+              Consider Telstra/Optus when backup, modem or bundle features matter. (Southern Phone is mid-transfer to
+              the Aussie Broadband group and its plans page is offline.)
+            </p>
+          </article>
+        </div>
+      </section>
+      <section id="other-providers">
+        <h2>Other providers to quote-check before ordering</h2>
+        <p class="note">
+          NBN Co maintains a provider directory and address checker; comparison sites track 33–40+ providers, but not
+          every provider publishes clean 500+ FTTP pricing or sells high-upload tiers nationally. These are worth
+          checking for absolute coverage beyond the main table.
+        </p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Provider / category</th>
+                <th>Why it is not in the primary all-speed shortlist</th>
+                <th>When to check it</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Buddy Telco</strong></td>
+                <td>
+                  Discontinued as a standalone brand — buddytelco.com.au now redirects to Tangerine (checked Aug 2026).
+                </td>
+                <td>No longer orderable; see Tangerine in the main table instead.</td>
+              </tr>
+              <tr>
+                <td><strong>Future Broadband</strong></td>
+                <td>
+                  Performance/enterprise-oriented provider with NBN, enterprise NBN and Enterprise Ethernet menus;
+                  pricing is more quote/checker-driven.
+                </td>
+                <td>
+                  Check for static IP, routing/performance controls, or private-fibre/Enterprise Ethernet alternatives
+                  to true symmetric speeds.
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Activ8me</strong></td>
+                <td>
+                  Recognised in WhistleOut award coverage, but often strongest in regional/fixed-wireless/satellite
+                  contexts rather than metro FTTP 500+/high-upload.
+                </td>
+                <td>Check only if comparison tools show a compelling FTTP offer.</td>
+              </tr>
+              <tr>
+                <td><strong>amaysim</strong></td>
+                <td>
+                  Appears in current fast-tier comparison coverage, especially around NBN 750 promos, but not a
+                  high-upload specialist.
+                </td>
+                <td>Check if chasing temporary download-speed discounts.</td>
+              </tr>
+              <tr>
+                <td><strong>Internode / Westnet</strong></td>
+                <td>
+                  Legacy TPG-group brands; public new-plan focus is often iiNet/TPG rather than fresh standalone
+                  fast-tier offers.
+                </td>
+                <td>Check only for loyalty reasons or a specific brand offer.</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong
+                    >Harbour ISP, Bendigo Telco, Pentanet, NodeOne, Mint Telecom and other regional/niche RSPs</strong
+                  >
+                </td>
+                <td>
+                  May sell NBN nationally or regionally, but current 500–2000 Mbps pricing is not consistently surfaced
+                  in national comparison snippets.
+                </td>
+                <td>Use NBN Co’s provider directory or the provider’s address checker to leave no stone unturned.</td>
+              </tr>
+              <tr>
+                <td><strong>Enterprise Ethernet / private fibre providers</strong></td>
+                <td>Not comparable to consumer NBN plans; installation, term, SLA and build costs vary.</td>
+                <td>Required for true 500/500, 1000/1000 or stronger SLA guarantees.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">
+          Directory starting point:
+          <a href="https://www.nbnco.com.au/residential/service-providers" rel="noopener" target="_blank"
+            >NBN Co list of phone and internet providers</a
+          >.
+        </p>
+      </section>
+      <section id="sources">
+        <h2>Sources and quote-check links</h2>
+        <p class="note">
+          Primary sources were preferred for NBN tiers, ACCC performance data, provider pages and new-connection fee
+          rules. Comparison sites were used to broaden the provider set and catch short-lived EOFY/introductory
+          discounts.
+        </p>
+        <ol class="sources">
+          <li>
+            <a href="https://www.nbnco.com.au/residential/speed-plans" rel="noopener" target="_blank"
+              >NBN residential speed plans</a
+            >
+          </li>
+          <li>
+            <a href="https://www.nbnco.com.au/business/small-business/plans" rel="noopener" target="_blank"
+              >NBN business speed plans</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.accc.gov.au/consumers/telecommunications-and-internet/broadband-performance-data"
+              rel="noopener"
+              target="_blank"
+              >ACCC broadband performance data</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.accc.gov.au/by-industry/telecommunications-and-internet/telecommunications-monitoring/measuring-broadband-australia-program/final-performance-report"
+              rel="noopener"
+              target="_blank"
+              >ACCC Measuring Broadband final report</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.whistleout.com.au/Broadband/National-Broadband-Network-NBN-Plans"
+              rel="noopener"
+              target="_blank"
+              >WhistleOut NBN comparison</a
+            >
+          </li>
+          <li>
+            <a href="https://www.nbnco.com.au/residential/service-providers" rel="noopener" target="_blank"
+              >NBN Co service provider directory</a
+            >
+          </li>
+          <li>
+            <a href="https://www.finder.com.au/broadband-plans/nbn" rel="noopener" target="_blank"
+              >Finder NBN comparison</a
+            >
+          </li>
+          <li>
+            <a href="https://www.canstar.com.au/internet/nbn-providers/" rel="noopener" target="_blank"
+              >Canstar NBN provider ratings</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.choice.com.au/electronics-and-technology/internet/connecting-to-the-internet/articles/best-nbn-providers"
+              rel="noopener"
+              target="_blank"
+              >CHOICE NBN provider ratings</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.nbnco.com.au/develop-or-plan-with-the-nbn/new-connections/government-policy-for-new-connections"
+              rel="noopener"
+              target="_blank"
+              >NBN new connection policy</a
+            >
+          </li>
+          <li><a href="https://www.exetel.com.au/broadband/nbn" rel="noopener" target="_blank">Exetel</a></li>
+          <li><a href="https://leaptel.com.au/plans/" rel="noopener" target="_blank">Leaptel</a></li>
+          <li>
+            <a href="https://residential.launtel.net.au/residential-internet/" rel="noopener" target="_blank"
+              >Launtel</a
+            >
+          </li>
+          <li><a href="https://www.superloop.com/internet/nbn/" rel="noopener" target="_blank">Superloop</a></li>
+          <li>
+            <a href="https://www.aussiebroadband.com.au/internet/nbn-plans/" rel="noopener" target="_blank"
+              >Aussie Broadband</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.aussiebroadband.com.au/media-centre/aussie-broadband-extends-eero-partnership-to-launch-next-generation-wi-fi-7-devices-in-time-for-multi-gigabit-nbn-plans/"
+              rel="noopener"
+              target="_blank"
+              >Aussie Broadband eero Pro 7</a
+            >
+          </li>
+          <li><a href="https://www.tpg.com.au/nbn" rel="noopener" target="_blank">TPG</a></li>
+          <li>
+            <a href="https://www.iinet.net.au/internet-product/broadband/nbn/plans/fibre" rel="noopener" target="_blank"
+              >iiNet</a
+            >
+          </li>
+          <li><a href="https://www.optus.com.au/internet/nbn" rel="noopener" target="_blank">Optus</a></li>
+          <li><a href="https://www.telstra.com.au/internet/nbn" rel="noopener" target="_blank">Telstra</a></li>
+          <li>
+            <a href="https://www.telstra.com.au/connected/internet/nbn-high-speed-tiers" rel="noopener" target="_blank"
+              >Telstra fast-tier plans</a
+            >
+          </li>
+          <li><a href="https://www.belong.com.au/go/internet" rel="noopener" target="_blank">Belong</a></li>
+          <li><a href="https://www.spintel.net.au/lp/home/nbn-wo" rel="noopener" target="_blank">SpinTel</a></li>
+          <li><a href="https://www.tangerine.com.au/nbn/nbn-broadband" rel="noopener" target="_blank">Tangerine</a></li>
+          <li><a href="https://www.dodo.com/nbn" rel="noopener" target="_blank">Dodo</a></li>
+          <li><a href="https://www.koganinternet.com.au/" rel="noopener" target="_blank">Kogan Internet</a></li>
+          <li><a href="https://www.flipconnect.com.au/nbn/" rel="noopener" target="_blank">Flip</a></li>
+          <li><a href="https://www.iprimus.com.au/internet/nbn/" rel="noopener" target="_blank">iPrimus</a></li>
+          <li>
+            <a href="https://www.originenergy.com.au/internet/" rel="noopener" target="_blank">Origin Internet</a>
+          </li>
+          <li><a href="https://www.more.com.au/nbn" rel="noopener" target="_blank">More</a></li>
+          <li><a href="https://www.letsbemates.com.au/nbn/" rel="noopener" target="_blank">MATE</a></li>
+          <li><a href="https://www.swoop.com.au/nbn-plans/" rel="noopener" target="_blank">Swoop</a></li>
+          <li><a href="https://www.vodafone.com.au/home-internet/nbn" rel="noopener" target="_blank">Vodafone</a></li>
+          <li>
+            <a href="https://www.southernphone.com.au/personal/broadband/nbn-broadband" rel="noopener" target="_blank"
+              >Southern Phone</a
+            >
+          </li>
+          <li><a href="https://www.skymesh.net.au/nbn-plans" rel="noopener" target="_blank">SkyMesh</a></li>
+          <li>
+            <a
+              href="https://www.neptune.net.au/news/price-reductions-across-every-fixed-line-neptune-service"
+              rel="noopener"
+              target="_blank"
+              >Neptune</a
+            >
+          </li>
+          <li>
+            <a href="https://www.vocus.com.au/small-business/internet/nbn" rel="noopener" target="_blank"
+              >Vocus Business</a
+            >
+          </li>
+          <li>
+            <a href="https://whirlpool.net.au/wiki/nbn_highspeed_plans" rel="noopener" target="_blank"
+              >Whirlpool high-speed NBN wiki</a
+            >
+          </li>
+        </ol>
+      </section>
+      <p class="foot">
+        Prepared 29 June 2026 and fully re-scanned 20 August 2026 as an all-speed NBN FTTP market scan. This is research
+        and comparison support, not a guaranteed quote or financial advice. Prices, speed claims, modem terms and promo
+        expiry dates can change without notice; always review the Critical Information Summary and checkout page before
+        ordering.
+      </p>
+    </div>
+    <script>
+      (function () {
+        function esc(s) {
+          return String(s == null ? "" : s)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;");
+        }
+        function renderPlans(plans) {
+          var tb = document.querySelector("#plansTable tbody");
+          if (!tb) return;
+          tb.innerHTML = (plans || [])
+            .map(function (p) {
+              var speedCell =
+                "<strong>" +
+                esc(p.speedLabel) +
+                "</strong>" +
+                (p.tes ? '<br><span class="subtle">' + esc(p.tes) + "</span>" : "");
+              var upCell =
+                (p.uploadPill
+                  ? '<span class="pill ' + esc(p.uploadClass || "muted") + '">' + esc(p.uploadPill) + "</span><br>"
+                  : "") + esc(p.uploadNote || "");
+              var srcCell = p.sourceUrl
+                ? '<a href="' +
+                  esc(p.sourceUrl) +
+                  '" target="_blank" rel="noopener">' +
+                  esc(p.sourceName || p.provider) +
+                  "</a>"
+                : esc(p.provider);
+              return (
+                '<tr data-down="' +
+                esc(p.down) +
+                '" data-up="' +
+                esc(p.up) +
+                '" data-speed="' +
+                esc(p.speed) +
+                '" data-upload="' +
+                esc(p.upload) +
+                '" data-provider="' +
+                esc(p.providerKey) +
+                '" data-search="' +
+                esc(p.search) +
+                '">' +
+                '<td class="provider">' +
+                esc(p.provider) +
+                "</td>" +
+                "<td>" +
+                speedCell +
+                "</td>" +
+                "<td>" +
+                esc(p.price) +
+                "</td>" +
+                '<td class="best-fit">' +
+                esc(p.fit) +
+                "</td>" +
+                "<td>" +
+                upCell +
+                "</td>" +
+                "<td>" +
+                esc(p.terms) +
+                "</td>" +
+                "<td></td>" +
+                "<td>" +
+                esc(p.business) +
+                "</td>" +
+                "<td>" +
+                srcCell +
+                "</td>" +
+                "</tr>"
+              );
+            })
+            .join("");
+        }
+        function renderProviders(provs) {
+          var grid = document.querySelector(".provider-grid");
+          if (!grid) return;
+          grid.innerHTML = (provs || [])
+            .map(function (pr) {
+              var tiers = (pr.tiers || [])
+                .map(function (t) {
+                  return (
+                    '<span class="tier-price"><strong>' +
+                    esc(t.tier) +
+                    "</strong> <span>" +
+                    esc(t.price) +
+                    "</span></span>"
+                  );
+                })
+                .join(", ");
+              return (
+                '<article class="provider-card" data-search="' +
+                esc(pr.search) +
+                '">' +
+                "<h3>" +
+                esc(pr.name) +
+                "</h3>" +
+                '<div class="mini-title">' +
+                esc(pr.miniTitle) +
+                "</div>" +
+                "<p>" +
+                esc(pr.blurb) +
+                "</p>" +
+                "<p><strong>Checked tiers/prices:</strong> " +
+                tiers +
+                "</p>" +
+                "<p><strong>Verdict:</strong> " +
+                esc(pr.verdict) +
+                "</p>" +
+                "</article>"
+              );
+            })
+            .join("");
+        }
+        function initApp() {
+          const $ = function (id) {
+            return document.getElementById(id);
+          };
+          const search = $("search");
+          const householdFilter = $("householdFilter");
+          const useFilter = $("useFilter");
+          const uploadFilter = $("uploadFilter");
+          const speedFilter = $("speedFilter");
+          const downFilter = $("downFilter");
+          const maxDownFilter = $("maxDownFilter");
+          const upFilter = $("upFilter");
+          const maxUpFilter = $("maxUpFilter");
+          const promoPriceFilter = $("promoPriceFilter");
+          const ongoingPriceFilter = $("ongoingPriceFilter");
+          const avgPriceFilter = $("avgPriceFilter");
+          const annualFilter = $("annualFilter");
+          const contractFilter = $("contractFilter");
+          const providerFilter = $("providerFilter");
+          const sortBy = $("sortBy");
+          const clearFilters = $("clearFilters");
+          const resultCount = $("resultCount");
+          const presetBar = $("presetBar");
+          const routerFilters = $("routerFilters");
+
+          const plansTable = $("plansTable");
+          const tbody = plansTable ? plansTable.querySelector("tbody") : null;
+          const headRow = plansTable ? plansTable.querySelector("thead tr") : null;
+          const rows = tbody ? Array.prototype.slice.call(tbody.querySelectorAll("tr")) : [];
+          const guideRows = Array.prototype.slice.call(document.querySelectorAll("#tierGuide tbody tr"));
+          const providerGrid = document.querySelector(".provider-grid");
+          const providerCards = Array.prototype.slice.call(document.querySelectorAll(".provider-card"));
+          const sourcesList = document.querySelector("ol.sources");
+          const sourceItems = sourcesList ? Array.prototype.slice.call(sourcesList.querySelectorAll("li")) : [];
+
+          const STEP = 10;
+          const state = { plans: STEP, providers: STEP, sources: STEP };
+          const originalOrder = rows.slice();
+
+          /* ---------- parsing helpers ---------- */
+          function parseSpeed(s) {
+            const m = String(s || "").match(/(\d{2,4})\s*\/\s*(\d{1,4})/);
+            return m ? [Number(m[1]), Number(m[2])] : [0, 0];
+          }
+          function rowSpeed(row) {
+            const d = Number(row.dataset.down || 0);
+            const u = Number(row.dataset.up || 0);
+            if (d || u) return [d, u];
+            return parseSpeed(row.dataset.speed || row.textContent);
+          }
+          function rowUsers(row) {
+            const cell = row.querySelector(".best-fit") || row.children[5];
+            const t = (cell ? cell.textContent : "").toLowerCase();
+            if (/single|1\s*person/.test(t)) return 1;
+            const m = t.match(/(\d+)\s*(?:[–-]\s*\d+)?\s*\+?\s*people/);
+            if (m) return Number(m[1]);
+            const n = t.match(/(\d+)/);
+            return n ? Number(n[1]) : 99;
+          }
+
+          /* ---------- cost parsing ---------- */
+          function moneyFmt(n) {
+            return "$" + Math.round(n).toLocaleString("en-AU");
+          }
+          function costFromText(raw) {
+            let t = String(raw || "")
+              .replace(/,/g, "")
+              .toLowerCase();
+            if (t.indexOf("$") === -1) return null;
+            const promoM = t.match(/\$\s*([\d.]+)\s*x\s*(\d+)\s*(?:mth|mo|month)/);
+            const thenM = t.match(/then[^$]*\$?\s*~?\s*([\d.]+)/);
+            const ongM = t.match(/\$\s*([\d.]+)\s*ongoing/);
+            const moM = t.match(/\$\s*([\d.]+)\s*\/\s*mo/) || t.match(/[≈~]\s*\$\s*([\d.]+)/);
+            let cost, ongoing, promo;
+            if (promoM) {
+              promo = parseFloat(promoM[1]);
+              const n = Math.min(parseInt(promoM[2], 10), 12);
+              ongoing = thenM ? parseFloat(thenM[1]) : promo;
+              cost = promo * n + ongoing * (12 - n);
+            } else if (ongM) {
+              ongoing = promo = parseFloat(ongM[1]);
+              cost = ongoing * 12;
+            } else if (moM) {
+              ongoing = promo = parseFloat(moM[1]);
+              cost = ongoing * 12;
+            } else {
+              const any = t.match(/\$\s*([\d.]+)/);
+              if (!any) return null;
+              ongoing = promo = parseFloat(any[1]);
+              cost = ongoing * 12;
+            }
+            if (!isFinite(cost) || cost <= 0) return null;
+            return {
+              cost: cost,
+              ongoing: ongoing,
+              promo: promo,
+              avg: cost / 12,
+              disc: Math.max(0, ongoing * 12 - cost),
+            };
+          }
+          function dataNum(row, k) {
+            const v = Number(row.dataset[k]);
+            return v && isFinite(v) && v > 0 ? v : Infinity;
+          }
+          function dataNumDesc(row, k) {
+            const v = Number(row.dataset[k]);
+            return v && isFinite(v) && v > 0 ? v : -1;
+          }
+
+          /* ---------- minimum contract length ---------- */
+          function parseContract(row) {
+            const t = (row.children[5] ? row.children[5].textContent : "").toLowerCase();
+            const m = t.match(/(\d{2})\s*[- ]?\s*(?:month|mth)/);
+            if (m) return Number(m[1]);
+            if (/no lock|no-lock|no contract|month-to-month|month to month/.test(t)) return 0;
+            const p = row.dataset.provider || "";
+            if (["tpg", "iinet", "optus", "vodafone", "telstra"].indexOf(p) !== -1) return 24;
+            if (p === "iprimus") return 18;
+            return 0;
+          }
+          function rowContract(row) {
+            return Number(row.dataset.contract || 0);
+          }
+
+          /* ---------- router / modem hardware per provider ----------
+       tech = Wi-Fi generations the ISP supplies; price = cost category;
+       note = the line shown in the Router / modem notes column. */
+          const DEFAULT_R = {
+            tech: [],
+            price: ["byo"],
+            badge: "BYO",
+            cls: "byo",
+            note: "Bring your own router (no required hardware)",
+          };
+          const ROUTER_DATA = {
+            "aussie broadband": {
+              tech: ["wifi7"],
+              price: ["byo", "buy"],
+              badge: "BYO / ~$240",
+              cls: "buy",
+              note: "Bring your own, or eero Pro 7 ~$240 (Wi‑Fi 7, multi‑gig)",
+            },
+            telstra: {
+              tech: ["wifi7"],
+              price: ["included"],
+              badge: "Included",
+              cls: "free",
+              note: "Smart Modem 4 included (Wi‑Fi 7); repay if you leave early",
+            },
+            iinet: {
+              tech: ["wifi7"],
+              price: ["included"],
+              badge: "Included",
+              cls: "free",
+              note: "Wi‑Fi 7 modem included over 24 mths; fee if returned early",
+            },
+            tpg: {
+              tech: ["wifi6"],
+              price: ["included"],
+              badge: "Free $0",
+              cls: "free",
+              note: "$0 modem over 24 mths (Wi‑Fi 6); ~$10 delivery",
+            },
+            optus: {
+              tech: ["wifi6"],
+              price: ["included"],
+              badge: "Free $0",
+              cls: "free",
+              note: "Ultra WiFi Gen 2 $0 over 24 mths (Wi‑Fi 6)",
+            },
+            iprimus: {
+              tech: ["wifi6"],
+              price: ["included"],
+              badge: "Included",
+              cls: "free",
+              note: "Wi‑Fi 6 modem included (18-month term)",
+            },
+            vodafone: {
+              tech: ["wifi6"],
+              price: ["included"],
+              badge: "Included",
+              cls: "free",
+              note: "Modem/mesh included over 24 mths (Wi‑Fi 6)",
+            },
+            tangerine: {
+              tech: ["wifi6"],
+              price: ["byo", "buy"],
+              badge: "BYO / optional",
+              cls: "buy",
+              note: "Bring your own, or optional NetComm/eero (Wi‑Fi 6)",
+            },
+            belong: { tech: [], price: ["byo"], badge: "BYO", cls: "byo", note: "Bring your own; modem optional" },
+            mate: {
+              tech: [],
+              price: ["byo"],
+              badge: "BYO",
+              cls: "byo",
+              note: "Bring your own; optional hardware available",
+            },
+            "southern phone": {
+              tech: [],
+              price: ["byo", "buy"],
+              badge: "BYO / optional",
+              cls: "buy",
+              note: "Bring your own, or optional modem add-on",
+            },
+          };
+          function routerInfo(p) {
+            return ROUTER_DATA[p] || DEFAULT_R;
+          }
+
+          /* ---------- init pass: derive values, link providers, inject columns ---------- */
+          if (headRow && !headRow.querySelector(".annual-th")) {
+            const th1 = document.createElement("th");
+            th1.className = "annual-th";
+            th1.textContent = "Est. 12-month cost";
+            headRow.insertBefore(th1, headRow.children[3] || null);
+            const th2 = document.createElement("th");
+            th2.className = "contract-th";
+            th2.textContent = "Min. contract";
+            headRow.insertBefore(th2, headRow.children[4] || null);
+          }
+          rows.forEach(function (row) {
+            const c = costFromText(row.children[2] ? row.children[2].textContent : "");
+            const contract = parseContract(row);
+            const ri = routerInfo(row.dataset.provider || "");
+            row.dataset.rtech = ri.tech.join(" ");
+            row.dataset.rprice = ri.price.join(" ");
+            row.dataset.contract = String(contract);
+
+            /* router / modem notes cell (children[6] before columns are injected) */
+            const rcell = row.children[6];
+            if (rcell) {
+              rcell.innerHTML =
+                '<span class="rcost rcost-' +
+                ri.cls +
+                '">' +
+                ri.badge +
+                '</span><br><span class="subtle">' +
+                ri.note +
+                "</span>";
+            }
+
+            /* provider name -> link to its site (reuse the source link) */
+            const srcA = row.children[row.children.length - 1].querySelector("a");
+            const pc = row.children[0];
+            if (srcA && pc && !pc.querySelector("a")) {
+              pc.innerHTML =
+                '<a href="' +
+                srcA.getAttribute("href") +
+                '" target="_blank" rel="noopener">' +
+                pc.textContent.trim() +
+                "</a>";
+            }
+
+            const annualTd = document.createElement("td");
+            annualTd.className = "annual-cell";
+            if (!c) {
+              annualTd.innerHTML = '<span class="subtle">By quote</span>';
+              row.dataset.annual = "";
+              row.dataset.disc = "0";
+              row.dataset.promo = "";
+              row.dataset.ongoing = "";
+              row.dataset.avg = "";
+            } else {
+              row.dataset.annual = String(Math.round(c.cost));
+              row.dataset.disc = String(Math.round(c.disc));
+              row.dataset.promo = String(c.promo);
+              row.dataset.ongoing = String(c.ongoing);
+              row.dataset.avg = String(c.avg);
+              annualTd.innerHTML =
+                "<strong>" +
+                moneyFmt(c.cost) +
+                '</strong><br><span class="subtle">12-mo total · ≈ ' +
+                moneyFmt(c.avg) +
+                "/mo avg</span>" +
+                (c.disc >= 1 ? '<br><span class="disc">' + moneyFmt(c.disc) + " off vs ongoing</span>" : "");
+            }
+
+            const contractTd = document.createElement("td");
+            contractTd.className = "contract-cell";
+            contractTd.innerHTML =
+              contract === 0
+                ? '<span class="contract-free">No lock-in</span>'
+                : '<span class="contract-locked">' +
+                  contract +
+                  ' mths</span><br><span class="subtle">modem term</span>';
+
+            row.insertBefore(annualTd, row.children[3] || null);
+            row.insertBefore(contractTd, row.children[4] || null);
+          });
+
+          /* augment provider-card price badges with a 12-month estimate */
+          Array.prototype.slice.call(document.querySelectorAll(".provider-card .tier-price")).forEach(function (tp) {
+            const span = tp.querySelector("span");
+            if (!span) return;
+            const c = costFromText(span.textContent);
+            if (c) {
+              const e = document.createElement("span");
+              e.className = "tp12";
+              e.textContent = " ≈ " + moneyFmt(c.cost) + "/yr";
+              tp.appendChild(e);
+            }
+          });
+
+          /* annotate "$A x N mths, then $B" promos in prose with the 12-month total */
+          function annotatePromo(root) {
+            if (!root) return;
+            const re = /\$(\d+(?:\.\d+)?)\s*x\s*(\d+)\s*(?:mths?|mo|months?)\s*,?\s*then\s*\$(\d+(?:\.\d+)?)/gi;
+            const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+            const targets = [];
+            let node;
+            while ((node = walker.nextNode())) {
+              re.lastIndex = 0;
+              if (re.test(node.nodeValue)) targets.push(node);
+            }
+            targets.forEach(function (n) {
+              const s = n.nodeValue;
+              const frag = document.createDocumentFragment();
+              let last = 0,
+                m;
+              re.lastIndex = 0;
+              while ((m = re.exec(s))) {
+                const promo = parseFloat(m[1]),
+                  num = Math.min(parseInt(m[2], 10), 12),
+                  then = parseFloat(m[3]);
+                const total = Math.round(promo * num + then * (12 - num));
+                frag.appendChild(document.createTextNode(s.slice(last, m.index + m[0].length)));
+                const sp = document.createElement("span");
+                sp.className = "inline12";
+                sp.textContent = " (≈ " + moneyFmt(total) + " over 12 mths)";
+                frag.appendChild(sp);
+                last = m.index + m[0].length;
+              }
+              frag.appendChild(document.createTextNode(s.slice(last)));
+              n.parentNode.replaceChild(frag, n);
+            });
+          }
+          annotatePromo($("verdict"));
+          annotatePromo($("decision"));
+
+          /* ---------- matching ---------- */
+          function matchesProfile(down, up, household, use, text) {
+            if (!household && !use) return true;
+            const enterprise = /enterprise|symmetric|vocus business|dedicated/i.test(text || "");
+            let householdOk = true;
+            if (household === "1-2") householdOk = (down >= 12 && down <= 1000) || up >= 100 || enterprise;
+            if (household === "2-4") householdOk = down >= 50 || up >= 100 || enterprise;
+            if (household === "5plus") householdOk = down >= 100 || up >= 100 || enterprise;
+            let useOk = true;
+            if (use === "standard")
+              useOk = (down >= 25 && down <= 500 && up <= 100) || (household === "5plus" && down >= 250 && down <= 750);
+            if (use === "streaming") useOk = down >= 50 && down <= 2000;
+            if (use === "pro") useOk = up >= 100 || enterprise || /business|pro|static ip|esla/i.test(text || "");
+            return householdOk && useOk;
+          }
+          function uploadOk(row, uf, down, up, text) {
+            const upload = row.dataset.upload || "";
+            const enterprise = /enterprise|symmetric|dedicated/i.test(text || "");
+            if (!uf) return true;
+            if (uf === "high-upload")
+              return upload.includes("high") || upload.includes("pro") || up >= 100 || enterprise;
+            if (uf === "standard")
+              return !upload.includes("high") && !upload.includes("pro") && !enterprise && up < 100;
+            if (uf === "symmetric") return enterprise || (down > 0 && down === up && up >= 100);
+            return true;
+          }
+
+          /* ---------- pagination ---------- */
+          function paginate(items, key, btn) {
+            let visible = 0;
+            items.forEach(function (el) {
+              if (!el.classList.contains("hide")) {
+                el._idx = visible++;
+              }
+            });
+            const limit = state[key];
+            items.forEach(function (el) {
+              el.classList.remove("peek", "hide-page");
+              if (el.classList.contains("hide")) return;
+              if (el._idx < limit) {
+                /* shown */
+              } else if (el._idx === limit) {
+                el.classList.add("peek");
+              } else {
+                el.classList.add("hide-page");
+              }
+            });
+            if (btn) {
+              const more = visible - limit;
+              if (more > 0) {
+                btn.style.display = "";
+                btn.textContent = "Show " + Math.min(STEP, more) + " more (" + more + " more below)";
+              } else {
+                btn.style.display = "none";
+              }
+            }
+            return visible;
+          }
+
+          /* ---------- sorting ---------- */
+          function sortPlans() {
+            if (!tbody) return;
+            const v = sortBy ? sortBy.value : "";
+            let arr;
+            if (!v) {
+              arr = originalOrder.slice();
+            } else {
+              arr = rows.slice().sort(function (a, b) {
+                const sa = rowSpeed(a),
+                  sb = rowSpeed(b);
+                if (v === "promo-asc") return dataNum(a, "promo") - dataNum(b, "promo");
+                if (v === "promo-desc") return dataNumDesc(b, "promo") - dataNumDesc(a, "promo");
+                if (v === "ongoing-asc") return dataNum(a, "ongoing") - dataNum(b, "ongoing");
+                if (v === "ongoing-desc") return dataNumDesc(b, "ongoing") - dataNumDesc(a, "ongoing");
+                if (v === "avg-asc") return dataNum(a, "avg") - dataNum(b, "avg");
+                if (v === "avg-desc") return dataNumDesc(b, "avg") - dataNumDesc(a, "avg");
+                if (v === "annual-asc") return dataNum(a, "annual") - dataNum(b, "annual");
+                if (v === "annual-desc") return dataNumDesc(b, "annual") - dataNumDesc(a, "annual");
+                if (v === "savings-desc") return Number(b.dataset.disc || 0) - Number(a.dataset.disc || 0);
+                if (v === "speed-asc") return sa[0] - sb[0] || sa[1] - sb[1];
+                if (v === "speed-desc") return sb[0] - sa[0] || sb[1] - sa[1];
+                if (v === "users-asc") return rowUsers(a) - rowUsers(b);
+                if (v === "users-desc") return rowUsers(b) - rowUsers(a);
+                if (v === "contract-asc") return rowContract(a) - rowContract(b);
+                if (v === "contract-desc") return rowContract(b) - rowContract(a);
+                return 0;
+              });
+            }
+            arr.forEach(function (r) {
+              tbody.appendChild(r);
+            });
+            rows.length = 0;
+            Array.prototype.push.apply(rows, arr);
+          }
+
+          /* ---------- main apply ---------- */
+          function apply() {
+            const q = ((search && search.value) || "").toLowerCase().trim();
+            const hf = householdFilter ? householdFilter.value : "";
+            const use = useFilter ? useFilter.value : "";
+            const uf = uploadFilter ? uploadFilter.value : "";
+            const sf = speedFilter ? speedFilter.value : "";
+            const minDown = downFilter ? Number(downFilter.value || 0) : 0;
+            const maxDown = maxDownFilter ? Number(maxDownFilter.value || 0) : 0;
+            const minUp = upFilter ? Number(upFilter.value || 0) : 0;
+            const maxUp = maxUpFilter ? Number(maxUpFilter.value || 0) : 0;
+            const maxPromo = promoPriceFilter ? Number(promoPriceFilter.value || 0) : 0;
+            const maxOngoing = ongoingPriceFilter ? Number(ongoingPriceFilter.value || 0) : 0;
+            const maxAvg = avgPriceFilter ? Number(avgPriceFilter.value || 0) : 0;
+            const maxAnnual = annualFilter ? Number(annualFilter.value || 0) : 0;
+            const cf = contractFilter ? contractFilter.value : "";
+            const pf = ((providerFilter && providerFilter.value) || "").toLowerCase();
+            const techSelKeys = Object.keys(techSel).filter(function (k) {
+              return techSel[k];
+            });
+            const priceSelKeys = Object.keys(priceSel).filter(function (k) {
+              return priceSel[k];
+            });
+            const sp = parseSpeed(sf || "0/0");
+            const sfDown = sp[0],
+              sfUp = sp[1];
+
+            sortPlans();
+
+            let matched = 0;
+            rows.forEach(function (row) {
+              const text = (row.dataset.search || row.textContent || "").toLowerCase();
+              const provider = row.dataset.provider || "";
+              const s = rowSpeed(row),
+                down = s[0],
+                up = s[1];
+              const promo = Number(row.dataset.promo || 0),
+                ongoing = Number(row.dataset.ongoing || 0),
+                avg = Number(row.dataset.avg || 0),
+                annual = Number(row.dataset.annual || 0);
+              let ok = true;
+              if (q && text.indexOf(q) === -1) ok = false;
+              if (pf && provider.indexOf(pf) === -1) ok = false;
+              if (!uploadOk(row, uf, down, up, text)) ok = false;
+              if (sf && !(down >= sfDown && up >= sfUp)) ok = false;
+              if (minDown && down < minDown) ok = false;
+              if (maxDown && down > maxDown) ok = false;
+              if (minUp && up < minUp) ok = false;
+              if (maxUp && up > maxUp) ok = false;
+              if (maxPromo && !(promo > 0 && promo <= maxPromo)) ok = false;
+              if (maxOngoing && !(ongoing > 0 && ongoing <= maxOngoing)) ok = false;
+              if (maxAvg && !(avg > 0 && avg <= maxAvg)) ok = false;
+              if (maxAnnual && !(annual > 0 && annual <= maxAnnual)) ok = false;
+              if (cf === "0" && rowContract(row) !== 0) ok = false;
+              else if (cf && cf !== "0" && rowContract(row) > Number(cf)) ok = false;
+              if (techSelKeys.length) {
+                const rt = (row.dataset.rtech || "").split(" ");
+                if (
+                  !techSelKeys.some(function (k) {
+                    return rt.indexOf(k) !== -1;
+                  })
+                )
+                  ok = false;
+              }
+              if (priceSelKeys.length) {
+                const rp = (row.dataset.rprice || "").split(" ");
+                if (
+                  !priceSelKeys.some(function (k) {
+                    return rp.indexOf(k) !== -1;
+                  })
+                )
+                  ok = false;
+              }
+              if (!matchesProfile(down, up, hf, use, text)) ok = false;
+              row.classList.toggle("hide", !ok);
+              if (ok) matched++;
+            });
+            paginate(rows, "plans", plansBtn);
+
+            guideRows.forEach(function (row) {
+              const text = (row.dataset.search || row.textContent || "").toLowerCase();
+              const s = rowSpeed(row),
+                down = s[0],
+                up = s[1];
+              let ok = true;
+              if (q && text.indexOf(q) === -1) ok = false;
+              if (!uploadOk(row, uf, down, up, text)) ok = false;
+              if (sf && !(down >= sfDown && up >= sfUp)) ok = false;
+              if (minDown && down < minDown) ok = false;
+              if (maxDown && down > maxDown) ok = false;
+              if (minUp && up < minUp) ok = false;
+              if (maxUp && up > maxUp) ok = false;
+              if (!matchesProfile(down, up, hf, use, text)) ok = false;
+              row.classList.toggle("hide", !ok);
+            });
+
+            providerCards.forEach(function (card) {
+              const text = (card.dataset.search || card.textContent || "").toLowerCase();
+              let ok = true;
+              if (q && text.indexOf(q) === -1) ok = false;
+              if (pf && text.indexOf(pf) === -1) ok = false;
+              if (
+                use === "pro" &&
+                !/pro|business|upload|500\/200|1000\/400|2000\/500|symmetric|static ip|esla/i.test(text)
+              )
+                ok = false;
+              if (
+                use === "streaming" &&
+                !/500\/50|750\/50|1000\/100|stream|gaming|download|performance|value/i.test(text)
+              )
+                ok = false;
+              if (use === "standard" && !/25\/|50\/|100\/|500\/50|simple|budget|cheap|standard|everyday/i.test(text))
+                ok = false;
+              card.classList.toggle("hide", !ok);
+            });
+            paginate(providerCards, "providers", providersBtn);
+            paginate(sourceItems, "sources", sourcesBtn);
+
+            if (resultCount) {
+              const cap = Math.min(state.plans, matched);
+              resultCount.textContent =
+                matched === rows.length
+                  ? "Showing " + cap + " of " + rows.length + " checked plans."
+                  : "Showing " + cap + " of " + matched + " matching plans.";
+            }
+          }
+
+          function resetPaging() {
+            state.plans = STEP;
+            state.providers = STEP;
+            state.sources = STEP;
+          }
+
+          /* ---------- show-more buttons ---------- */
+          function makeBtn() {
+            const b = document.createElement("button");
+            b.type = "button";
+            b.className = "show-more-btn no-print";
+            b.style.display = "none";
+            return b;
+          }
+          const plansBtn = makeBtn(),
+            providersBtn = makeBtn(),
+            sourcesBtn = makeBtn();
+          if (plansTable) {
+            const w = plansTable.closest(".table-wrap") || plansTable;
+            w.parentNode.insertBefore(plansBtn, w.nextSibling);
+          }
+          if (providerGrid) {
+            providerGrid.parentNode.insertBefore(providersBtn, providerGrid.nextSibling);
+          }
+          if (sourcesList) {
+            sourcesList.parentNode.insertBefore(sourcesBtn, sourcesList.nextSibling);
+          }
+          plansBtn.addEventListener("click", function () {
+            state.plans += STEP;
+            apply();
+          });
+          providersBtn.addEventListener("click", function () {
+            state.providers += STEP;
+            apply();
+          });
+          sourcesBtn.addEventListener("click", function () {
+            state.sources += STEP;
+            apply();
+          });
+
+          /* ---------- router filter popups (multi-select) ---------- */
+          const techSel = {},
+            priceSel = {};
+          const fpops = [];
+          function closeAllPopups() {
+            fpops.forEach(function (w) {
+              w.classList.remove("open");
+            });
+          }
+          function buildPopup(host, label, options, selected) {
+            const wrap = document.createElement("div");
+            wrap.className = "fpop";
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "fpop-btn";
+            const panel = document.createElement("div");
+            panel.className = "fpop-panel";
+            function refresh() {
+              const n = Object.keys(selected).filter(function (k) {
+                return selected[k];
+              }).length;
+              btn.textContent = label + (n ? " (" + n + ")" : "") + " ▾";
+              btn.classList.toggle("active", n > 0);
+            }
+            options.forEach(function (o) {
+              const lab = document.createElement("label");
+              lab.className = "fpop-opt";
+              const cb = document.createElement("input");
+              cb.type = "checkbox";
+              cb.value = o.key;
+              cb.dataset.opt = o.key;
+              cb.addEventListener("change", function () {
+                selected[o.key] = cb.checked;
+                refresh();
+                resetPaging();
+                clearActivePreset();
+                apply();
+              });
+              lab.appendChild(cb);
+              lab.appendChild(document.createTextNode(" " + o.label));
+              panel.appendChild(lab);
+            });
+            btn.addEventListener("click", function (e) {
+              e.stopPropagation();
+              const open = wrap.classList.contains("open");
+              closeAllPopups();
+              if (!open) wrap.classList.add("open");
+            });
+            panel.addEventListener("click", function (e) {
+              e.stopPropagation();
+            });
+            wrap.appendChild(btn);
+            wrap.appendChild(panel);
+            host.appendChild(wrap);
+            wrap._refresh = refresh;
+            refresh();
+            fpops.push(wrap);
+            return wrap;
+          }
+          if (routerFilters) {
+            buildPopup(
+              routerFilters,
+              "Technology",
+              [
+                { key: "wifi6", label: "Wi‑Fi 6" },
+                { key: "wifi6e", label: "Wi‑Fi 6E" },
+                { key: "wifi7", label: "Wi‑Fi 7" },
+              ],
+              techSel,
+            );
+            buildPopup(
+              routerFilters,
+              "Router price",
+              [
+                { key: "included", label: "Included / $0" },
+                { key: "byo", label: "BYO (bring your own)" },
+                { key: "buy", label: "Buy / optional (~$200+)" },
+              ],
+              priceSel,
+            );
+          }
+          function clearRouter() {
+            Object.keys(techSel).forEach(function (k) {
+              delete techSel[k];
+            });
+            Object.keys(priceSel).forEach(function (k) {
+              delete priceSel[k];
+            });
+            if (routerFilters) {
+              Array.prototype.slice.call(routerFilters.querySelectorAll("input[type=checkbox]")).forEach(function (cb) {
+                cb.checked = false;
+              });
+              fpops.forEach(function (w) {
+                if (w._refresh) w._refresh();
+              });
+            }
+          }
+
+          /* ---------- back-to-top button ---------- */
+          const toTop = document.createElement("button");
+          toTop.type = "button";
+          toTop.id = "toTop";
+          toTop.className = "to-top no-print";
+          toTop.setAttribute("aria-label", "Back to top / search");
+          toTop.innerHTML = "↑";
+          toTop.addEventListener("click", function () {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          });
+          document.body.appendChild(toTop);
+          function onScroll() {
+            toTop.classList.toggle("show", window.pageYOffset > 500);
+          }
+          window.addEventListener("scroll", onScroll);
+          onScroll();
+
+          /* clicking outside closes popups; clicking a faded peek expands it */
+          document.addEventListener("click", function (e) {
+            if (!e.target.closest(".fpop")) closeAllPopups();
+            if (e.target.closest("a") || e.target.closest(".show-more-btn")) return;
+            const pk = e.target.closest(".peek");
+            if (!pk) return;
+            if (rows.indexOf(pk) !== -1) {
+              state.plans += STEP;
+              apply();
+            } else if (providerCards.indexOf(pk) !== -1) {
+              state.providers += STEP;
+              apply();
+            } else if (sourceItems.indexOf(pk) !== -1) {
+              state.sources += STEP;
+              apply();
+            }
+          });
+
+          /* ---------- presets ---------- */
+          const PRESETS = {
+            solo: { household: "1-2", sort: "avg-asc" },
+            streaming: { use: "streaming", speed: "100/20", sort: "avg-asc" },
+            budget80: { avgMax: "80", sort: "avg-asc" },
+            wfh: { use: "pro", upload: "high-upload", sort: "avg-asc" },
+            family: { household: "5plus", speed: "500/50", sort: "speed-desc" },
+            gigabit: { speed: "1000/100", sort: "speed-desc" },
+            value: { sort: "avg-asc" },
+          };
+          let activePreset = null;
+          function clearActivePreset() {
+            activePreset = null;
+            if (presetBar)
+              Array.prototype.slice.call(presetBar.querySelectorAll(".preset")).forEach(function (b) {
+                b.classList.remove("active");
+              });
+          }
+          function resetControls() {
+            [
+              search,
+              householdFilter,
+              useFilter,
+              uploadFilter,
+              speedFilter,
+              downFilter,
+              maxDownFilter,
+              upFilter,
+              maxUpFilter,
+              promoPriceFilter,
+              ongoingPriceFilter,
+              avgPriceFilter,
+              annualFilter,
+              contractFilter,
+              providerFilter,
+              sortBy,
+            ].forEach(function (el) {
+              if (el) el.value = "";
+            });
+            clearRouter();
+          }
+          function applyPreset(name, btn) {
+            const wasActive = activePreset === name;
+            resetControls();
+            clearActivePreset();
+            resetPaging();
+            if (wasActive) {
+              apply();
+              return;
+            }
+            const p = PRESETS[name];
+            if (p) {
+              if (p.household && householdFilter) householdFilter.value = p.household;
+              if (p.use && useFilter) useFilter.value = p.use;
+              if (p.upload && uploadFilter) uploadFilter.value = p.upload;
+              if (p.speed && speedFilter) speedFilter.value = p.speed;
+              if (p.avgMax && avgPriceFilter) avgPriceFilter.value = p.avgMax;
+              if (p.sort && sortBy) sortBy.value = p.sort;
+              activePreset = name;
+              if (btn) btn.classList.add("active");
+            }
+            apply();
+          }
+          if (presetBar)
+            Array.prototype.slice.call(presetBar.querySelectorAll(".preset")).forEach(function (b) {
+              b.addEventListener("click", function () {
+                applyPreset(b.dataset.preset, b);
+              });
+            });
+
+          /* ---------- wiring (bind input AND change so iOS select filters work) ---------- */
+          [
+            search,
+            householdFilter,
+            useFilter,
+            uploadFilter,
+            speedFilter,
+            downFilter,
+            maxDownFilter,
+            upFilter,
+            maxUpFilter,
+            promoPriceFilter,
+            ongoingPriceFilter,
+            avgPriceFilter,
+            annualFilter,
+            contractFilter,
+            providerFilter,
+            sortBy,
+          ].forEach(function (el) {
+            if (!el) return;
+            const handler = function () {
+              resetPaging();
+              clearActivePreset();
+              apply();
+            };
+            el.addEventListener("input", handler);
+            el.addEventListener("change", handler);
+          });
+          if (clearFilters)
+            clearFilters.addEventListener("click", function () {
+              resetControls();
+              clearActivePreset();
+              resetPaging();
+              apply();
+            });
+
+          apply();
+        }
+        fetch("data.json", { cache: "no-store" })
+          .then(function (r) {
+            if (!r.ok) throw new Error("HTTP " + r.status);
+            return r.json();
+          })
+          .then(function (data) {
+            renderPlans(data.plans);
+            renderProviders(data.providers);
+            initApp();
+          })
+          .catch(function (err) {
+            var rc = document.getElementById("resultCount");
+            if (rc) {
+              rc.textContent =
+                "⚠ Could not load data.json (" +
+                err.message +
+                "). Open this page over http(s) — e.g. GitHub Pages — because browsers block loading data files from local file:// URLs and from the htmlpreview proxy.";
+              rc.style.color = "#be123c";
+            }
+          });
+      })();
+    </script>
+  </body>
+</html>

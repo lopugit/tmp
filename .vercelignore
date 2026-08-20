@@ -1,0 +1,11 @@
+AGENTS.md
+AI.md
+AI_*.md
+CLAUDE.md
+VERCEL_DEPLOYMENTS.md
+broken_scrapes/
+chats/
+previous_scrapes/
+scrape/
+graphify-out/
+.graphify_*
