@@ -1,7 +1,7 @@
 name: Apartment website
 on:
   push:
-    branches: [master, 'codex/mount-buller-apartment']
+    branches: [master, 'codex/**']
     paths: ['mount-buller/**', '.github/workflows/apartment.yml']
   pull_request:
     paths: ['mount-buller/**', '.github/workflows/apartment.yml']

@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite --host 127.0.0.1 --port 18746 --strictPort",
+    "dev": "vite --host 127.0.0.1 --port 18747 --strictPort",
     "build:client": "vite build",
     "build": "npm run build:client && NITRO_PRESET=vercel nitro build && npm run verify:vercel-output",
     "verify:vercel-output": "node scripts/verify-output.mjs",

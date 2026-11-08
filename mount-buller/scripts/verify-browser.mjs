@@ -1,13 +1,13 @@
 import { chromium } from '@playwright/test';
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
-const base = process.env.SITE_URL || 'http://127.0.0.1:18746';
+const base = process.env.SITE_URL || 'http://127.0.0.1:18747';
 const evidence = process.env.EVIDENCE_DIR || 'test-results';
 await mkdir(evidence, { recursive: true });
 const browser = await chromium.launch({ headless: true, chromiumSandbox: true, ...(process.env.BROWSER_EXECUTABLE ? {executablePath:process.env.BROWSER_EXECUTABLE}: {}) });
 const results = [];
 try {
-  for (const [label, width, height] of [['desktop',1440,1000],['tablet',768,1024],['mobile',375,812]]) {
+  for (const [label, width, height] of [['desktop',1440,1000],['laptop',1280,800],['tablet',768,1024],['mobile',375,812]]) {
     const context = await browser.newContext({ viewport: {width,height}, reducedMotion:'reduce' });
     await context.tracing.start({ screenshots:true, snapshots:true });
     const page = await context.newPage();
@@ -17,7 +17,8 @@ try {
     await page.locator('main').waitFor();
     assert.equal(await page.locator('h1').count(), 1);
     assert.match(await page.locator('h1').innerText(), /Candoux 4/i);
-    for (let y=0; y < await page.evaluate(()=>document.documentElement.scrollHeight); y += height * .75) {
+    const pageHeight = await page.evaluate(()=>document.documentElement.scrollHeight);
+    for (let y=0; y < pageHeight; y += height * .75) {
       await page.evaluate(y => window.scrollTo(0,y), y);
       await page.waitForTimeout(80);
       assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth <= innerWidth+1), `${label}: horizontal overflow`);
@@ -43,6 +44,18 @@ try {
     assert.match(await gallery.innerText(), /1 of 7/i);
     await page.keyboard.press('ArrowLeft');
     assert.match(await gallery.innerText(), /7 of 7/i);
+    for (let photo=1;photo<=7;photo++) {
+      await page.getByRole('button', {name:'Next photo',exact:true}).click();
+      await page.waitForFunction(()=>{const image=document.querySelector('.gallery-dialog img');return image?.complete&&image?.naturalWidth>0;});
+      assert.match(await gallery.innerText(), new RegExp(`${photo} of 7`,'i'));
+      assert.ok(await gallery.locator('img').isVisible());
+    }
+    for (const key of ['Tab','Shift+Tab']) {
+      for (let step=0;step<5;step++) {
+        await page.keyboard.press(key);
+        assert.equal(await gallery.evaluate(e=>e.contains(document.activeElement)),true,'gallery focus stays in dialog');
+      }
+    }
     await page.screenshot({path:`${evidence}/${label}-gallery.png`});
     await page.keyboard.press('Escape');
     await gallery.waitFor({state:'hidden'});
@@ -52,6 +65,14 @@ try {
     await page.waitForFunction(()=>Math.abs(document.querySelector('#site-menu').getBoundingClientRect().x)<1);
     const bounds = await drawer.boundingBox();
     assert.equal(bounds.x,0); assert.equal(bounds.y,0); assert.ok(Math.abs(bounds.height-height)<2);
+    for (let tab=0;tab<9;tab++) {
+      await page.keyboard.press('Tab');
+      assert.equal(await drawer.evaluate(e=>e.contains(document.activeElement)),true,'menu focus stays in dialog');
+    }
+    for (let tab=0;tab<9;tab++) {
+      await page.keyboard.press('Shift+Tab');
+      assert.equal(await drawer.evaluate(e=>e.contains(document.activeElement)),true,'reverse menu focus stays in dialog');
+    }
     await page.screenshot({path:`${evidence}/${label}-menu.png`});
     await page.keyboard.press('Escape');
     await drawer.waitFor({state:'hidden'});
