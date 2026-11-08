@@ -19,6 +19,8 @@ const sections = [
 const seasons = {
   winter: {
     name: 'Winter',
+    width: 4096,
+    height: 2144,
     title: 'Snow days, slow evenings.',
     description: 'Make a day of the slopes, try a ski lesson or find a spot for a hot chocolate in the village. Then watch the light go blue across the snow.',
     image: '/images/buller-winter.jpg',
@@ -30,6 +32,8 @@ const seasons = {
   },
   summer: {
     name: 'Summer',
+    width: 5700,
+    height: 3128,
     title: 'Take the long way round.',
     description: 'Follow a walking trail, get out on the mountain bike or take your time over lunch in the village. The High Country feels different when the snow melts.',
     image: '/images/buller-summer.jpg',
@@ -99,6 +103,27 @@ function ExternalLink({ href, children, className = 'text-link' }) {
   return <a className={className} href={href}>{children}<Icon name="external" /></a>
 }
 
+function wrapDialogTab(event) {
+  if (event.key !== 'Tab' || event.ctrlKey || event.altKey || event.metaKey || event.defaultPrevented) return
+
+  const dialog = event.currentTarget
+  const controls = Array.from(dialog.querySelectorAll('button:not(:disabled), a[href]')).filter(control =>
+    control.tabIndex >= 0 &&
+    !control.closest('[hidden], [inert]') &&
+    control.getClientRects().length > 0 &&
+    getComputedStyle(control).visibility === 'visible',
+  )
+  const current = dialog.ownerDocument.activeElement
+  const edge = event.shiftKey ? controls[0] : controls.at(-1)
+
+  // Keep focus in the dialog when the browser would move past either end.
+  if (current === edge || !controls.includes(current)) {
+    event.preventDefault()
+    const next = event.shiftKey ? controls.at(-1) : controls[0]
+    next?.focus()
+  }
+}
+
 function Header() {
   const drawer = useRef(null)
   const trigger = useRef(null)
@@ -126,15 +151,20 @@ function Header() {
   }
 
   return (
-    <header className="site-header shell">
-      <Brand />
-      <nav className="header-links" aria-label="Main navigation">
-        {sections.slice(0, 4).map(([id, label]) => <a href={`#${id}`} key={id}>{label}</a>)}
-      </nav>
-      <button className="menu-button" ref={trigger} type="button" aria-label="Open menu" aria-haspopup="dialog" aria-controls="site-menu" aria-expanded={menuOpen} onClick={openMenu}>
-        <Icon name="menu" />
-      </button>
-      <dialog className="drawer" id="site-menu" aria-labelledby="menu-heading" ref={drawer} onClick={closeOnBackdrop} onClose={() => {
+    <header className="site-header">
+      <div className="header-inner shell">
+        <div className="header-identity">
+          <button className="menu-button" ref={trigger} type="button" aria-label="Open menu" aria-haspopup="dialog" aria-controls="site-menu" aria-expanded={menuOpen} onClick={openMenu}>
+            <Icon name="menu" />
+          </button>
+          <Brand />
+        </div>
+        <nav className="header-links" aria-label="Main navigation">
+          {sections.slice(0, 4).map(([id, label]) => <a href={`#${id}`} key={id}>{label}</a>)}
+        </nav>
+        <ExternalLink href={bookingUrl} className="button header-book">Check dates</ExternalLink>
+      </div>
+      <dialog className="drawer" id="site-menu" aria-labelledby="menu-heading" ref={drawer} onKeyDown={wrapDialogTab} onClick={closeOnBackdrop} onClose={() => {
         setMenuOpen(false)
         const target = focusDestination.current ?? trigger.current
         focusDestination.current = null
@@ -157,11 +187,11 @@ function Header() {
   )
 }
 
-function Scene({ className = '', image, alt, caption, photographer, photoSource, license, priority = false }) {
+function Scene({ className = '', image, alt, caption, photographer, photoSource, license, width = 750, height = 341 }) {
   return (
     <figure className={`scene ${className}`}>
       <div className="scene-image">
-        <img src={image} alt={alt} loading={priority ? 'eager' : 'lazy'} fetchPriority={priority ? 'high' : 'auto'} decoding="async" />
+        <img src={image} alt={alt} width={width} height={height} loading="lazy" decoding="async" />
       </div>
       <figcaption className="scene-caption">
         <span><Icon name="pin" />{caption}</span>
@@ -176,44 +206,66 @@ function Scene({ className = '', image, alt, caption, photographer, photoSource,
 
 function Hero() {
   return (
-    <section className="hero shell" aria-labelledby="hero-title">
-      <div className="hero-copy">
-        <p className="eyebrow hero-location"><span /> Mount Buller, Victoria</p>
-        <h1 id="hero-title">Candoux 4 <em>in the High Country.</em></h1>
-        <p className="hero-description">A three-bedroom alpine apartment with a fireside lounge, a balcony and views towards Mount Stirling.</p>
-        <div className="hero-actions">
-          <ExternalLink href={bookingUrl} className="button button-primary">Book Candoux 4</ExternalLink>
-          <a className="button button-outline" href="#stay">Explore the apartment<Icon name="down" /></a>
+    <section className="hero" aria-labelledby="hero-title">
+      <div className="hero-inner shell">
+        <div className="hero-copy">
+          <p className="eyebrow hero-location"><Icon name="pin" /> Mount Buller, Victoria</p>
+          <h1 id="hero-title">
+            <span className="hero-name">Candoux 4</span>
+            <span className="hero-line">Your mountain</span>
+            <em className="hero-line">state of mind.</em>
+          </h1>
+          <p className="hero-description">A three-bedroom alpine apartment with a fireside lounge, a balcony and views towards Mount Stirling.</p>
+          <div className="hero-actions">
+            <ExternalLink href={bookingUrl} className="button button-light">Book Candoux 4</ExternalLink>
+            <a className="button button-outline" href="#stay">Explore the apartment<Icon name="down" /></a>
+          </div>
         </div>
+        <figure className="hero-media">
+          <img src={photos[0].image} alt={photos[0].alt} width="750" height="341" fetchPriority="high" decoding="async" />
+          <div className="hero-facts">
+            <p className="eyebrow">The apartment at a glance</p>
+            <dl>
+              <div><dt>Guests</dt><dd>7</dd></div>
+              <div><dt>Bedrooms</dt><dd>3</dd></div>
+              <div><dt>Bathroom</dt><dd>1</dd></div>
+            </dl>
+          </div>
+          <figcaption className="hero-caption"><span>01 / The fireside lounge</span><a href={listingUrl}>Photo: AMS Mt Buller</a></figcaption>
+        </figure>
       </div>
-      <Scene className="hero-scene" {...photos[0]} caption="The Candoux 4 lounge" photographer="AMS Mt Buller" photoSource={listingUrl} priority />
     </section>
   )
 }
 
 function Stay() {
   return (
-    <section className="stay section-space shell" id="stay" tabIndex={-1} aria-labelledby="stay-title">
-      <div className="stay-intro">
-        <p className="eyebrow index-label"><span>01</span> The apartment</p>
-        <h2 id="stay-title">A place to land <em>after the lifts.</em></h2>
-        <p>Candoux 4 sits on the quieter north-east side of the village, near Village Square and Bourke Street. Come back from the slopes, hang up your gear and settle in by the gas fire.</p>
-        <p className="stay-address"><Icon name="pin" />8 Chamois Close, Mount Buller VIC 3723</p>
-      </div>
-      <aside className="stay-note" aria-label="Apartment layout">
-        <Ridge className="stay-ridge" />
-        <p className="eyebrow">Inside Candoux 4</p>
-        <dl className="stay-facts">
-          <div><dt>Guests</dt><dd>7</dd></div>
-          <div><dt>Bedrooms</dt><dd>3</dd></div>
-          <div><dt>Bathroom</dt><dd>1</dd></div>
-        </dl>
-        <p>One queen room, one single-bunk room and one room with a double bed and a single bunk above.</p>
-      </aside>
-      <div className="amenities" aria-label="Apartment amenities">
-        <div><h3>Cook together</h3><p>Equipped kitchen, coffee pod machine and BBQ.</p></div>
-        <div><h3>Warm up</h3><p>Gas fire, central heating and Wi-Fi.</p></div>
-        <div><h3>Ready for tomorrow</h3><p>Ski racks, drying cupboard, washer and dryer.</p></div>
+    <section className="stay section-space" id="stay" tabIndex={-1} aria-labelledby="stay-title">
+      <div className="shell">
+        <div className="chapter-intro">
+          <div>
+            <p className="eyebrow index-label"><span>01</span> The apartment</p>
+            <h2 id="stay-title">A place to land <em>after the lifts.</em></h2>
+          </div>
+          <div className="chapter-copy">
+            <p>Candoux 4 sits on the quieter north-east side of the village, near Village Square and Bourke Street. Come back from the slopes, hang up your gear and settle in by the gas fire.</p>
+            <p className="stay-address"><Icon name="pin" />8 Chamois Close, Mount Buller VIC 3723</p>
+          </div>
+        </div>
+        <div className="stay-overview">
+          <Scene image="/images/candoux-living.webp" alt="Blue-grey sofa in the living room with the dining table behind it" caption="The open-plan living area" photographer="AMS Mt Buller" photoSource={listingUrl} />
+          <div className="stay-note">
+            <Ridge />
+            <p className="eyebrow">The sleeping layout</p>
+            <h3>Room for seven.</h3>
+            <p>One queen room, one single-bunk room and one room with a double bed and a single bunk above.</p>
+          </div>
+        </div>
+        <div className="amenities" aria-label="Apartment amenities">
+          <div><span className="eyebrow">01 / Kitchen</span><h3>Cook together</h3><p>Equipped kitchen, coffee pod machine and BBQ.</p></div>
+          <div><span className="eyebrow">02 / Comfort</span><h3>Warm up</h3><p>Gas fire, central heating and Wi-Fi.</p></div>
+          <div><span className="eyebrow">03 / Gear</span><h3>Ready for tomorrow</h3><p>Ski racks, drying cupboard, washer and dryer.</p></div>
+        </div>
       </div>
     </section>
   )
@@ -236,6 +288,7 @@ function Gallery() {
   }
 
   function handleGalleryKeys(event) {
+    wrapDialogTab(event)
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
       event.preventDefault()
       step(event.key === 'ArrowLeft' ? -1 : 1)
@@ -243,25 +296,27 @@ function Gallery() {
   }
 
   return (
-    <section className="gallery shell" id="photos" tabIndex={-1} aria-labelledby="photos-title">
-      <div className="gallery-header">
-        <div>
-          <p className="eyebrow index-label"><span>02</span> The photo album</p>
-          <h2 id="photos-title">A look <em>inside.</em></h2>
-        </div>
-        <button className="button button-outline" type="button" aria-haspopup="dialog" onClick={event => openGallery(event, 0)}>
-          View all {photos.length} photos<Icon name="photo" />
-        </button>
-      </div>
-      <div className="gallery-grid">
-        {photos.slice(0, 3).map((photo, photoIndex) => (
-          <button className="gallery-tile" key={photo.image} type="button" aria-haspopup="dialog" aria-label={`View photo: ${photo.title}`} onClick={event => openGallery(event, photoIndex)}>
-            <img src={photo.image} alt="" width="750" height="341" loading="lazy" />
-            <span>{photo.title}<Icon name="external" /></span>
+    <section className="gallery section-space" id="photos" tabIndex={-1} aria-labelledby="photos-title">
+      <div className="shell">
+        <div className="gallery-header">
+          <div>
+            <p className="eyebrow index-label"><span>02</span> The photo album</p>
+            <h2 id="photos-title">A look <em>inside.</em></h2>
+          </div>
+          <button className="button button-outline" type="button" aria-haspopup="dialog" onClick={event => openGallery(event, 0)}>
+            View all {photos.length} photos<Icon name="photo" />
           </button>
-        ))}
+        </div>
+        <div className="gallery-grid">
+          {photos.map((photo, photoIndex) => (
+            <button className="gallery-tile" key={photo.image} type="button" aria-haspopup="dialog" aria-label={`View photo: ${photo.title}`} onClick={event => openGallery(event, photoIndex)}>
+              <img src={photo.image} alt="" width="750" height="341" loading="lazy" />
+              <span className="gallery-tile-caption"><span className="gallery-tile-index" aria-hidden="true">{String(photoIndex + 1).padStart(2, '0')}</span>{photo.title}<Icon name="external" /></span>
+            </button>
+          ))}
+        </div>
+        <p className="gallery-credit">Apartment photos from <a href={listingUrl}>AMS Mt Buller</a></p>
       </div>
-      <p className="gallery-credit">Apartment photos from <a href={listingUrl}>AMS Mt Buller</a></p>
       <dialog ref={dialog} className="gallery-dialog" aria-labelledby="gallery-dialog-heading" onKeyDown={handleGalleryKeys} onClose={() => opener.current?.focus({ preventScroll: true })} onClick={event => {
         if (event.target === dialog.current) dialog.current.close()
       }}>
@@ -292,11 +347,11 @@ function Seasons() {
   const activeSeason = seasons[season]
 
   return (
-    <section className="seasons section-space" id="seasons" tabIndex={-1} aria-labelledby="seasons-title">
+    <section className={`seasons seasons--${season} section-space`} id="seasons" tabIndex={-1} aria-labelledby="seasons-title">
       <div className="shell seasons-inner">
         <div className="seasons-intro">
           <p className="eyebrow index-label"><span>03</span> On the mountain</p>
-          <h2 id="seasons-title">Buller, <em>by season.</em></h2>
+          <h2 id="seasons-title">The mountain, <em>in two moods.</em></h2>
           <div className="season-select" role="group" aria-label="Choose a season">
             {Object.entries(seasons).map(([id, option]) => (
               <button key={id} className="season-button" type="button" aria-controls="season-content" aria-pressed={season === id} onClick={() => setSeason(id)}>
@@ -346,17 +401,19 @@ function RouteIllustration() {
 
 function Journey() {
   return (
-    <section className="journey section-space shell" id="journey" tabIndex={-1} aria-labelledby="journey-title">
-      <div className="journey-copy">
-        <p className="eyebrow index-label"><span>04</span> Getting here</p>
-        <h2 id="journey-title">Up through <em>Mansfield.</em></h2>
-        <p>Mount Buller is about three hours (248 km) from Melbourne by road via Mansfield. Before setting out, check Mt Buller’s guide for current entry, parking and wheel-chain information.</p>
-        <ExternalLink href={driveGuide}>View the Mt Buller driving guide</ExternalLink>
+    <section className="journey-wrap section-space" id="journey" tabIndex={-1} aria-labelledby="journey-title">
+      <div className="journey shell">
+        <div className="journey-copy">
+          <p className="eyebrow index-label"><span>04</span> Getting here</p>
+          <h2 id="journey-title">Up through <em>Mansfield.</em></h2>
+          <p>Mount Buller is about three hours (248 km) from Melbourne by road via Mansfield. Before setting out, check Mt Buller’s guide for current entry, parking and wheel-chain information.</p>
+          <ExternalLink href={driveGuide}>View the Mt Buller driving guide</ExternalLink>
+        </div>
+        <figure className="route-card" aria-label="Illustrative route from Melbourne to Mount Buller via Mansfield">
+          <RouteIllustration />
+          <figcaption className="eyebrow">Melbourne to Mount Buller <span>Illustrative route</span></figcaption>
+        </figure>
       </div>
-      <figure className="route-card" aria-label="Illustrative route from Melbourne to Mount Buller via Mansfield">
-        <RouteIllustration />
-        <figcaption className="eyebrow">Melbourne to Mount Buller <span>Illustrative route</span></figcaption>
-      </figure>
     </section>
   )
 }
@@ -396,6 +453,25 @@ function Questions() {
   )
 }
 
+function Booking() {
+  return (
+    <section className="booking section-space" aria-labelledby="booking-title">
+      <div className="shell booking-inner">
+        <div className="booking-shapes" aria-hidden="true"><span /><span /><span /></div>
+        <div className="booking-copy">
+          <p className="eyebrow">Stay at Candoux 4</p>
+          <h2 id="booking-title">See you <em>up there.</em></h2>
+          <p>Booking enquiries are managed by AMS Mt Buller.</p>
+          <div className="booking-actions">
+            <ExternalLink href={bookingUrl} className="button button-dark">Book Candoux 4</ExternalLink>
+            <ExternalLink href={contactUrl}>Contact the booking manager</ExternalLink>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 function ApartmentPage() {
   return (
     <div id="top">
@@ -407,20 +483,10 @@ function ApartmentPage() {
         <Gallery />
         <Seasons />
         <Journey />
+        <Booking />
         <Questions />
       </main>
       <footer className="site-footer">
-        <div className="shell footer-booking">
-          <div>
-            <p className="eyebrow">Stay at Candoux 4</p>
-            <h2>See you <em>up there.</em></h2>
-            <p>Booking enquiries are managed by AMS Mt Buller.</p>
-          </div>
-          <div className="footer-actions">
-            <ExternalLink href={bookingUrl} className="button button-light">Book Candoux 4</ExternalLink>
-            <ExternalLink href={contactUrl} className="text-link">Contact the booking manager</ExternalLink>
-          </div>
-        </div>
         <div className="shell footer-inner">
           <Brand />
           <p><a href={listingUrl}>AMS Mt Buller property listing</a></p>
