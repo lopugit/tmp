@@ -1,0 +1,50 @@
+[
+  {
+    "file": "buller-winter.jpg",
+    "role": "winter hero",
+    "title": "The West Ridge",
+    "description": "Snow-covered West Ridge at Mount Buller, Victoria, with distant ridgelines and ski lift cables at the right edge.",
+    "author": "Kody Appleton",
+    "source": "https://commons.wikimedia.org/wiki/File:The_West_Ridge.jpg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/4/4c/The_West_Ridge.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "width": 4096,
+    "height": 2144,
+    "bytes": 2816219,
+    "sha256": "40bbe225a7c916c7833e5d6bf6361a4ec9a61e286239311372489091dff6ab9e",
+    "changes": "None; original Wikimedia Commons file downloaded unchanged."
+  },
+  {
+    "file": "buller-summer.jpg",
+    "role": "green season",
+    "title": "The West Ridge of Mt Buller, Nov 2017",
+    "description": "Rocky West Ridge and forested valleys at Mount Buller, Victoria, in November.",
+    "author": "Bill Bowden",
+    "source": "https://commons.wikimedia.org/wiki/File:The_West_Ridge_of_Mt_Buller,_Nov_2017.jpeg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/a/ac/The_West_Ridge_of_Mt_Buller%2C_Nov_2017.jpeg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "width": 5700,
+    "height": 3128,
+    "bytes": 5358489,
+    "sha256": "129ed9fd367deba278d7447192f08d98274a03cf214be84e157a0c9101e0287b",
+    "changes": "None; original Wikimedia Commons file downloaded unchanged."
+  },
+  {
+    "file": "buller-village.jpg",
+    "role": "village context",
+    "title": "Mt Buller village Stevage",
+    "description": "Snow-covered Mount Buller village square and its clock tower.",
+    "author": "Steve Bennett (Stevage)",
+    "source": "https://commons.wikimedia.org/wiki/File:Mt_Buller_village_Stevage.jpg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/1/16/Mt_Buller_village_Stevage.jpg",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "width": 1600,
+    "height": 1071,
+    "bytes": 343586,
+    "sha256": "8531c5a94529b731dc2a887bad718354cc7546be2d278ce42203bbc3ca9cc8e9",
+    "changes": "None; original Wikimedia Commons file downloaded unchanged."
+  }
+]

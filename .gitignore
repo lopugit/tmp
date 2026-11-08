@@ -31,3 +31,17 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
+
+# Apartment app build outputs and local tools
+mount-buller/dist/
+mount-buller/.vercel/
+mount-buller/.nitro/
+mount-buller/.output/
+mount-buller/test-results/
+mount-buller/playwright-report/
+.vercel/
+graphify-out/.*
+graphify-out/cache/
+graphify-out/chunks/
+.graphify_*
+graphify-out/20??-??-??/

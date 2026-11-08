@@ -1,0 +1,1 @@
+module.exports = { apps: [{ name: 'tmp-mount-buller-18746', cwd: __dirname, script: 'node_modules/vite/bin/vite.js', args: '--host 127.0.0.1 --port 18746 --strictPort', autorestart: false, max_restarts: 0, time: true, max_size: '10M' }] };

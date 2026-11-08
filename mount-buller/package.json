@@ -1,0 +1,16 @@
+{
+  "name": "mount-buller-apartment",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 18746 --strictPort",
+    "build:client": "vite build",
+    "build": "npm run build:client && NITRO_PRESET=vercel nitro build && npm run verify:vercel-output",
+    "verify:vercel-output": "node scripts/verify-output.mjs",
+    "test:browser": "node scripts/verify-browser.mjs"
+  },
+  "dependencies": {"react":"^19.2.0","react-dom":"^19.2.0","react-router-dom":"^7.9.0"},
+  "devDependencies": {"vite":"^7.2.0","@vitejs/plugin-react":"^5.1.0","nitropack":"^2.12.0","@playwright/test":"^1.56.0"},
+  "engines": {"node":">=22"}
+}

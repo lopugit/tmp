@@ -1,0 +1,21 @@
+{
+  "backend": "local Codex proxy via OpenAI-compatible interface",
+  "model": "codex-default",
+  "scope": "Measured semantic extraction calls during this task; excludes model chat and unreported labeling work",
+  "runs": [
+    {
+      "inputTokens": 2670,
+      "outputTokens": 768
+    },
+    {
+      "inputTokens": 3553,
+      "outputTokens": 3377
+    },
+    {
+      "inputTokens": 2322,
+      "outputTokens": 4424
+    }
+  ],
+  "costUSD": null,
+  "note": "Token counts from Graphify CLI reports. Proxy billing is unknown; generic provider estimates are not actual cost."
+}
