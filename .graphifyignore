@@ -1,0 +1,7 @@
+node_modules/
+mount-buller/node_modules/
+mount-buller/dist/
+mount-buller/.vercel/
+mount-buller/.nitro/
+mount-buller/.output/
+graphify-out/
